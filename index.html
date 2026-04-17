@@ -42,19 +42,22 @@
         .tab-btn.active { background: var(--white); border-color: var(--primary); color: var(--primary-dark); font-size: 1.3rem; z-index: 2; }
 
         /* --- 콘텐츠 영역 --- */
-        .tab-content { display: none; flex-direction: column; align-items: center; width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; background: var(--white); border-radius: 0 0 25px 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 3px solid var(--primary); border-top: none; }
+        .tab-content { display: none; flex-direction: column; align-items: center; width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; background: var(--white); border-radius: 0 0 25px 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 3px solid var(--primary); border-top: none; position: relative; }
         .tab-content.active { display: flex; }
 
-        /* --- 아바타 (점점 커지게) --- */
-        .avatar-container { background: #FFF3E0; padding: 15px; border-radius: 20px; text-align: center; width: 100%; box-sizing: border-box; margin-bottom: 20px; border: 2px dashed var(--accent); }
+        /* --- 아바타 --- */
+        .avatar-container { background: #FFF3E0; padding: 15px; border-radius: 20px; text-align: center; width: 100%; box-sizing: border-box; margin-bottom: 15px; border: 2px dashed var(--accent); }
         .avatar-icon { transition: font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1); margin-bottom: 5px; display: inline-block; }
         .avatar-name { font-size: 1.3rem; color: var(--wood); font-weight: bold; }
         .progress-bar-bg { background: #FFE0B2; height: 15px; border-radius: 10px; margin-top: 10px; overflow: hidden; border: 1px solid var(--accent-light);}
         .progress-bar-fill { background: linear-gradient(90deg, #FF9800, #FFC107); height: 100%; width: 0%; transition: width 0.5s; }
 
+        /* --- Unit 선택 (새로운 기능) --- */
+        .unit-select-container { width: 100%; text-align: center; margin-bottom: 15px; }
+        .unit-select { width: 90%; font-family: 'Jua', sans-serif; font-size: 1.2rem; padding: 10px; border-radius: 15px; border: 3px solid var(--primary); color: var(--primary-dark); background: #E8F5E9; outline: none; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
         /* --- 카드 디자인 --- */
-        .stage-title { font-size: 1.3rem; color: var(--primary-dark); background: #E8F5E9; padding: 5px 20px; border-radius: 20px; margin-bottom: 5px; }
-        .instruction { color: #757575; margin-bottom: 15px; font-size: 1.1rem; transition: 0.3s; }
+        .instruction { color: #757575; margin-bottom: 15px; font-size: 1.1rem; transition: 0.3s; text-align: center; }
         .scene { width: 280px; height: 350px; perspective: 1000px; margin-bottom: 25px; }
         .card { width: 100%; height: 100%; position: relative; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; cursor: pointer; }
         .card.is-flipped { transform: rotateY(180deg); }
@@ -70,17 +73,11 @@
         .card-back .sound-hint { font-size: 1.3rem; background: rgba(0,0,0,0.1); padding: 5px 15px; border-radius: 15px; margin-top: 10px; }
         
         /* 따라 읽기 유도 UI (공격!) */
-        .repeat-prompt {
-            margin-top: 15px; font-size: 1.2rem; background-color: var(--danger); color: white; padding: 8px 20px; border-radius: 20px; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
+        .repeat-prompt { margin-top: 15px; font-size: 1.2rem; background-color: var(--danger); color: white; padding: 8px 20px; border-radius: 20px; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
         .pulse-anim { animation: pulsePrompt 1s infinite; }
-        @keyframes pulsePrompt {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
-        }
+        @keyframes pulsePrompt { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); } 50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); } }
 
-        /* --- 공격(검) 카운터 --- */
+        /* --- 검 카운터 --- */
         .leaf-counter { display: flex; gap: 12px; margin-bottom: 20px; }
         .leaf { font-size: 1.8rem; filter: grayscale(100%); opacity: 0.3; transition: all 0.3s; transform: rotate(45deg); }
         .leaf.filled { filter: grayscale(0%); opacity: 1; transform: scale(1.3) rotate(0deg); text-shadow: 0 0 10px #FF9800; }
@@ -98,16 +95,38 @@
         .option-btn { width: 100%; padding: 15px; margin: 8px 0; font-size: 1.4rem; font-family: 'Jua', sans-serif; border: 3px solid #b0bec5; border-radius: 20px; background: var(--white); color: var(--wood); cursor: pointer; transition: 0.2s; }
         .option-btn.correct { background: var(--primary); color: var(--white); border-color: var(--primary-dark); }
         .option-btn.wrong { background: var(--wood); color: var(--white); border-color: #3e2723; animation: shake 0.5s; }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
 
         /* --- 기록 탭 --- */
-        .log-container { width: 100%; height: 50vh; overflow-y: auto; }
+        .log-container { width: 100%; height: 50vh; overflow-y: auto; background: #fafafa; border-radius: 15px; border: 2px solid #eee; margin-bottom: 15px; }
         .log-item { padding: 15px; border-bottom: 2px dashed #eee; display: flex; justify-content: space-between; align-items: center; }
-        .log-date { font-size: 0.9rem; color: #9E9E9E; }
-        .log-text { font-size: 1.2rem; margin-left: 10px; }
-        .log-tag { padding: 5px 12px; border-radius: 15px; font-size: 1rem; color: var(--white); }
+        .log-date { font-size: 0.8rem; color: #9E9E9E; text-align: right; min-width: 65px; }
+        .log-text { font-size: 1.1rem; margin-left: 10px; word-break: keep-all; }
+        .log-tag { padding: 5px 10px; border-radius: 12px; font-size: 0.9rem; color: var(--white); white-space: nowrap; }
         .tag-word { background-color: #42A5F5; }
         .tag-test { background-color: var(--danger); }
+        .tag-stamp { background-color: #9C27B0; } /* 도장 태그 색상 */
+
+        /* --- 선생님 확인 도장 시스템 --- */
+        .stamp-btn { width: 100%; padding: 15px; font-size: 1.4rem; font-family: 'Jua', sans-serif; background: #e91e63; color: white; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3); transition: 0.2s; }
+        .stamp-btn:active { transform: scale(0.95); }
+        .stamp-btn:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; }
+        
+        .stamp-overlay {
+            position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%) scale(0) rotate(-15deg);
+            width: 180px; height: 180px; background: transparent;
+            border: 8px solid #e91e63; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-size: 2.2rem; font-weight: bold; color: #e91e63; z-index: 100;
+            opacity: 0; pointer-events: none;
+            box-shadow: inset 0 0 0 4px #e91e63, 0 0 20px rgba(233, 30, 99, 0.4);
+        }
+        .stamp-overlay.show { animation: stampAnim 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes stampAnim { 
+            0% { transform: translate(-50%, -50%) scale(3) rotate(0deg); opacity: 0; } 
+            50% { transform: translate(-50%, -50%) scale(0.8) rotate(-20deg); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(-15deg); opacity: 0.9; }
+        }
+        .stamp-inner { border: 4px solid #e91e63; border-radius: 50%; width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; flex-direction: column; line-height: 1.2; }
     </style>
 </head>
 <body>
@@ -133,9 +152,12 @@
             <div style="font-size: 0.9rem; margin-top:5px; color:#aaa;">경험치: <span id="exp-text">0</span></div>
         </div>
 
+        <div class="unit-select-container">
+            <select id="unit-select" class="unit-select"></select>
+        </div>
+
         <div id="card-container" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-            <div class="stage-title" id="group-title">Stage Loading...</div>
-            <div class="instruction" id="instruction">카드를 뒤집고 큰 소리로 마법 주문을 외우세요!</div>
+            <div class="instruction" id="instruction">카드를 뒤집고 마법 주문을 외우세요!</div>
             
             <div class="leaf-counter" id="counter-bars">
                 <div class="leaf">🗡️</div><div class="leaf">🗡️</div><div class="leaf">🗡️</div><div class="leaf">🗡️</div><div class="leaf">🗡️</div>
@@ -162,8 +184,15 @@
 
     <div id="record-tab" class="tab-content">
         <h2 style="color: var(--primary-dark); margin-top: 0; font-size: 1.8rem;">용사의 발자취</h2>
+        
         <div class="log-container" id="log-list">
             <div style="text-align: center; color: #999; padding: 30px; font-size: 1.2rem;">아직 모험을 떠나지 않았어요!<br>검을 쥐고 출발하세요!</div>
+        </div>
+
+        <button id="stamp-btn" class="stamp-btn">💯 선생님 검사 도장 찍기</button>
+        
+        <div id="stamp-overlay" class="stamp-overlay">
+            <div class="stamp-inner">참<br>잘했어요</div>
         </div>
     </div>
 
@@ -504,6 +533,7 @@
 
         let curriculum = [];
         let allOptions = []; 
+        const unitSelect = document.getElementById('unit-select');
         
         function parseData() {
             const lines = rawData.trim().split('\n');
@@ -514,7 +544,7 @@
                 if(parts.length === 5) {
                     const [stage, en, ko, sound, emoji] = parts;
                     if(!groupsMap[stage]) {
-                        groupsMap[stage] = { groupName: `Stage ${stage}`, words: [], tests: [] };
+                        groupsMap[stage] = { groupName: `${stage}`, words: [], tests: [] };
                     }
                     groupsMap[stage].words.push({ en, ko, sound, emoji });
                     if(!allOptions.includes(sound)) allOptions.push(sound);
@@ -522,7 +552,8 @@
             });
 
             curriculum = Object.values(groupsMap);
-            curriculum.forEach(group => {
+            curriculum.forEach((group, index) => {
+                // 테스트 문제 생성
                 const testWords = [...group.words].sort(() => 0.5 - Math.random()).slice(0, 2);
                 testWords.forEach(word => {
                     let options = new Set();
@@ -534,11 +565,16 @@
                     let optionsArr = Array.from(options).sort(() => 0.5 - Math.random());
                     group.tests.push({ word: word.en, options: optionsArr, answerIndex: optionsArr.indexOf(word.sound) });
                 });
+
+                // 💡 드롭다운 메뉴(Unit)에 옵션 추가
+                let option = document.createElement('option');
+                option.value = index;
+                option.textContent = `Unit ${index + 1} : ${group.groupName}`;
+                unitSelect.appendChild(option);
             });
         }
         parseData();
 
-        // 🛡️ 성장하는 아바타 데이터
         const avatars = [
             { threshold: 0, icon: "👦🗡️", name: "초보 검사 (Lv.1)", size: "3rem" },
             { threshold: 25, icon: "👱‍♂️⚔️", name: "숙련된 전사 (Lv.2)", size: "3.5rem" },
@@ -546,7 +582,6 @@
             { threshold: 130, icon: "🦸‍♂️👑", name: "전설의 대용사 (Lv.Max)", size: "4.5rem" }
         ];
 
-        // 🐲 점점 험악해지는 보스 목록
         const bossList = ["🌱 꼬마 슬라임", "👺 숲의 고블린", "🐺 사나운 늑대", "👹 붉은 오크", "👻 어둠의 유령", "🧌 늪지대 트롤", "🪨 강철 골렘", "🐉 파멸의 드래곤"];
 
         let currentGroupIndex = 0;
@@ -564,6 +599,8 @@
         const logList = document.getElementById('log-list');
         const instruction = document.getElementById('instruction');
         const repeatPrompt = document.getElementById('repeat-prompt');
+        const stampBtn = document.getElementById('stamp-btn');
+        const stampOverlay = document.getElementById('stamp-overlay');
         const synth = window.speechSynthesis;
 
         function switchTab(tabId) {
@@ -583,7 +620,7 @@
             }
             const iconEl = document.getElementById('avatar-icon');
             iconEl.textContent = currentAvatar.icon;
-            iconEl.style.fontSize = currentAvatar.size; // 레벨업 할때마다 커짐
+            iconEl.style.fontSize = currentAvatar.size; 
             document.getElementById('avatar-name').textContent = currentAvatar.name;
             document.getElementById('exp-text').textContent = totalExp;
             
@@ -592,32 +629,48 @@
             document.getElementById('avatar-progress').style.width = `${progress}%`;
         }
 
+        // 💡 상세한 로그 기록 함수로 업데이트
         function addLog(message, type) {
             const date = new Date();
-            const timeString = `${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+            const timeString = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
             if (logList.innerHTML.includes("모험을 떠나지 않았어요")) logList.innerHTML = "";
-            const tagClass = type === 'test' ? 'tag-test' : 'tag-word';
-            const tagText = type === 'test' ? '보스전' : '사냥';
+            
+            const tagClass = type === 'test' ? 'tag-test' : (type === 'stamp' ? 'tag-stamp' : 'tag-word');
+            const tagText = type === 'test' ? '보스전' : (type === 'stamp' ? '선생님' : '사냥');
+            const unitName = curriculum[currentGroupIndex].groupName; // 현재 Unit 이름 가져오기
+            
+            // 일반 학습 로그일 경우 Unit 이름을 포함시킴
+            const finalMessage = type === 'stamp' ? message : `[${unitName}] ${message}`;
+
             const logItem = document.createElement('div');
             logItem.className = 'log-item';
-            logItem.innerHTML = `<div><span class="log-tag ${tagClass}">${tagText}</span><span class="log-text">${message}</span></div><div class="log-date">${timeString}</div>`;
+            logItem.innerHTML = `
+                <div style="display:flex; align-items:center;">
+                    <span class="log-tag ${tagClass}">${tagText}</span>
+                    <span class="log-text">${finalMessage}</span>
+                </div>
+                <div class="log-date">${timeString}</div>
+            `;
             logList.prepend(logItem);
+            
+            // 도장을 찍으면 도장 버튼을 다시 비활성화 하거나 유지 (여기서는 하루 1번이라고 가정)
+            if(type !== 'stamp') stampBtn.disabled = false;
         }
 
         function updateCard() {
             const group = curriculum[currentGroupIndex];
             const data = group.words[currentWordIndex];
             
-            document.getElementById('group-title').textContent = group.groupName;
+            // 💡 드롭다운 값도 현재 스테이지에 맞게 업데이트
+            unitSelect.value = currentGroupIndex;
+
             document.getElementById('en-word').textContent = data.en;
             document.getElementById('emoji').textContent = data.emoji;
             document.getElementById('ko-meaning').textContent = data.ko;
             document.getElementById('ko-sound').textContent = `[${data.sound}]`;
             
             instruction.textContent = "카드를 뒤집고 큰 소리로 마법 주문을 외우세요!";
-            instruction.style.color = "#757575";
-            instruction.style.fontWeight = "normal";
-
+            
             flipCount = 0;
             isFlipped = false;
             isCardLocked = false;
@@ -625,6 +678,20 @@
             repeatPrompt.style.display = 'none';
             leaves.forEach(leaf => leaf.classList.remove('filled'));
         }
+
+        // 💡 사용자가 드롭다운에서 Unit을 직접 선택했을 때의 이벤트
+        unitSelect.addEventListener('change', (e) => {
+            currentGroupIndex = parseInt(e.target.value);
+            currentWordIndex = 0;
+            currentTestIndex = 0;
+            
+            // 혹시 보스전 화면에 있었다면 다시 카드 화면으로 전환
+            testContainer.style.display = 'none';
+            cardContainer.style.display = 'flex';
+            
+            addLog("새로운 훈련장으로 이동했습니다.", 'word');
+            updateCard();
+        });
 
         card.addEventListener('click', () => {
             if (isCardLocked) return; 
@@ -644,7 +711,6 @@
                 repeatPrompt.textContent = "🗣️ 크게 소리쳐 공격하세요!";
                 repeatPrompt.classList.add('pulse-anim');
 
-                // 대기 시간 2.5초로 연장
                 setTimeout(() => {
                     repeatPrompt.classList.remove('pulse-anim');
                     repeatPrompt.textContent = "⚔️ 공격 적중!";
@@ -656,8 +722,6 @@
 
                     if (flipCount === 5) {
                         instruction.textContent = "몬스터 처치! 다음 구역으로 전진합니다... 🏃‍♂️💨";
-                        instruction.style.color = "var(--primary-dark)";
-                        instruction.style.fontWeight = "bold";
                         setTimeout(() => { goToNextWord(); }, 1500);
                     } else {
                         isCardLocked = false; 
@@ -670,7 +734,7 @@
 
         function goToNextWord() {
             const currentWord = curriculum[currentGroupIndex].words[currentWordIndex].en;
-            addLog(`'${currentWord}' 사냥 성공!`, 'word');
+            addLog(`'${currentWord}' 처치 성공!`, 'word');
             totalExp += 1;
             updateAvatar();
             currentWordIndex++;
@@ -690,8 +754,7 @@
             const tests = curriculum[currentGroupIndex].tests;
             const currentTest = tests[currentTestIndex];
             
-            // 그룹 인덱스에 따라 점진적으로 보스 할당
-            const bossLevel = Math.min(Math.floor(currentGroupIndex / 3), bossList.length - 1);
+            const bossLevel = Math.min(Math.floor(currentGroupIndex / 4), bossList.length - 1);
             const currentBoss = bossList[bossLevel];
             const bossEmoji = currentBoss.split(' ')[0];
             const bossName = currentBoss.substring(currentBoss.indexOf(' ') + 1);
@@ -716,7 +779,6 @@
                     if (index === currentTest.answerIndex) {
                         btn.classList.add('correct');
                         btn.textContent += ' ⚡ 회심의 일격!';
-                        
                         document.getElementById('boss-anim').classList.add('boss-hit');
                         
                         setTimeout(() => {
@@ -735,8 +797,8 @@
                                     testContainer.innerHTML = `
                                         <div style="padding: 30px; border: 3px solid var(--primary); border-radius: 20px; background: #E8F5E9;">
                                             <div style="font-size: 4rem;">🏆</div>
-                                            <h2 style="color:var(--primary-dark);">보스 처치 완료!</h2>
-                                            <p style="font-size: 1.2rem; color: var(--wood);">새로운 몬스터를 향해 전진합니다...</p>
+                                            <h2 style="color:var(--primary-dark);">스테이지 클리어!</h2>
+                                            <p style="font-size: 1.2rem; color: var(--wood);">잠시 후 다음 단계로 자동 이동합니다...</p>
                                         </div>
                                     `;
                                     setTimeout(() => {
@@ -765,6 +827,25 @@
             });
         }
 
+        // 💡 선생님 도장 찍기 이벤트
+        stampBtn.addEventListener('click', () => {
+            // 도장 애니메이션 실행
+            stampOverlay.classList.add('show');
+            
+            // 기록 남기기
+            addLog("오늘의 학습을 마쳤습니다! 참 잘했어요! 💯", 'stamp');
+            
+            // 버튼 상태 변경
+            stampBtn.textContent = "✅ 검사 완료! (내일 또 만나요)";
+            stampBtn.disabled = true;
+
+            // 애니메이션이 끝나면 클래스 제거 (나중에 다시 누를 수 있게 할 경우 대비)
+            setTimeout(() => {
+                stampOverlay.classList.remove('show');
+            }, 1000);
+        });
+
+        // 초기 실행
         updateCard();
         updateAvatar();
     </script>
