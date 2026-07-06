@@ -1,853 +1,159 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수리나무 학원 파닉스 마스터</title>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4CAF50;
-            --primary-dark: #2E7D32;
-            --accent: #FF9800;
-            --accent-light: #FFB74D;
-            --wood: #6D4C41;
-            --danger: #e74c3c;
-            --bg-grad: linear-gradient(135deg, #f1f8e9 0%, #c8e6c9 100%);
-            --white: #ffffff;
-        }
-
-        body {
-            font-family: 'Jua', sans-serif;
-            background: var(--bg-grad);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-            color: var(--wood);
-        }
-
-        /* --- 헤더 --- */
-        header { width: 100%; background-color: var(--primary-dark); color: var(--white); text-align: center; padding: 15px 0 25px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border-bottom: 5px solid var(--accent); }
-        .header-logo { font-size: 2.5rem; margin: 0; display: inline-block; animation: float 2s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0px); } }
-        .header-title { font-size: 2rem; margin: 5px 0 0 0; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .header-subtitle { font-size: 1rem; color: #E8F5E9; margin-top: 5px; background: rgba(0,0,0,0.2); display: inline-block; padding: 4px 15px; border-radius: 20px; }
-
-        /* --- 탭 내비게이션 --- */
-        .tab-nav { display: flex; width: 100%; max-width: 500px; margin-top: -20px; z-index: 10; padding: 0 10px; box-sizing: border-box; }
-        .tab-btn { flex: 1; padding: 12px 0; font-size: 1.2rem; font-family: 'Jua', sans-serif; color: var(--wood); background: #E0E0E0; border: 3px solid #BDBDBD; border-bottom: none; border-radius: 20px 20px 0 0; cursor: pointer; transition: 0.3s; margin: 0 5px; box-shadow: 0 -3px 10px rgba(0,0,0,0.05); }
-        .tab-btn.active { background: var(--white); border-color: var(--primary); color: var(--primary-dark); font-size: 1.3rem; z-index: 2; }
-
-        /* --- 콘텐츠 영역 --- */
-        .tab-content { display: none; flex-direction: column; align-items: center; width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; background: var(--white); border-radius: 0 0 25px 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 3px solid var(--primary); border-top: none; position: relative; }
-        .tab-content.active { display: flex; }
-
-        /* --- 아바타 --- */
-        .avatar-container { background: #FFF3E0; padding: 15px; border-radius: 20px; text-align: center; width: 100%; box-sizing: border-box; margin-bottom: 15px; border: 2px dashed var(--accent); }
-        .avatar-icon { transition: font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1); margin-bottom: 5px; display: inline-block; }
-        .avatar-name { font-size: 1.3rem; color: var(--wood); font-weight: bold; }
-        .progress-bar-bg { background: #FFE0B2; height: 15px; border-radius: 10px; margin-top: 10px; overflow: hidden; border: 1px solid var(--accent-light);}
-        .progress-bar-fill { background: linear-gradient(90deg, #FF9800, #FFC107); height: 100%; width: 0%; transition: width 0.5s; }
-
-        /* --- Unit 선택 (새로운 기능) --- */
-        .unit-select-container { width: 100%; text-align: center; margin-bottom: 15px; }
-        .unit-select { width: 90%; font-family: 'Jua', sans-serif; font-size: 1.2rem; padding: 10px; border-radius: 15px; border: 3px solid var(--primary); color: var(--primary-dark); background: #E8F5E9; outline: none; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-
-        /* --- 카드 디자인 --- */
-        .instruction { color: #757575; margin-bottom: 15px; font-size: 1.1rem; transition: 0.3s; text-align: center; }
-        .scene { width: 280px; height: 350px; perspective: 1000px; margin-bottom: 25px; }
-        .card { width: 100%; height: 100%; position: relative; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; cursor: pointer; }
-        .card.is-flipped { transform: rotateY(180deg); }
-        
-        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
-        .card-front { background: var(--white); border: 6px solid var(--primary); }
-        .card-front .word { font-size: 4rem; color: var(--wood); font-weight: bold;}
-        .card-front .hint { font-size: 1rem; color: #aaa; margin-top: 15px; }
-        
-        .card-back { background: var(--accent); color: var(--white); border: 6px solid #F57C00; transform: rotateY(180deg); justify-content: flex-start; padding-top: 30px;}
-        .card-back .emoji { font-size: 5.5rem; background: rgba(255,255,255,0.2); border-radius: 50%; padding: 10px; margin-bottom: 10px;}
-        .card-back .meaning { font-size: 1.8rem; }
-        .card-back .sound-hint { font-size: 1.3rem; background: rgba(0,0,0,0.1); padding: 5px 15px; border-radius: 15px; margin-top: 10px; }
-        
-        /* 따라 읽기 유도 UI (공격!) */
-        .repeat-prompt { margin-top: 15px; font-size: 1.2rem; background-color: var(--danger); color: white; padding: 8px 20px; border-radius: 20px; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
-        .pulse-anim { animation: pulsePrompt 1s infinite; }
-        @keyframes pulsePrompt { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); } 50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); } }
-
-        /* --- 검 카운터 --- */
-        .leaf-counter { display: flex; gap: 12px; margin-bottom: 20px; }
-        .leaf { font-size: 1.8rem; filter: grayscale(100%); opacity: 0.3; transition: all 0.3s; transform: rotate(45deg); }
-        .leaf.filled { filter: grayscale(0%); opacity: 1; transform: scale(1.3) rotate(0deg); text-shadow: 0 0 10px #FF9800; }
-
-        /* --- 테스트(보스전) UI --- */
-        #test-container { display: none; width: 100%; text-align: center; }
-        .test-box { background: #ffebee; padding: 25px; border-radius: 20px; border: 4px solid var(--danger); box-shadow: 0 10px 20px rgba(231,76,60,0.2); }
-        .boss-icon { font-size: 5rem; margin-bottom: 5px; animation: bossFloat 2s ease-in-out infinite; display: inline-block; }
-        @keyframes bossFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-10px) scale(1.05); } }
-        .boss-hit { animation: bossHit 0.5s; }
-        @keyframes bossHit { 0% { filter: brightness(1) drop-shadow(0 0 0 red); } 50% { filter: brightness(2) drop-shadow(0 0 20px red); transform: scale(0.9) rotate(-10deg); } 100% { filter: brightness(1) drop-shadow(0 0 0 red); } }
-        
-        .test-title { font-size: 1.3rem; color: var(--danger); font-weight: bold; margin-bottom: 10px; }
-        .test-word-display { font-size: 3.5rem; color: var(--wood); margin-bottom: 20px; background: var(--white); border-radius: 20px; padding: 10px; box-shadow: inset 0 5px 10px rgba(0,0,0,0.05); font-weight: bold; border: 2px solid #ffcdd2; }
-        .option-btn { width: 100%; padding: 15px; margin: 8px 0; font-size: 1.4rem; font-family: 'Jua', sans-serif; border: 3px solid #b0bec5; border-radius: 20px; background: var(--white); color: var(--wood); cursor: pointer; transition: 0.2s; }
-        .option-btn.correct { background: var(--primary); color: var(--white); border-color: var(--primary-dark); }
-        .option-btn.wrong { background: var(--wood); color: var(--white); border-color: #3e2723; animation: shake 0.5s; }
-
-        /* --- 기록 탭 --- */
-        .log-container { width: 100%; height: 50vh; overflow-y: auto; background: #fafafa; border-radius: 15px; border: 2px solid #eee; margin-bottom: 15px; }
-        .log-item { padding: 15px; border-bottom: 2px dashed #eee; display: flex; justify-content: space-between; align-items: center; }
-        .log-date { font-size: 0.8rem; color: #9E9E9E; text-align: right; min-width: 65px; }
-        .log-text { font-size: 1.1rem; margin-left: 10px; word-break: keep-all; }
-        .log-tag { padding: 5px 10px; border-radius: 12px; font-size: 0.9rem; color: var(--white); white-space: nowrap; }
-        .tag-word { background-color: #42A5F5; }
-        .tag-test { background-color: var(--danger); }
-        .tag-stamp { background-color: #9C27B0; } /* 도장 태그 색상 */
-
-        /* --- 선생님 확인 도장 시스템 --- */
-        .stamp-btn { width: 100%; padding: 15px; font-size: 1.4rem; font-family: 'Jua', sans-serif; background: #e91e63; color: white; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3); transition: 0.2s; }
-        .stamp-btn:active { transform: scale(0.95); }
-        .stamp-btn:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; }
-        
-        .stamp-overlay {
-            position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%) scale(0) rotate(-15deg);
-            width: 180px; height: 180px; background: transparent;
-            border: 8px solid #e91e63; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; text-align: center;
-            font-size: 2.2rem; font-weight: bold; color: #e91e63; z-index: 100;
-            opacity: 0; pointer-events: none;
-            box-shadow: inset 0 0 0 4px #e91e63, 0 0 20px rgba(233, 30, 99, 0.4);
-        }
-        .stamp-overlay.show { animation: stampAnim 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes stampAnim { 
-            0% { transform: translate(-50%, -50%) scale(3) rotate(0deg); opacity: 0; } 
-            50% { transform: translate(-50%, -50%) scale(0.8) rotate(-20deg); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1) rotate(-15deg); opacity: 0.9; }
-        }
-        .stamp-inner { border: 4px solid #e91e63; border-radius: 50%; width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; flex-direction: column; line-height: 1.2; }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>수리나무학원 문법 언스크램블 Unit 1-4</title>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<style>
+:root{--main:#1a5c9a;--main2:#0d365e;--accent:#f5a623;--bg:#f3f8ff;--soft:#eef7ff;--line:#d5e7f8;--text:#142133;--muted:#60758a;--green:#22a06b;--red:#e5534b;--shadow:0 12px 36px rgba(26,92,154,.16)}
+*{box-sizing:border-box}body{margin:0;padding:14px;background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif}#app{max-width:560px;margin:0 auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:var(--shadow);min-height:calc(100vh - 28px)}
+.header{background:linear-gradient(135deg,var(--main),var(--main2));color:#fff;text-align:center;padding:24px 18px 17px}.label{display:inline-block;background:var(--accent);color:#432700;border-radius:999px;padding:5px 12px;font-weight:1000;font-size:12px;margin-bottom:8px}.header h1{font-size:22px;margin:4px 0 6px;letter-spacing:-.3px}.header p{margin:0;font-size:13px;font-weight:800;opacity:.92;line-height:1.5}
+.tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;background:#f7fbff;padding:10px;border-bottom:1px solid #e6eef8;position:sticky;top:0;z-index:10}.tab{border:0;border-radius:13px;background:#e8f1fa;color:#24445f;min-height:50px;font-size:13px;font-weight:1000;cursor:pointer}.tab.active{background:var(--main);color:#fff;box-shadow:0 4px 14px rgba(26,92,154,.25)}.tab.pass::after{content:' ✓';color:#fff}.tab.warn{background:#fff5e0;color:#7a5300}.tab.warn.active{background:var(--accent);color:#432700}
+.section{display:none;padding:16px}.section.active{display:block;animation:fade .22s ease}@keyframes fade{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}
+.card{border:1.7px solid var(--line);border-radius:18px;padding:15px;background:#fff;margin-bottom:13px}.soft{background:var(--soft)}.unit-title{font-size:20px;color:var(--main);font-weight:1000;margin:0 0 7px}.desc{font-size:14px;color:var(--muted);font-weight:800;line-height:1.58}.status{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:11px;flex-wrap:wrap}.badge{display:inline-block;background:#e8f1fa;color:#24445f;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:1000}.badge.green{background:#e8fff4;color:#11623d}.badge.red{background:#fff0f0;color:#a2322e}.badge.gold{background:#fff8e8;color:#7a5300}.progress{height:13px;border-radius:999px;background:#dbeefa;overflow:hidden;margin-top:10px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--green));transition:.35s}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.btn{width:100%;border:0;border-radius:14px;min-height:52px;padding:13px 10px;font-size:16px;font-weight:1000;cursor:pointer;background:var(--main);color:#fff;margin-top:8px}.btn.secondary{background:#e8f1fa;color:#24445f}.btn.orange{background:var(--accent);color:#432700}.btn.danger{background:var(--red);color:#fff}.btn:active{transform:scale(.99)}.btn[disabled]{opacity:.42;cursor:not-allowed}
+.quiz-head{background:#f8fbff;border:1.7px solid #e3edf8;border-radius:17px;padding:14px;margin-bottom:11px}.qno{font-size:14px;color:var(--main);font-weight:1000;margin-bottom:8px}.ko{font-size:19px;line-height:1.6;font-weight:1000;color:#0e3758}.hint{font-size:13px;color:#6a7f93;font-weight:800;line-height:1.55;margin-top:9px}.answer,.bank{display:flex;flex-wrap:wrap;gap:9px;align-items:center;justify-content:center;border-radius:17px;padding:13px;min-height:82px;margin-bottom:11px}.answer{border:2px dashed var(--main);background:#eef7ff}.bank{border:2px solid #e7eff8;background:#f8fbff}.chip{border:2px solid #b8d6ef;background:white;border-radius:12px;padding:12px 15px;font-weight:1000;font-size:16px;cursor:pointer;touch-action:manipulation;user-select:none;line-height:1.24;box-shadow:0 2px 8px rgba(26,92,154,.07)}.chip:active{transform:translateY(1px);background:#f2f9ff}.answer .chip{border-color:#7fb3df}.sortable-ghost{opacity:.35}.sortable-drag{background:var(--main)!important;color:#fff!important;box-shadow:0 8px 18px rgba(26,92,154,.25)!important}
+.ok-pop{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%);z-index:9999;background:#e8fff4;color:#11623d;border:2px solid var(--green);border-radius:999px;padding:10px 22px;font-size:25px;font-weight:1000;letter-spacing:.7px;box-shadow:0 10px 26px rgba(34,160,107,.24);pointer-events:none;animation:okFlash .85s ease-out forwards}@keyframes okFlash{0%{opacity:0;transform:translate(-50%,-35%) scale(.7)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-65%) scale(.92)}}
+.feedback{display:none;border-radius:15px;padding:14px;margin-top:11px;font-weight:1000;line-height:1.58}.feedback.show{display:block}.feedback.ok{background:#e8fff4;border:2px solid var(--green);color:#11623d}.feedback.ng{background:#fff0f0;border:2px solid var(--red);color:#a2322e}.eng-answer{font-family:Georgia,'Times New Roman',serif;font-size:16px;color:#142133;margin-top:7px;line-height:1.5}.complete{display:none;text-align:center}.complete.show{display:block}.big-emoji{font-size:54px;line-height:1;margin:8px 0}.score-big{font-size:36px;font-weight:1000;color:var(--main);margin:10px 0}.record-grid{display:grid;gap:10px}.record{display:flex;justify-content:space-between;gap:10px;align-items:center;background:#f8fbff;border:1.5px solid #e4eef8;border-radius:15px;padding:13px}.record b{color:var(--main)}.record small{color:var(--muted);font-weight:800}.wrong-list{display:grid;gap:9px;margin-top:10px}.wrong-item{border-left:5px solid var(--red);background:#fff7f7;border-radius:13px;padding:11px 12px;font-weight:900;line-height:1.48}.wrong-item .en{font-family:Georgia,'Times New Roman',serif;color:#9c2d28;margin-top:4px}.wrong-item .unit{color:var(--main);font-weight:1000;margin-bottom:3px}.top-tools{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}.empty{background:#f8fbff;border:1.5px dashed #cbddeb;border-radius:14px;padding:15px;text-align:center;color:#60758a;font-weight:900;line-height:1.55}.hidden{display:none!important}.unit-list{display:grid;gap:12px}.meta-line{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.next-panel{text-align:center}.next-panel .ok-small{font-size:20px;color:#11623d;font-weight:1000;margin-bottom:4px}.try-msg{font-size:14px;color:#a2322e;font-weight:1000}
+@media(max-width:520px){.tabs{grid-template-columns:repeat(3,1fr)}body{padding:10px}.header h1{font-size:20px}.section{padding:13px}.btn-row{grid-template-columns:1fr}.chip{font-size:15px;padding:11px 13px}.tab{font-size:12px;min-height:46px}.ko{font-size:18px}.answer,.bank{min-height:76px}}
+</style>
 </head>
 <body>
+<div id="app">
+  <div class="header"><span class="label">수리나무학원 Grammar Worksheet</span><h1>문법 문장 언스크램블</h1><p>Unit 1~4 전체 54문장 · 한글 해석을 보고 영어 문장을 완성하세요.<br>문제는 자료 순서대로 나오고, 각 Unit 전체 문제를 100점 맞아야 통과됩니다.</p></div>
+  <div class="tabs" id="tabs"></div>
+  <div id="sections"></div>
+</div>
+<script>
+const UNITS = [{"id":"unit1","tab":"Unit 1","title":"Unit 01 감각동사 + 형용사","desc":"감각동사 뒤에는 부사보다 형용사가 옵니다.","items":[{"sec":"A-1","ko":"이 생선은 맛이 좋아. 좀 먹어 봐.","en":"This fish tastes great. Try some."},{"sec":"A-2","ko":"오늘 아침 너는 신이 난 것처럼 들렸어.","en":"This morning, you sounded excited."},{"sec":"A-3","ko":"모든 것이 좋고 맛있는 냄새가 난다.","en":"Everything smells good and delicious."},{"sec":"A-4","ko":"그녀는 자신의 실수에 대해 미안해 보이지 않았다.","en":"She didn't look sorry for her mistake."},{"sec":"A-5","ko":"오늘은 따뜻하게 느껴진다. 봄 같다.","en":"It feels warm today. It feels like spring."},{"sec":"B-1","ko":"이 우유는 이상한 냄새가 나. 상한 것 같아.","en":"The milk smells strange. I think it's bad."},{"sec":"B-2","ko":"우리 할머니께서 병원에 계셔. 나는 슬퍼.","en":"My grandma is sick in hospital. I feel sad."},{"sec":"B-3","ko":"저 검은 말을 봐! 아름다워 보이지 않니?","en":"Look at that black horse! Doesn't it look beautiful?"},{"sec":"C-1","ko":"그 멜론은 달콤한 맛이 나니?","en":"Does the melon taste sweet?"},{"sec":"C-2","ko":"그는 자기 자신이 자랑스럽게 느껴졌다.","en":"He felt proud of himself."},{"sec":"C-3","ko":"그 이야기는 재미있게 들린다.","en":"The story sounds interesting."},{"sec":"C-4","ko":"그 교복은 너에게 아주 잘 어울려.","en":"The school uniform looks great on you."},{"sec":"D-1","ko":"우리 선생님은 목소리가 화난 것 같다.","en":"My teacher sounds angry."},{"sec":"D-2","ko":"그녀는 다정해 보이니?","en":"Does she look friendly?"},{"sec":"D-3","ko":"그 치킨 샐러드는 맛있어 보였지만, 맛은 형편없었다.","en":"The chicken salad looked delicious, but tasted terrible."}],"count":15},{"id":"unit2","tab":"Unit 2","title":"Unit 02 수여동사 + 간접목적어 + 직접목적어","desc":"수여동사는 ‘누구에게 + 무엇을’ 구조를 연습합니다.","items":[{"sec":"A-1","ko":"너에게 부탁 하나 해도 될까?","en":"May I ask you a favor?"},{"sec":"A-2","ko":"우리 부모님은 그것을 나에게 보여 주지 않으셨다.","en":"My parents didn't show it to me."},{"sec":"A-3","ko":"그는 그녀에게 자신의 전화번호를 주었다.","en":"He gave his phone number to her."},{"sec":"A-4","ko":"엄마, 저에게 간식 하나 가져다주실 수 있나요?","en":"Mom, could you bring me a snack?"},{"sec":"A-5","ko":"그녀는 나에게 초콜릿 케이크를 만들어 주었다.","en":"She made me a chocolate cake."},{"sec":"B-1","ko":"Elena는 그에게 몇 가지 질문을 했다.","en":"Elena asked some questions of him."},{"sec":"B-2","ko":"그 디자이너는 그녀에게 파란 드레스를 만들어 주었다.","en":"The designer made a blue dress for her."},{"sec":"B-3","ko":"나는 선생님께 감사 카드를 썼다.","en":"I wrote a thank-you card to my teacher."},{"sec":"C-1","ko":"우리 아빠가 우리에게 저녁을 요리해 주셨다.","en":"My dad cooked us dinner."},{"sec":"C-2","ko":"나는 그에게 도서관에 가는 길을 알려 주었다.","en":"I showed him the way to the library."},{"sec":"C-3","ko":"저에게 조언 좀 해 주시겠어요?","en":"Would you give me some advice?"},{"sec":"D-1","ko":"저에게 커피 한 잔만 가져다주시겠어요?","en":"Will you get me a cup of coffee?"},{"sec":"D-2","ko":"Ryan은 그녀에게 그의 사전을 빌려 주었다.","en":"Ryan lent his dictionary to her."},{"sec":"D-3","ko":"Jason이 나에게 자전거를 타는 법을 가르쳐 주었다.","en":"Jason taught me how to ride a bicycle."}],"count":14},{"id":"unit3","tab":"Unit 3","title":"Unit 03 동사 + 목적어 + 목적격보어","desc":"목적어 뒤에 목적격보어가 와서 ‘목적어가 ~하게/라고’의 뜻을 만듭니다.","items":[{"sec":"A-1","ko":"나는 그것이 지루하다고 생각했다.","en":"I found it boring."},{"sec":"A-2","ko":"알겠어. 나는 그것을 비밀로 할게.","en":"Sure. I'll keep it secret."},{"sec":"A-3","ko":"우리는 우리 밴드의 이름을 Black Day라고 지었다.","en":"We named our band Black Day."},{"sec":"B-1","ko":"아빠는 내 여동생에게 일찍 집에 오라고 말했다.","en":"Dad told my sister to come home early."},{"sec":"B-2","ko":"나는 네가 약속을 지키기를 기대한다.","en":"I expect you to keep your promise."},{"sec":"B-3","ko":"우리 선생님은 우리에게 다른 사람들의 말을 잘 들으라고 조언하셨다.","en":"My teacher advised us to listen to others well."},{"sec":"C-1","ko":"그의 무례함이 나를 화나게 만들었다.","en":"His rudeness made me angry."},{"sec":"C-2","ko":"그녀의 구명조끼가 그녀를 살아 있게 했다.","en":"Her life vest kept her alive."},{"sec":"C-3","ko":"엄마는 내가 밖에 나가 노는 것을 허락하지 않으셨다.","en":"My mom didn't allow me to play outside."},{"sec":"D-1","ko":"창문을 계속 열어 둬라.","en":"Keep the window open."},{"sec":"D-2","ko":"나는 그 남자가 이상하다는 것을 알았어.","en":"I found the man strange."},{"sec":"D-3","ko":"우리를 Dumb and Dumber라고 부르지 마세요.","en":"Don't call us Dumb and Dumber."}],"count":12},{"id":"unit4","tab":"Unit 4","title":"Unit 04 사역동사 / 지각동사 + 목적어 + 목적격보어","desc":"make, have, let, help, see, hear 등 뒤의 목적격보어 형태를 연습합니다.","items":[{"sec":"A-1","ko":"그녀는 내가 Emma에게 먼저 미안하다고 말하게 했다.","en":"She got me to say sorry to Emma first."},{"sec":"A-2","ko":"나는 어둠 속에서 그 작은 고양이가 우는 소리를 들었다.","en":"I heard the little cat cry in the dark."},{"sec":"A-3","ko":"너는 무대에서 그 소녀가 노래하는 것을 보았니?","en":"Did you see the girl sing on the stage?"},{"sec":"A-4","ko":"Jenny는 내가 과학 숙제를 하는 것을 도와주었다.","en":"Jenny helped me do my science homework."},{"sec":"B-1","ko":"나는 아빠가 저녁을 요리하는 것을 도왔다.","en":"I helped my dad cook dinner."},{"sec":"B-2","ko":"Mr. Firth는 그의 아들이 야구하는 것을 보았다.","en":"Mr. Firth saw his son play baseball."},{"sec":"B-3","ko":"엄마는 내가 건강을 위해 채소를 먹게 했다.","en":"Mom got me to eat vegetables for my health."},{"sec":"C-1","ko":"누가 Amy를 울렸니?","en":"Who made Amy cry?"},{"sec":"C-2","ko":"그녀는 그에게 그녀의 개를 산책시키게 했다.","en":"She had him walk her dog."},{"sec":"C-3","ko":"부모님은 내가 외출하는 것을 허락하지 않으셨다.","en":"My parents didn't let me go out."},{"sec":"D-1","ko":"나는 그의 목소리가 떨리고 있는 것을 들었다.","en":"I heard his voice trembling."},{"sec":"D-2","ko":"그는 내가 휴대전화를 찾도록 도와주었다.","en":"He helped me to find my cell phone."},{"sec":"D-3","ko":"그녀는 아들에게 심부름하도록 시켰다.","en":"She had her son run an errand."}],"count":13}];
+const STORE='surinamu_grammar_units_1_4_seq_v3';
+const $=(q,root=document)=>root.querySelector(q);
+const $all=(q,root=document)=>Array.from(root.querySelectorAll(q));
+let currentTab='unit', currentUnit=0, mode='full', quizItems=[], qIndex=0, roundCorrect=0, locked=false, questionHadWrong=false, lastWrongKey='', pendingQuestionHadWrong=false, audioCtx=null;
+function getData(){try{return JSON.parse(localStorage.getItem(STORE)||'{}')}catch(e){return {}}}
+function setData(data){localStorage.setItem(STORE,JSON.stringify(data))}
+function unitState(id){const d=getData();return d[id]||{attempts:0,bestScore:0,lastScore:null,passed:false,wrongIds:[],history:[]}}
+function saveUnitState(id,patch){const d=getData();d[id]={...unitState(id),...patch};setData(d)}
+function nowStr(){return new Date().toLocaleString('ko-KR',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}
+function shuffle(a){const arr=[...a];for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
+function tokens(s){return s.replace(/[“”]/g,'"').replace(/[‘’]/g,"'").split(/\s+/).filter(Boolean)}
+function norm(s){return s.toLowerCase().replace(/[“”‘’'".,!?;:()\[\]]/g,'').replace(/[^a-z0-9]+/g,' ').trim()}
+function itemId(ui,ii){return 'u'+ui+'-'+ii}
+function itemIndexFromId(id){return Number(String(id).split('-')[1])}
+function totalItems(){return UNITS.reduce((a,u)=>a+u.items.length,0)}
+function allWrongEntries(){const out=[];UNITS.forEach((u,ui)=>{const ids=unitState(u.id).wrongIds||[];ids.forEach(id=>{const ii=itemIndexFromId(id);if(u.items[ii])out.push({ui,id,item:u.items[ii]})})});return out}
 
-    <header>
-        <div class="header-logo">🌳</div>
-        <h1 class="header-title">수리나무 학원</h1>
-        <div class="header-subtitle">파닉스 대용사 키우기 ⚔️</div>
-    </header>
-
-    <div class="tab-nav">
-        <button class="tab-btn active" onclick="switchTab('learn')">📖 모험 시작</button>
-        <button class="tab-btn" onclick="switchTab('record')">📜 모험 기록</button>
-    </div>
-
-    <div id="learn-tab" class="tab-content active">
-        <div class="avatar-container">
-            <div class="avatar-icon" id="avatar-icon" style="font-size: 3rem;">👦🗡️</div>
-            <div class="avatar-name" id="avatar-name">초보 검사 (Lv.1)</div>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="avatar-progress"></div>
-            </div>
-            <div style="font-size: 0.9rem; margin-top:5px; color:#aaa;">경험치: <span id="exp-text">0</span></div>
-        </div>
-
-        <div class="unit-select-container">
-            <select id="unit-select" class="unit-select"></select>
-        </div>
-
-        <div id="card-container" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-            <div class="instruction" id="instruction">카드를 뒤집고 마법 주문을 외우세요!</div>
-            
-            <div class="leaf-counter" id="counter-bars">
-                <div class="leaf">🗡️</div><div class="leaf">🗡️</div><div class="leaf">🗡️</div><div class="leaf">🗡️</div><div class="leaf">🗡️</div>
-            </div>
-
-            <div class="scene">
-                <div class="card" id="card">
-                    <div class="card-face card-front">
-                        <div class="word" id="en-word">...</div>
-                        <div class="hint">터치해서 적을 확인하세요!</div>
-                    </div>
-                    <div class="card-face card-back">
-                        <div class="emoji" id="emoji">...</div>
-                        <div class="meaning" id="ko-meaning">...</div>
-                        <div class="sound-hint" id="ko-sound">...</div>
-                        <div class="repeat-prompt pulse-anim" id="repeat-prompt">🗣️ 소리 내어 공격하세요!</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="test-container"></div>
-    </div>
-
-    <div id="record-tab" class="tab-content">
-        <h2 style="color: var(--primary-dark); margin-top: 0; font-size: 1.8rem;">용사의 발자취</h2>
-        
-        <div class="log-container" id="log-list">
-            <div style="text-align: center; color: #999; padding: 30px; font-size: 1.2rem;">아직 모험을 떠나지 않았어요!<br>검을 쥐고 출발하세요!</div>
-        </div>
-
-        <button id="stamp-btn" class="stamp-btn">💯 선생님 검사 도장 찍기</button>
-        
-        <div id="stamp-overlay" class="stamp-overlay">
-            <div class="stamp-inner">참<br>잘했어요</div>
-        </div>
-    </div>
-
-    <script>
-        // --- 330단어 데이터베이스 ---
-        const rawData = `
-        1-1 (a,b,c)|ant|개미|앤트|🐜
-        1-1 (a,b,c)|alligator|악어|엘리게이터|🐊
-        1-1 (a,b,c)|apple|사과|애플|🍎
-        1-1 (a,b,c)|ball|공|볼|⚽
-        1-1 (a,b,c)|book|책|북|📚
-        1-1 (a,b,c)|bear|곰|베얼|🐻
-        1-1 (a,b,c)|car|자동차|카|🚗
-        1-1 (a,b,c)|cow|소|카우|🐄
-        1-1 (a,b,c)|cat|고양이|캣|🐱
-        1-2 (d,e,f)|door|문|도얼|🚪
-        1-2 (d,e,f)|dog|개|독|🐶
-        1-2 (d,e,f)|desk|책상|데스크|🪑
-        1-2 (d,e,f)|egg|달걀|에그|🥚
-        1-2 (d,e,f)|elephant|코끼리|엘러펀트|🐘
-        1-2 (d,e,f)|elbow|팔꿈치|엘보우|💪
-        1-2 (d,e,f)|fish|물고기|피쉬|🐟
-        1-2 (d,e,f)|five|다섯|파이브|5️⃣
-        1-2 (d,e,f)|fox|여우|팍스|🦊
-        1-3 (g,h,i)|green|초록색|그린|🟩
-        1-3 (g,h,i)|girl|소녀|걸|👧
-        1-3 (g,h,i)|gorilla|고릴라|고릴라|🦍
-        1-3 (g,h,i)|hat|모자|햇|👒
-        1-3 (g,h,i)|hand|손|핸드|🖐️
-        1-3 (g,h,i)|house|집|하우스|🏠
-        1-3 (g,h,i)|igloo|이글루|이굴루|🧊
-        1-3 (g,h,i)|insect|곤충|인섹트|🐛
-        1-3 (g,h,i)|iguana|이구아나|이구아나|🦎
-        1-4 (j,k,l)|jet|제트기|제트|🛩️
-        1-4 (j,k,l)|jam|잼|잼|🍓
-        1-4 (j,k,l)|jacket|재킷|재킷|🧥
-        1-4 (j,k,l)|kangaroo|캥거루|캥거루|🦘
-        1-4 (j,k,l)|kid|아이|키드|🧒
-        1-4 (j,k,l)|king|왕|킹|👑
-        1-4 (j,k,l)|lamp|램프|램프|🪔
-        1-4 (j,k,l)|lion|사자|라이온|🦁
-        1-4 (j,k,l)|leaf|나뭇잎|리프|🍃
-        1-5 (m,n,o)|monster|괴물|몬스터|👾
-        1-5 (m,n,o)|mouse|생쥐|마우스|🐭
-        1-5 (m,n,o)|map|지도|맵|🗺️
-        1-5 (m,n,o)|nest|둥지|네스트|🪹
-        1-5 (m,n,o)|nut|견과류|너트|🥜
-        1-5 (m,n,o)|neck|목|넥|🦒
-        1-5 (m,n,o)|ox|황소|악스|🐂
-        1-5 (m,n,o)|octopus|문어|옥토푸스|🐙
-        1-5 (m,n,o)|ostrich|타조|오스트리치|🦤
-        1-6 (p~t)|pen|펜|펜|🖊️
-        1-6 (p~t)|pig|돼지|피그|🐷
-        1-6 (p~t)|pizza|피자|피자|🍕
-        1-6 (p~t)|question|질문|퀘스천|❓
-        1-6 (p~t)|queen|여왕|퀸|👸
-        1-6 (p~t)|quiet|조용한|콰이어트|🤫
-        1-6 (p~t)|robot|로봇|로봇|🤖
-        1-6 (p~t)|ring|반지|링|💍
-        1-6 (p~t)|rabbit|토끼|래빗|🐰
-        1-6 (p~t)|sun|태양|썬|☀️
-        1-6 (p~t)|sock|양말|싹|🧦
-        1-6 (p~t)|six|여섯|식스|6️⃣
-        1-6 (p~t)|tiger|호랑이|타이거|🐯
-        1-6 (p~t)|tape|테이프|테이프|📼
-        1-6 (p~t)|tent|텐트|텐트|⛺
-        1-6 (p~t)|up|위로|업|⬆️
-        1-6 (p~t)|under|아래에|언더|⬇️
-        1-6 (p~t)|umbrella|우산|엄브렐라|☂️
-        1-7 (v~z)|van|승합차|밴|🚐
-        1-7 (v~z)|vase|꽃병|베이스|🏺
-        1-7 (v~z)|violin|바이올린|바이올린|🎻
-        1-7 (v~z)|web|거미줄|웹|🕸️
-        1-7 (v~z)|wolf|늑대|울프|🐺
-        1-7 (v~z)|watch|손목시계|왓치|⌚
-        1-7 (v~z)|box|상자|박스|📦
-        1-7 (v~z)|fox|여우|팍스|🦊
-        1-7 (v~z)|ax|도끼|액스|🪓
-        1-7 (v~z)|yo-yo|요요|요요|🪀
-        1-7 (v~z)|yacht|요트|야트|🛥️
-        1-7 (v~z)|yellow|노란색|옐로우|🟨
-        1-7 (v~z)|zebra|얼룩말|지브라|🦓
-        1-7 (v~z)|zero|영|지로|0️⃣
-        1-7 (v~z)|zoo|동물원|주|🐘
-        2-1 (-ad, -ag, -am)|dad|아빠|대드|👨
-        2-1 (-ad, -ag, -am)|bad|나쁜|배드|😈
-        2-1 (-ad, -ag, -am)|sad|슬픈|새드|😢
-        2-1 (-ad, -ag, -am)|bag|가방|백|👜
-        2-1 (-ad, -ag, -am)|tag|꼬리표|태그|🏷️
-        2-1 (-ad, -ag, -am)|wag|흔들다|왜그|🐕
-        2-1 (-ad, -ag, -am)|jam|잼|잼|🍓
-        2-1 (-ad, -ag, -am)|ram|숫양|램|🐏
-        2-1 (-ad, -ag, -am)|ham|햄|햄|🍖
-        2-2 (-an, -ap, -at)|fan|선풍기|팬|💨
-        2-2 (-an, -ap, -at)|can|캔|캔|🥫
-        2-2 (-an, -ap, -at)|man|남자|맨|👨
-        2-2 (-an, -ap, -at)|map|지도|맵|🗺️
-        2-2 (-an, -ap, -at)|cap|모자|캡|🧢
-        2-2 (-an, -ap, -at)|tap|수도꼭지|탭|🚰
-        2-2 (-an, -ap, -at)|cat|고양이|캣|🐱
-        2-2 (-an, -ap, -at)|fat|뚱뚱한|팻|🐷
-        2-2 (-an, -ap, -at)|hat|모자|햇|👒
-        2-3 (-ig, -in, -ip)|pig|돼지|피그|🐷
-        2-3 (-ig, -in, -ip)|big|큰|빅|🐘
-        2-3 (-ig, -in, -ip)|wig|가발|위그|👱‍♀️
-        2-3 (-ig, -in, -ip)|bin|쓰레기통|빈|🗑️
-        2-3 (-ig, -in, -ip)|win|이기다|윈|🏆
-        2-3 (-ig, -in, -ip)|pin|핀|핀|📌
-        2-3 (-ig, -in, -ip)|lip|입술|립|👄
-        2-3 (-ig, -in, -ip)|hip|엉덩이|힙|👖
-        2-3 (-ig, -in, -ip)|rip|찢다|립|📄
-        2-4 (-it, -ix, -id)|kit|도구|키트|🧰
-        2-4 (-it, -ix, -id)|sit|앉다|싯|🪑
-        2-4 (-it, -ix, -id)|hit|치다|힛|⚾
-        2-4 (-it, -ix, -id)|mix|섞다|믹스|🥣
-        2-4 (-it, -ix, -id)|fix|고치다|픽스|🔧
-        2-4 (-it, -ix, -id)|six|여섯|식스|6️⃣
-        2-4 (-it, -ix, -id)|lid|뚜껑|리드|🥘
-        2-4 (-it, -ix, -id)|kid|아이|키드|🧒
-        2-5 (-ug, -un, -ut)|bug|벌레|버그|🐛
-        2-5 (-ug, -un, -ut)|hug|포옹|허그|🫂
-        2-5 (-ug, -un, -ut)|rug|양탄자|러그|🛏️
-        2-5 (-ug, -un, -ut)|sun|태양|썬|☀️
-        2-5 (-ug, -un, -ut)|bun|둥근빵|번|🍞
-        2-5 (-ug, -un, -ut)|run|달리다|런|🏃
-        2-5 (-ug, -un, -ut)|nut|견과류|너트|🥜
-        2-5 (-ug, -un, -ut)|hut|오두막|허트|🛖
-        2-5 (-ug, -un, -ut)|cut|자르다|컷|✂️
-        2-6 (-ub, -ud, -um, -up)|tub|욕조|터브|🛁
-        2-6 (-ub, -ud, -um, -up)|cub|새끼동물|커브|🐻
-        2-6 (-ub, -ud, -um, -up)|mud|진흙|머드|🟤
-        2-6 (-ub, -ud, -um, -up)|bud|새싹|버드|🌱
-        2-6 (-ub, -ud, -um, -up)|gum|껌|껌|🍬
-        2-6 (-ub, -ud, -um, -up)|hum|콧노래|험|🎶
-        2-6 (-ub, -ud, -um, -up)|cup|컵|컵|☕
-        2-6 (-ub, -ud, -um, -up)|pup|강아지|펍|🐶
-        2-7 (-ed, -en, -et)|red|빨간색|레드|🔴
-        2-7 (-ed, -en, -et)|bed|침대|베드|🛏️
-        2-7 (-ed, -en, -et)|Ted|테드|테드|👦
-        2-7 (-ed, -en, -et)|hen|암탉|헨|🐔
-        2-7 (-ed, -en, -et)|ten|열|텐|🔟
-        2-7 (-ed, -en, -et)|pen|펜|펜|🖊️
-        2-7 (-ed, -en, -et)|jet|제트기|제트|✈️
-        2-7 (-ed, -en, -et)|wet|젖은|웨트|💧
-        2-7 (-ed, -en, -et)|pet|애완동물|펫|🐕
-        2-8 (-og, -ot, -ox)|dog|개|독|🐶
-        2-8 (-og, -ot, -ox)|log|통나무|로그|🪵
-        2-8 (-og, -ot, -ox)|jog|조깅하다|조그|🏃
-        2-8 (-og, -ot, -ox)|pot|냄비|팟|🍲
-        2-8 (-og, -ot, -ox)|hot|뜨거운|핫|🔥
-        2-8 (-og, -ot, -ox)|dot|점|닷|🔴
-        2-8 (-og, -ot, -ox)|fox|여우|팍스|🦊
-        2-8 (-og, -ot, -ox)|box|상자|박스|📦
-        2-8 (-og, -ot, -ox)|ox|황소|악스|🐂
-        3-1 (-ake, -ase, -ate)|bake|굽다|베이크|🥖
-        3-1 (-ake, -ase, -ate)|cake|케이크|케이크|🍰
-        3-1 (-ake, -ase, -ate)|lake|호수|레이크|🏞️
-        3-1 (-ake, -ase, -ate)|case|상자|케이스|🧳
-        3-1 (-ake, -ase, -ate)|base|기초|베이스|기지
-        3-1 (-ake, -ase, -ate)|vase|꽃병|베이스|🏺
-        3-1 (-ake, -ase, -ate)|date|날짜|데이트|📅
-        3-1 (-ake, -ase, -ate)|gate|문|게이트|⛩️
-        3-1 (-ake, -ase, -ate)|late|늦은|레이트|⏰
-        3-2 (-ame, -ave, -ape)|game|게임|게임|🎮
-        3-2 (-ame, -ave, -ape)|name|이름|네임|📛
-        3-2 (-ame, -ave, -ape)|same|같은|세임|👯
-        3-2 (-ame, -ave, -ape)|wave|파도|웨이브|🌊
-        3-2 (-ame, -ave, -ape)|cave|동굴|케이브|🦇
-        3-2 (-ame, -ave, -ape)|save|구하다|세이브|💾
-        3-2 (-ame, -ave, -ape)|tape|테이프|테이프|📼
-        3-2 (-ame, -ave, -ape)|cape|망토|케이프|🦸
-        3-3 (-ice, -ike, -ine)|dice|주사위|다이스|🎲
-        3-3 (-ice, -ike, -ine)|mice|생쥐들|마이스|🐭
-        3-3 (-ice, -ike, -ine)|rice|쌀|라이스|🍚
-        3-3 (-ice, -ike, -ine)|bike|자전거|바이크|🚲
-        3-3 (-ice, -ike, -ine)|hike|등산|하이크|🥾
-        3-3 (-ice, -ike, -ine)|mike|마이크|마이크|🎤
-        3-3 (-ice, -ike, -ine)|line|선|라인|➖
-        3-3 (-ice, -ike, -ine)|nine|아홉|나인|9️⃣
-        3-3 (-ice, -ike, -ine)|pine|소나무|파인|🌲
-        3-4 (-ide, -ive, -ite)|hide|숨다|하이드|🙈
-        3-4 (-ide, -ive, -ite)|ride|타다|라이드|🎢
-        3-4 (-ide, -ive, -ite)|wide|넓은|와이드|↔️
-        3-4 (-ide, -ive, -ite)|dive|다이빙|다이브|🤿
-        3-4 (-ide, -ive, -ite)|five|다섯|파이브|5️⃣
-        3-4 (-ide, -ive, -ite)|hive|벌집|하이브|🐝
-        3-4 (-ide, -ive, -ite)|bite|물다|바이트|🦷
-        3-4 (-ide, -ive, -ite)|kite|연|카이트|🪁
-        3-5 (-ole, -ome, -one)|hole|구멍|홀|🕳️
-        3-5 (-ole, -ome, -one)|pole|막대기|폴|💈
-        3-5 (-ole, -ome, -one)|mole|두더지|몰|🐾
-        3-5 (-ole, -ome, -one)|dome|돔|돔|🏟️
-        3-5 (-ole, -ome, -one)|home|집|홈|🏠
-        3-5 (-ole, -ome, -one)|bone|뼈|본|🦴
-        3-5 (-ole, -ome, -one)|cone|원뿔|콘|🍦
-        3-6 (-ose, -ope, -ote)|rose|장미|로즈|🌹
-        3-6 (-ose, -ope, -ote)|nose|코|노즈|👃
-        3-6 (-ose, -ope, -ote)|hose|호스|호즈|🧯
-        3-6 (-ose, -ope, -ote)|hope|희망|호프|🙏
-        3-6 (-ose, -ope, -ote)|rope|밧줄|로프|🪢
-        3-6 (-ose, -ope, -ote)|note|공책|노트|📓
-        3-6 (-ose, -ope, -ote)|vote|투표|보트|🗳️
-        3-7 (-ube, -une, -ute)|cube|정육면체|큐브|🧊
-        3-7 (-ube, -une, -ute)|tube|관|튜브|🧪
-        3-7 (-ube, -une, -ute)|June|6월|준|📅
-        3-7 (-ube, -une, -ute)|tune|곡조|튠|🎵
-        3-7 (-ube, -une, -ute)|cute|귀여운|큐트|🥰
-        3-7 (-ube, -une, -ute)|mute|무음|뮤트|🔇
-        3-8 (a_e, i_e, o_e, u_e)|cane|지팡이|케인|🦯
-        3-8 (a_e, i_e, o_e, u_e)|tape|테이프|테이프|📼
-        3-8 (a_e, i_e, o_e, u_e)|kite|연|카이트|🪁
-        3-8 (a_e, i_e, o_e, u_e)|pine|소나무|파인|🌲
-        3-8 (a_e, i_e, o_e, u_e)|hope|희망|호프|🙏
-        3-8 (a_e, i_e, o_e, u_e)|pope|교황|포프|⛪
-        3-8 (a_e, i_e, o_e, u_e)|tube|관|튜브|🧪
-        3-8 (a_e, i_e, o_e, u_e)|cube|정육면체|큐브|🧊
-        4-1 (bl, fl, gl, sl)|black|검은색|블랙|⬛
-        4-1 (bl, fl, gl, sl)|blade|칼날|블레이드|🗡️
-        4-1 (bl, fl, gl, sl)|blue|파란색|블루|🟦
-        4-1 (bl, fl, gl, sl)|flag|깃발|플래그|🚩
-        4-1 (bl, fl, gl, sl)|flame|불꽃|플레임|🔥
-        4-1 (bl, fl, gl, sl)|flute|플루트|플루트|🎶
-        4-1 (bl, fl, gl, sl)|globe|지구본|글로브|🌍
-        4-1 (bl, fl, gl, sl)|glass|유리|글래스|🥃
-        4-1 (bl, fl, gl, sl)|glue|풀|글루|🧴
-        4-1 (bl, fl, gl, sl)|slide|미끄럼틀|슬라이드|🛝
-        4-1 (bl, fl, gl, sl)|sled|썰매|슬레드|🛷
-        4-1 (bl, fl, gl, sl)|sleep|자다|슬립|😴
-        4-2 (br, cr, dr, gr)|brick|벽돌|브릭|🧱
-        4-2 (br, cr, dr, gr)|bride|신부|브라이드|👰
-        4-2 (br, cr, dr, gr)|brave|용감한|브레이브|🦸
-        4-2 (br, cr, dr, gr)|crab|게|크랩|🦀
-        4-2 (br, cr, dr, gr)|cross|십자가|크로스|✝️
-        4-2 (br, cr, dr, gr)|crow|까마귀|크로우|🐦‍⬛
-        4-2 (br, cr, dr, gr)|dress|드레스|드레스|👗
-        4-2 (br, cr, dr, gr)|drum|북|드럼|🥁
-        4-2 (br, cr, dr, gr)|dragon|용|드래곤|🐉
-        4-2 (br, cr, dr, gr)|grape|포도|그레이프|🍇
-        4-2 (br, cr, dr, gr)|grass|풀|그래스|🌿
-        4-2 (br, cr, dr, gr)|green|초록색|그린|🟩
-        4-3 (ch, sh)|chin|턱|친|🧔
-        4-3 (ch, sh)|chip|조각|칩|🍟
-        4-3 (ch, sh)|chop|자르다|찹|🔪
-        4-3 (ch, sh)|lunch|점심|런치|🍱
-        4-3 (ch, sh)|ostrich|타조|오스트리치|🦤
-        4-3 (ch, sh)|watch|시계|왓치|⌚
-        4-3 (ch, sh)|ship|배|쉽|🚢
-        4-3 (ch, sh)|shape|모양|쉐이프|🔺
-        4-3 (ch, sh)|shark|상어|샤크|🦈
-        4-3 (ch, sh)|brush|붓|브러쉬|🖌️
-        4-3 (ch, sh)|fish|물고기|피쉬|🐟
-        4-3 (ch, sh)|wash|씻다|워시|🧼
-        4-4 (th, wh)|thick|두꺼운|씩|📚
-        4-4 (th, wh)|thin|얇은|씬|📄
-        4-4 (th, wh)|three|셋|쓰리|3️⃣
-        4-4 (th, wh)|bath|목욕|배쓰|🛀
-        4-4 (th, wh)|teeth|치아|티쓰|🦷
-        4-4 (th, wh)|mouth|입|마우쓰|👄
-        4-4 (th, wh)|white|하얀색|화이트|⬜
-        4-4 (th, wh)|whale|고래|웨일|🐋
-        4-4 (th, wh)|wheel|바퀴|휠|🛞
-        4-4 (th, wh)|whip|채찍|휩|🪢
-        4-4 (th, wh)|whisk|거품기|위스크|🥣
-        4-4 (th, wh)|whisper|속삭이다|위스퍼|🗣️
-        4-5 (c, g)|candy|사탕|캔디|🍬
-        4-5 (c, g)|cut|자르다|컷|✂️
-        4-5 (c, g)|cold|추운|콜드|🥶
-        4-5 (c, g)|city|도시|시티|🏙️
-        4-5 (c, g)|face|얼굴|페이스|😀
-        4-5 (c, g)|bicycle|자전거|바이시클|🚲
-        4-5 (c, g)|gum|껌|껌|🍬
-        4-5 (c, g)|gorilla|고릴라|고릴라|🦍
-        4-5 (c, g)|alligator|악어|엘리게이터|🐊
-        4-5 (c, g)|giraffe|기린|지라프|🦒
-        4-5 (c, g)|gym|체육관|짐|🏋️
-        4-5 (c, g)|cage|새장|케이지|🪿
-        4-6 (-ai-, -ay-)|mail|우편|메일|✉️
-        4-6 (-ai-, -ay-)|snail|달팽이|스네일|🐌
-        4-6 (-ai-, -ay-)|rain|비|레인|🌧️
-        4-6 (-ai-, -ay-)|tail|꼬리|테일|🐕
-        4-6 (-ai-, -ay-)|train|기차|트레인|🚂
-        4-6 (-ai-, -ay-)|wait|기다리다|웨이트|⏳
-        4-6 (-ai-, -ay-)|hay|건초|헤이|🌾
-        4-6 (-ai-, -ay-)|crayon|크레용|크레용|🖍️
-        4-6 (-ai-, -ay-)|gray|회색|그레이|🩶
-        4-6 (-ai-, -ay-)|clay|점토|클레이|🏺
-        4-6 (-ai-, -ay-)|spray|스프레이|스프레이|💦
-        4-6 (-ai-, -ay-)|play|놀다|플레이|🛝
-        4-7 (-ea-, -ee-)|eat|먹다|잇|🍽️
-        4-7 (-ea-, -ee-)|beach|해변|비치|🏖️
-        4-7 (-ea-, -ee-)|sea|바다|씨|🌊
-        4-7 (-ea-, -ee-)|meat|고기|미트|🥩
-        4-7 (-ea-, -ee-)|leaf|나뭇잎|리프|🍃
-        4-7 (-ea-, -ee-)|clean|깨끗한|클린|✨
-        4-7 (-ea-, -ee-)|bee|벌|비|🐝
-        4-7 (-ea-, -ee-)|sheep|양|쉽|🐑
-        4-7 (-ea-, -ee-)|seed|씨앗|씨드|🌱
-        4-7 (-ea-, -ee-)|tree|나무|트리|🌳
-        4-7 (-ea-, -ee-)|feet|발|피트|👣
-        4-7 (-ea-, -ee-)|green|초록색|그린|🟩
-        4-8 (-oa-, -ow-)|boat|보트|보트|⛵
-        4-8 (-oa-, -ow-)|toast|토스트|토스트|🍞
-        4-8 (-oa-, -ow-)|soap|비누|소프|🧼
-        4-8 (-oa-, -ow-)|coat|코트|코트|🧥
-        4-8 (-oa-, -ow-)|goat|염소|고트|🐐
-        4-8 (-oa-, -ow-)|road|길|로드|🛣️
-        4-8 (-oa-, -ow-)|bowl|그릇|보울|🥣
-        4-8 (-oa-, -ow-)|crow|까마귀|크로우|🐦‍⬛
-        4-8 (-oa-, -ow-)|snow|눈|스노우|❄️
-        4-8 (-oa-, -ow-)|blow|불다|블로우|🌬️
-        4-8 (-oa-, -ow-)|window|창문|윈도우|🪟
-        4-8 (-oa-, -ow-)|yellow|노란색|옐로우|🟨
-        4-9 (-ou-, -ow-)|house|집|하우스|🏠
-        4-9 (-ou-, -ow-)|couch|소파|카우치|🛋️
-        4-9 (-ou-, -ow-)|cloud|구름|클라우드|☁️
-        4-9 (-ou-, -ow-)|mouse|생쥐|마우스|🐭
-        4-9 (-ou-, -ow-)|blouse|블라우스|블라우스|👚
-        4-9 (-ou-, -ow-)|count|세다|카운트|🔢
-        4-9 (-ou-, -ow-)|owl|올빼미|아울|🦉
-        4-9 (-ou-, -ow-)|brown|갈색|브라운|🟫
-        4-9 (-ou-, -ow-)|cow|소|카우|🐄
-        4-9 (-ou-, -ow-)|clown|광대|크라운|🤡
-        4-9 (-ou-, -ow-)|crown|왕관|크라운|👑
-        4-9 (-ou-, -ow-)|down|아래로|다운|⬇️
-        4-10 (-oo-)|moon|달|문|🌕
-        4-10 (-oo-)|spoon|숟가락|스푼|🥄
-        4-10 (-oo-)|food|음식|푸드|🍱
-        4-10 (-oo-)|zoo|동물원|주|🦁
-        4-10 (-oo-)|moose|무스|무스|🦌
-        4-10 (-oo-)|school|학교|스쿨|🏫
-        4-10 (-oo-)|book|책|북|📖
-        4-10 (-oo-)|foot|발|풋|🦶
-        4-10 (-oo-)|cook|요리하다|쿡|🧑‍🍳
-        4-10 (-oo-)|wood|나무|우드|🪵
-        4-10 (-oo-)|hook|갈고리|훅|🪝
-        4-10 (-oo-)|cookie|쿠키|쿠키|🍪
-        `;
-
-        let curriculum = [];
-        let allOptions = []; 
-        const unitSelect = document.getElementById('unit-select');
-        
-        function parseData() {
-            const lines = rawData.trim().split('\n');
-            const groupsMap = {};
-            
-            lines.forEach(line => {
-                const parts = line.trim().split('|');
-                if(parts.length === 5) {
-                    const [stage, en, ko, sound, emoji] = parts;
-                    if(!groupsMap[stage]) {
-                        groupsMap[stage] = { groupName: `${stage}`, words: [], tests: [] };
-                    }
-                    groupsMap[stage].words.push({ en, ko, sound, emoji });
-                    if(!allOptions.includes(sound)) allOptions.push(sound);
-                }
-            });
-
-            curriculum = Object.values(groupsMap);
-            curriculum.forEach((group, index) => {
-                // 테스트 문제 생성
-                const testWords = [...group.words].sort(() => 0.5 - Math.random()).slice(0, 2);
-                testWords.forEach(word => {
-                    let options = new Set();
-                    options.add(word.sound); 
-                    while(options.size < 4) { 
-                        let randomOpt = allOptions[Math.floor(Math.random() * allOptions.length)];
-                        options.add(randomOpt);
-                    }
-                    let optionsArr = Array.from(options).sort(() => 0.5 - Math.random());
-                    group.tests.push({ word: word.en, options: optionsArr, answerIndex: optionsArr.indexOf(word.sound) });
-                });
-
-                // 💡 드롭다운 메뉴(Unit)에 옵션 추가
-                let option = document.createElement('option');
-                option.value = index;
-                option.textContent = `Unit ${index + 1} : ${group.groupName}`;
-                unitSelect.appendChild(option);
-            });
-        }
-        parseData();
-
-        const avatars = [
-            { threshold: 0, icon: "👦🗡️", name: "초보 검사 (Lv.1)", size: "3rem" },
-            { threshold: 25, icon: "👱‍♂️⚔️", name: "숙련된 전사 (Lv.2)", size: "3.5rem" },
-            { threshold: 65, icon: "👨‍🎤🛡️", name: "수리나무 기사 (Lv.3)", size: "4rem" },
-            { threshold: 130, icon: "🦸‍♂️👑", name: "전설의 대용사 (Lv.Max)", size: "4.5rem" }
-        ];
-
-        const bossList = ["🌱 꼬마 슬라임", "👺 숲의 고블린", "🐺 사나운 늑대", "👹 붉은 오크", "👻 어둠의 유령", "🧌 늪지대 트롤", "🪨 강철 골렘", "🐉 파멸의 드래곤"];
-
-        let currentGroupIndex = 0;
-        let currentWordIndex = 0;
-        let currentTestIndex = 0;
-        let flipCount = 0;
-        let isFlipped = false;
-        let totalExp = 0;
-        let isCardLocked = false; 
-
-        const card = document.getElementById('card');
-        const cardContainer = document.getElementById('card-container');
-        const testContainer = document.getElementById('test-container');
-        const leaves = document.querySelectorAll('.leaf');
-        const logList = document.getElementById('log-list');
-        const instruction = document.getElementById('instruction');
-        const repeatPrompt = document.getElementById('repeat-prompt');
-        const stampBtn = document.getElementById('stamp-btn');
-        const stampOverlay = document.getElementById('stamp-overlay');
-        const synth = window.speechSynthesis;
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(`${tabId}-tab`).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        function updateAvatar() {
-            let currentAvatar = avatars[0];
-            for (let i = avatars.length - 1; i >= 0; i--) {
-                if (totalExp >= avatars[i].threshold) {
-                    currentAvatar = avatars[i];
-                    break;
-                }
-            }
-            const iconEl = document.getElementById('avatar-icon');
-            iconEl.textContent = currentAvatar.icon;
-            iconEl.style.fontSize = currentAvatar.size; 
-            document.getElementById('avatar-name').textContent = currentAvatar.name;
-            document.getElementById('exp-text').textContent = totalExp;
-            
-            const maxExp = avatars[avatars.length-1].threshold;
-            const progress = Math.min((totalExp / maxExp) * 100, 100);
-            document.getElementById('avatar-progress').style.width = `${progress}%`;
-        }
-
-        // 💡 상세한 로그 기록 함수로 업데이트
-        function addLog(message, type) {
-            const date = new Date();
-            const timeString = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
-            if (logList.innerHTML.includes("모험을 떠나지 않았어요")) logList.innerHTML = "";
-            
-            const tagClass = type === 'test' ? 'tag-test' : (type === 'stamp' ? 'tag-stamp' : 'tag-word');
-            const tagText = type === 'test' ? '보스전' : (type === 'stamp' ? '선생님' : '사냥');
-            const unitName = curriculum[currentGroupIndex].groupName; // 현재 Unit 이름 가져오기
-            
-            // 일반 학습 로그일 경우 Unit 이름을 포함시킴
-            const finalMessage = type === 'stamp' ? message : `[${unitName}] ${message}`;
-
-            const logItem = document.createElement('div');
-            logItem.className = 'log-item';
-            logItem.innerHTML = `
-                <div style="display:flex; align-items:center;">
-                    <span class="log-tag ${tagClass}">${tagText}</span>
-                    <span class="log-text">${finalMessage}</span>
-                </div>
-                <div class="log-date">${timeString}</div>
-            `;
-            logList.prepend(logItem);
-            
-            // 도장을 찍으면 도장 버튼을 다시 비활성화 하거나 유지 (여기서는 하루 1번이라고 가정)
-            if(type !== 'stamp') stampBtn.disabled = false;
-        }
-
-        function updateCard() {
-            const group = curriculum[currentGroupIndex];
-            const data = group.words[currentWordIndex];
-            
-            // 💡 드롭다운 값도 현재 스테이지에 맞게 업데이트
-            unitSelect.value = currentGroupIndex;
-
-            document.getElementById('en-word').textContent = data.en;
-            document.getElementById('emoji').textContent = data.emoji;
-            document.getElementById('ko-meaning').textContent = data.ko;
-            document.getElementById('ko-sound').textContent = `[${data.sound}]`;
-            
-            instruction.textContent = "카드를 뒤집고 큰 소리로 마법 주문을 외우세요!";
-            
-            flipCount = 0;
-            isFlipped = false;
-            isCardLocked = false;
-            card.classList.remove('is-flipped');
-            repeatPrompt.style.display = 'none';
-            leaves.forEach(leaf => leaf.classList.remove('filled'));
-        }
-
-        // 💡 사용자가 드롭다운에서 Unit을 직접 선택했을 때의 이벤트
-        unitSelect.addEventListener('change', (e) => {
-            currentGroupIndex = parseInt(e.target.value);
-            currentWordIndex = 0;
-            currentTestIndex = 0;
-            
-            // 혹시 보스전 화면에 있었다면 다시 카드 화면으로 전환
-            testContainer.style.display = 'none';
-            cardContainer.style.display = 'flex';
-            
-            addLog("새로운 훈련장으로 이동했습니다.", 'word');
-            updateCard();
-        });
-
-        card.addEventListener('click', () => {
-            if (isCardLocked) return; 
-
-            isFlipped = !isFlipped;
-            card.classList.toggle('is-flipped');
-
-            if (isFlipped) {
-                const currentWord = curriculum[currentGroupIndex].words[currentWordIndex].en;
-                const utter = new SpeechSynthesisUtterance(currentWord);
-                utter.lang = 'en-US';
-                utter.rate = 0.8;
-                synth.speak(utter);
-
-                isCardLocked = true; 
-                repeatPrompt.style.display = 'block';
-                repeatPrompt.textContent = "🗣️ 크게 소리쳐 공격하세요!";
-                repeatPrompt.classList.add('pulse-anim');
-
-                setTimeout(() => {
-                    repeatPrompt.classList.remove('pulse-anim');
-                    repeatPrompt.textContent = "⚔️ 공격 적중!";
-                    
-                    if (flipCount < 5) {
-                        leaves[flipCount].classList.add('filled');
-                        flipCount++;
-                    }
-
-                    if (flipCount === 5) {
-                        instruction.textContent = "몬스터 처치! 다음 구역으로 전진합니다... 🏃‍♂️💨";
-                        setTimeout(() => { goToNextWord(); }, 1500);
-                    } else {
-                        isCardLocked = false; 
-                    }
-                }, 2500);
-            } else {
-                repeatPrompt.style.display = 'none';
-            }
-        });
-
-        function goToNextWord() {
-            const currentWord = curriculum[currentGroupIndex].words[currentWordIndex].en;
-            addLog(`'${currentWord}' 처치 성공!`, 'word');
-            totalExp += 1;
-            updateAvatar();
-            currentWordIndex++;
-            
-            if (currentWordIndex >= curriculum[currentGroupIndex].words.length) {
-                currentTestIndex = 0;
-                showTest();
-            } else {
-                updateCard();
-            }
-        }
-
-        function showTest() {
-            cardContainer.style.display = 'none';
-            testContainer.style.display = 'block';
-            
-            const tests = curriculum[currentGroupIndex].tests;
-            const currentTest = tests[currentTestIndex];
-            
-            const bossLevel = Math.min(Math.floor(currentGroupIndex / 4), bossList.length - 1);
-            const currentBoss = bossList[bossLevel];
-            const bossEmoji = currentBoss.split(' ')[0];
-            const bossName = currentBoss.substring(currentBoss.indexOf(' ') + 1);
-            
-            testContainer.innerHTML = `
-                <div class="test-box">
-                    <div class="boss-icon" id="boss-anim">${bossEmoji}</div>
-                    <div class="test-title">보스 등장! [ ${bossName} ] 의 약점은?</div>
-                    <div class="test-word-display" id="test-question-word">${currentTest.word}</div>
-                    <div id="test-options"></div>
-                </div>
-            `;
-
-            const optionsContainer = document.getElementById('test-options');
-            
-            currentTest.options.forEach((opt, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.textContent = `${index + 1}. ${opt}`;
-                
-                btn.onclick = () => {
-                    if (index === currentTest.answerIndex) {
-                        btn.classList.add('correct');
-                        btn.textContent += ' ⚡ 회심의 일격!';
-                        document.getElementById('boss-anim').classList.add('boss-hit');
-                        
-                        setTimeout(() => {
-                            totalExp += 5;
-                            updateAvatar();
-                            currentTestIndex++;
-                            
-                            if (currentTestIndex < tests.length) {
-                                showTest();
-                            } else {
-                                addLog(`[${bossName}] 토벌 성공!`, 'test');
-                                currentGroupIndex++;
-                                currentWordIndex = 0;
-                                
-                                if (currentGroupIndex < curriculum.length) {
-                                    testContainer.innerHTML = `
-                                        <div style="padding: 30px; border: 3px solid var(--primary); border-radius: 20px; background: #E8F5E9;">
-                                            <div style="font-size: 4rem;">🏆</div>
-                                            <h2 style="color:var(--primary-dark);">스테이지 클리어!</h2>
-                                            <p style="font-size: 1.2rem; color: var(--wood);">잠시 후 다음 단계로 자동 이동합니다...</p>
-                                        </div>
-                                    `;
-                                    setTimeout(() => {
-                                        testContainer.style.display = 'none';
-                                        cardContainer.style.display = 'flex';
-                                        updateCard();
-                                    }, 2000);
-                                } else {
-                                    testContainer.innerHTML = `
-                                        <div style="padding: 20px;">
-                                            <div style="font-size: 5rem;">👑</div>
-                                            <h2 style="color:var(--primary-dark); font-size: 1.8rem;">마왕 토벌 완료!</h2>
-                                            <p style="font-size: 1.2rem; color: var(--wood);">진정한 파닉스 대용사로 거듭났습니다!</p>
-                                        </div>
-                                    `;
-                                }
-                            }
-                        }, 1200);
-                    } else {
-                        btn.classList.add('wrong');
-                        btn.textContent += ' 💥 보스의 반격! 앗, 다시 공격하세요!';
-                        setTimeout(() => { btn.classList.remove('wrong'); btn.textContent = `${index + 1}. ${opt}`; }, 1000);
-                    }
-                };
-                optionsContainer.appendChild(btn);
-            });
-        }
-
-        // 💡 선생님 도장 찍기 이벤트
-        stampBtn.addEventListener('click', () => {
-            // 도장 애니메이션 실행
-            stampOverlay.classList.add('show');
-            
-            // 기록 남기기
-            addLog("오늘의 학습을 마쳤습니다! 참 잘했어요! 💯", 'stamp');
-            
-            // 버튼 상태 변경
-            stampBtn.textContent = "✅ 검사 완료! (내일 또 만나요)";
-            stampBtn.disabled = true;
-
-            // 애니메이션이 끝나면 클래스 제거 (나중에 다시 누를 수 있게 할 경우 대비)
-            setTimeout(() => {
-                stampOverlay.classList.remove('show');
-            }, 1000);
-        });
-
-        // 초기 실행
-        updateCard();
-        updateAvatar();
-    </script>
+function buildQuizItems(i,m,itemIds=null){
+  const u=UNITS[i], st=unitState(u.id);
+  let ids=[];
+  if(Array.isArray(itemIds) && itemIds.length){
+    ids=itemIds;
+  }else if(m==='wrong'){
+    ids=[...(st.wrongIds||[])].sort((a,b)=>itemIndexFromId(a)-itemIndexFromId(b));
+  }else{
+    ids=u.items.map((_,idx)=>itemId(i,idx));
+  }
+  const items=ids.map(id=>({item:u.items[itemIndexFromId(id)],id})).filter(x=>x.item);
+  if(!items.length && m==='full') return u.items.map((item,idx)=>({item,id:itemId(i,idx)}));
+  return items;
+}
+function progressText(p){
+  if(!p||!p.active)return '';
+  const done=Math.min(p.qIndex||0,p.total||0), total=p.total||0, correct=p.correct||0;
+  const score=done?Math.round(correct/done*100):0;
+  return `${p.mode==='wrong'?'오답':'전체'} 진행 중 · ${done}/${total}문장 · 현재 ${correct}/${done||0} (${score}점)`;
+}
+function saveProgress(nextIndex=qIndex, correct=roundCorrect, extra={}){
+  const u=UNITS[currentUnit]; if(!u||!quizItems.length)return;
+  const st=unitState(u.id), old=st.progress||{};
+  const progress={
+    active:true,
+    mode,
+    qIndex:Math.max(0,Math.min(nextIndex,quizItems.length)),
+    correct:Math.max(0,correct),
+    total:quizItems.length,
+    itemIds:quizItems.map(x=>x.id),
+    questionHadWrong:!!questionHadWrong,
+    startedAt:old.startedAt||nowStr(),
+    updatedAt:nowStr(),
+    ...extra
+  };
+  saveUnitState(u.id,{progress});
+}
+function clearProgress(i=currentUnit){
+  const u=UNITS[i]; if(!u)return;
+  saveUnitState(u.id,{progress:null});
+}
+function continueProgress(i){
+  const u=UNITS[i], st=unitState(u.id), p=st.progress;
+  if(!p||!p.active){startRound(i,'full');return;}
+  currentTab='unit'; currentUnit=i; mode=p.mode||'full';
+  quizItems=buildQuizItems(i,mode,p.itemIds);
+  qIndex=Math.max(0,Math.min(p.qIndex||0,quizItems.length));
+  roundCorrect=p.correct||0; locked=false; lastWrongKey=''; pendingQuestionHadWrong=!!p.questionHadWrong;
+  renderShell();
+  const box=$(`#quiz-${i}`); if(box)box.classList.remove('hidden');
+  if(qIndex>=quizItems.length) finishRound(); else loadQuestion();
+}
+function initAudio(){try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();}catch(e){}}
+function tone(f,d=0.12,type='sine',vol=.08){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(vol,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.01,audioCtx.currentTime+d);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+d)}
+function sfxOK(){initAudio();tone(620,.09);setTimeout(()=>tone(880,.14),90)}
+function sfxNG(){initAudio();tone(220,.16,'sawtooth',.06)}
+function renderShell(){renderTabs();const sections=$('#sections');sections.innerHTML='';UNITS.forEach((u,i)=>{const sec=document.createElement('section');sec.id='section-unit-'+i;sec.className='section '+(currentTab==='unit'&&currentUnit===i?'active':'');sections.appendChild(sec);renderUnitHome(i)});const rec=document.createElement('section');rec.id='section-record';rec.className='section '+(currentTab==='record'?'active':'');sections.appendChild(rec);renderGlobalRecord();const wrong=document.createElement('section');wrong.id='section-wrong';wrong.className='section '+(currentTab==='wrong'?'active':'');sections.appendChild(wrong);renderGlobalWrong();}
+function renderTabs(){const tabs=$('#tabs');tabs.innerHTML='';UNITS.forEach((u,i)=>{const st=unitState(u.id);const b=document.createElement('button');b.className='tab '+(currentTab==='unit'&&currentUnit===i?'active ':'')+(st.passed?'pass ':'');b.textContent=u.tab;b.onclick=()=>showUnit(i);tabs.appendChild(b)});const rb=document.createElement('button');rb.className='tab '+(currentTab==='record'?'active':'');rb.textContent='기록';rb.onclick=showRecord;tabs.appendChild(rb);const wb=document.createElement('button');wb.className='tab warn '+(currentTab==='wrong'?'active':'');wb.textContent='오답 '+allWrongEntries().length;wb.onclick=showWrong;tabs.appendChild(wb)}
+function showUnit(i){currentTab='unit';currentUnit=i;mode='full';qIndex=0;renderShell();}
+function showRecord(){currentTab='record';renderShell();}
+function showWrong(){currentTab='wrong';renderShell();}
+function renderUnitHome(i){
+  const u=UNITS[i],st=unitState(u.id),sec=$('#section-unit-'+i);const wrongCount=(st.wrongIds||[]).length;const p=st.progress;const inProgress=p&&p.active;
+  const progressCard=inProgress?`<div class="card soft progress-save"><div class="record"><div><b>저장된 풀이</b><br><small>${progressText(p)}<br>마지막 저장: ${p.updatedAt||'-'}</small></div><strong>${Math.min(p.qIndex||0,p.total||0)}/${p.total||0}</strong></div><button class="btn orange" onclick="continueProgress(${i})">이어 풀기</button></div>`:'';
+  sec.innerHTML=`<div class="card soft"><h2 class="unit-title">${u.title}</h2><div class="desc">${u.desc}</div><div class="top-tools"><span class="badge ${st.passed?'green':'gold'}">${st.passed?'통과 완료':'100점 통과 필요'}</span><span class="badge">이 Unit ${u.items.length}문장</span><span class="badge red">오답 ${wrongCount}개</span></div><div class="progress"><div class="bar" style="width:${st.passed?100:Math.min(st.bestScore||0,100)}%"></div></div></div>${progressCard}<div class="card"><div class="btn-row"><button class="btn" onclick="startRound(${i},'full')">전체 문제 처음부터 풀기</button><button class="btn orange" onclick="startRound(${i},'wrong')" ${wrongCount?'':'disabled'}>오답 다시 풀기 (${wrongCount})</button></div><div class="meta-line"><span class="badge">최고 ${st.bestScore||0}점</span><span class="badge">시도 ${st.attempts||0}회</span><span class="badge">최근 ${st.lastScore==null?'-':st.lastScore+'점'}</span></div></div><div id="quiz-${i}" class="hidden"></div>`
+}
+function startRound(i,m){
+  currentTab='unit';currentUnit=i;mode=m;qIndex=0;roundCorrect=0;locked=false;questionHadWrong=false;pendingQuestionHadWrong=false;lastWrongKey='';
+  quizItems=buildQuizItems(i,m);
+  if(m==='wrong'&&!quizItems.length){alert('남은 오답이 없습니다.');return}
+  saveProgress(0,0,{questionHadWrong:false,startedAt:nowStr(),updatedAt:nowStr()});
+  renderShell();$(`#quiz-${i}`).classList.remove('hidden');loadQuestion()
+}
+function loadQuestion(){
+  locked=false;questionHadWrong=!!pendingQuestionHadWrong;pendingQuestionHadWrong=false;lastWrongKey='';
+  const i=currentUnit,q=quizItems[qIndex],box=$(`#quiz-${i}`),total=quizItems.length,answerTokens=tokens(q.item.en),shuffled=shuffle(answerTokens.map((t,idx)=>({t,idx})));
+  saveProgress(qIndex,roundCorrect,{questionHadWrong});
+  box.innerHTML=`<div class="card quiz-head"><div class="status"><span class="badge">${mode==='wrong'?'오답':'전체'} ${qIndex+1} / ${total}</span><span class="badge">${q.item.sec}</span><span class="badge green">정답 ${roundCorrect}</span></div><div class="qno">한글 해석</div><div class="ko">${q.item.ko}</div><div class="hint">단어를 위 답안 영역으로 옮기고 순서를 맞추세요. 모든 단어가 올라가면 자동으로 확인됩니다. 맞으면 OK가 뜨고 다음 문제 버튼이 나타납니다. 중간에 나가도 기록 탭에서 이어 풀 수 있습니다.</div></div><div id="answer" class="answer" aria-label="답안 영역"></div><div id="bank" class="bank" aria-label="단어 영역"></div><div id="feedback" class="feedback"></div>`;
+  const bank=$('#bank');shuffled.forEach(obj=>{const chip=document.createElement('button');chip.type='button';chip.className='chip';chip.textContent=obj.t;chip.dataset.idx=obj.idx;chip.onclick=()=>moveChip(chip);bank.appendChild(chip)});setupSortable();setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'start'}),50)
+}
+function setupSortable(){if(!window.Sortable)return;if(window._grammarSortAnswer){try{window._grammarSortAnswer.destroy();window._grammarSortBank.destroy()}catch(e){}}const opts={group:'grammarWords',animation:160,ghostClass:'sortable-ghost',dragClass:'sortable-drag',fallbackOnBody:true,swapThreshold:.65,onEnd:()=>setTimeout(autoCheckIfReady,60)};window._grammarSortAnswer=Sortable.create($('#answer'),opts);window._grammarSortBank=Sortable.create($('#bank'),opts)}
+function showOkFlash(){const old=$('.ok-pop');if(old)old.remove();const el=document.createElement('div');el.className='ok-pop';el.textContent='OK';document.body.appendChild(el);setTimeout(()=>el.remove(),900)}
+function moveChip(chip){if(locked)return;initAudio();const ans=$('#answer'),bank=$('#bank');if(chip.parentElement===bank)ans.appendChild(chip);else bank.appendChild(chip);setTimeout(autoCheckIfReady,50)}
+function autoCheckIfReady(){if(locked)return;const bank=$('#bank');if(!bank||bank.children.length!==0)return;checkAutoAnswer()}
+function checkAutoAnswer(){
+  if(locked)return;const q=quizItems[qIndex],ansTokens=$all('#answer .chip').map(c=>c.textContent),expectedTokens=tokens(q.item.en);if(ansTokens.length!==expectedTokens.length)return;const fb=$('#feedback'),key=norm(ansTokens.join(' '));const ok=key===norm(q.item.en);
+  if(ok){locked=true;if(!questionHadWrong)roundCorrect++;if(mode==='wrong')removeWrong(q.id);showOkFlash();sfxOK();$('#answer').style.background='#e8fff4';$('#answer').style.borderColor='var(--green)';saveProgress(qIndex+1,roundCorrect,{questionHadWrong:false});const nextLabel=(qIndex+1<quizItems.length)?'다음 문제':'결과 보기';fb.className='feedback ok show';fb.innerHTML=`<div class="next-panel"><div class="ok-small">OK</div><button class="btn" onclick="nextQuestion()">${nextLabel}</button></div>`}
+  else{questionHadWrong=true;if(mode==='full')addWrong(q.id);sfxNG();saveProgress(qIndex,roundCorrect,{questionHadWrong:true});$('#answer').style.background='#fff0f0';$('#answer').style.borderColor='var(--red)';if(lastWrongKey!==key){fb.className='feedback ng show';fb.innerHTML='<div class="try-msg">순서가 아직 맞지 않습니다. 위 답안 영역에서 단어를 드래그해 다시 맞춰 보세요.</div>';lastWrongKey=key}setTimeout(()=>{if(!locked){$('#answer').style.background='#eef7ff';$('#answer').style.borderColor='var(--main)'}},550)}
+}
+function addWrong(id){const u=UNITS[currentUnit],st=unitState(u.id),arr=st.wrongIds||[];if(!arr.includes(id))arr.push(id);saveUnitState(u.id,{wrongIds:arr});renderTabs()}
+function removeWrong(id){const u=UNITS[currentUnit],st=unitState(u.id),arr=(st.wrongIds||[]).filter(x=>x!==id);saveUnitState(u.id,{wrongIds:arr});renderTabs()}
+function nextQuestion(){qIndex++;if(qIndex<quizItems.length){saveProgress(qIndex,roundCorrect,{questionHadWrong:false});loadQuestion()}else finishRound()}
+function finishRound(){
+  const i=currentUnit,u=UNITS[i],st=unitState(u.id),total=quizItems.length,score=Math.round(roundCorrect/total*100);const history=[{time:nowStr(),mode,correct:roundCorrect,total,score},...(st.history||[])].slice(0,30);let passed=st.passed;if(mode==='full'&&score===100)passed=true;const best=mode==='full'?Math.max(st.bestScore||0,score):(st.bestScore||0);saveUnitState(u.id,{attempts:(st.attempts||0)+1,lastScore:score,bestScore:best,history,passed,progress:null});const left=(unitState(u.id).wrongIds||[]).length;const box=$(`#quiz-${i}`),emoji=score===100?'🏆':'📝';box.innerHTML=`<div class="card complete show"><div class="big-emoji">${emoji}</div><h2 class="unit-title">${score===100?'완료!':'다시 연습해요'}</h2><div class="score-big">${roundCorrect}/${total}</div><div class="desc">${passed?'통과 처리되었습니다.':'전체 문제 100점이 되어야 통과됩니다.'}<br>남은 오답: ${left}개</div><div class="btn-row"><button class="btn" onclick="startRound(${i},'full')">전체 다시 풀기</button><button class="btn orange" onclick="startRound(${i},'wrong')" ${left?'':'disabled'}>오답 다시 풀기</button></div><button class="btn secondary" onclick="showRecord()">기록 보기</button></div>`;renderTabs()
+}
+function renderGlobalRecord(){
+  const sec=$('#section-record');let totalPassed=0,totalAttempts=0;
+  let html=`<div class="card soft"><h2 class="unit-title">📘 학습 기록</h2><div class="desc">풀다가 나가도 현재 점수와 위치가 자동 저장됩니다. 저장된 풀이가 있으면 기록 탭에서 바로 이어 풀 수 있습니다.</div></div><div class="unit-list">`;
+  UNITS.forEach((u,ui)=>{
+    const st=unitState(u.id);if(st.passed)totalPassed++;totalAttempts+=st.attempts||0;
+    const p=st.progress;const progressBlock=(p&&p.active)?`<div class="record in-progress"><div><b>진행 중</b><br><small>${progressText(p)}<br>마지막 저장: ${p.updatedAt||'-'}</small></div><strong>${Math.min(p.qIndex||0,p.total||0)}/${p.total||0}</strong></div><button class="btn orange" onclick="continueProgress(${ui})">저장된 위치부터 이어 풀기</button>`:'';
+    const hist=(st.history||[]).slice(0,4).map(h=>`<div class="record"><div><b>${h.mode==='wrong'?'오답 풀이':'전체 풀이'}</b><br><small>${h.time}</small></div><strong>${h.correct}/${h.total}</strong></div>`).join('')||'<div class="empty">아직 완료 기록이 없습니다.</div>';
+    html+=`<div class="card"><h3 class="unit-title">${u.tab} <span class="badge ${st.passed?'green':'gold'}">${st.passed?'PASS':'미통과'}</span></h3><div class="record-grid"><div class="record"><div><b>문장 수</b><br><small>${u.title}</small></div><strong>${u.items.length}</strong></div><div class="record"><div><b>최고 점수</b><br><small>전체 문제 기준</small></div><strong>${st.bestScore||0}점</strong></div><div class="record"><div><b>최근 점수</b><br><small>마지막 완료 풀이</small></div><strong>${st.lastScore==null?'-':st.lastScore+'점'}</strong></div><div class="record"><div><b>남은 오답</b><br><small>오답 탭에서 다시 풀기</small></div><strong>${(st.wrongIds||[]).length}개</strong></div>${progressBlock}${hist}</div><div class="btn-row"><button class="btn" onclick="showUnit(${ui});startRound(${ui},'full')">${u.tab} 처음부터 풀기</button><button class="btn orange" onclick="showUnit(${ui});startRound(${ui},'wrong')" ${(st.wrongIds||[]).length?'':'disabled'}>오답 풀기</button></div></div>`;
+  });
+  html+=`</div><div class="card soft"><div class="record"><div><b>전체 통과</b><br><small>총 ${totalItems()}문장 · 총 시도 ${totalAttempts}회</small></div><strong>${totalPassed}/${UNITS.length}</strong></div><button class="btn danger" onclick="clearAllRecords()">전체 기록 초기화</button></div>`;sec.innerHTML=html
+}
+function renderGlobalWrong(){const sec=$('#section-wrong'),entries=allWrongEntries();let html=`<div class="card soft"><h2 class="unit-title">📝 오답 다시 풀기</h2><div class="desc">틀린 문제는 여기에 남습니다. 오답 풀이에서 맞히면 목록에서 삭제됩니다. Unit 통과는 전체 문제를 100점 맞아야 처리됩니다.</div></div>`;if(!entries.length){html+='<div class="empty">남은 오답이 없습니다.</div>';sec.innerHTML=html;return}const grouped={};entries.forEach(e=>{(grouped[e.ui]||(grouped[e.ui]=[])).push(e)});Object.keys(grouped).forEach(key=>{const ui=Number(key),u=UNITS[ui];grouped[key].sort((a,b)=>itemIndexFromId(a.id)-itemIndexFromId(b.id));html+=`<div class="card"><div class="status"><h3 class="unit-title" style="margin:0">${u.tab}</h3><span class="badge red">${grouped[key].length}개</span></div><div class="wrong-list">${grouped[key].map(e=>`<div class="wrong-item"><div class="unit">${e.item.sec}</div><div>${e.item.ko}</div><div class="en">${e.item.en}</div></div>`).join('')}</div><button class="btn orange" onclick="showUnit(${ui});startRound(${ui},'wrong')">${u.tab} 오답 풀기</button></div>`});sec.innerHTML=html}
+function clearAllRecords(){if(!confirm('전체 기록과 오답을 초기화할까요?'))return;localStorage.removeItem(STORE);renderShell()}
+renderShell();
+</script>
 </body>
 </html>
