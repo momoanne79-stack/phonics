@@ -2,66 +2,360 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>수리나무학원 문법 언스크램블 Unit 5-6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>수리나무학원 문법 언스크램블 Unit 7-9</title>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 <style>
-:root{--main:#1a5c9a;--main2:#0d365e;--accent:#f5a623;--bg:#f3f8ff;--soft:#eef7ff;--line:#d5e7f8;--text:#142133;--muted:#60758a;--green:#22a06b;--red:#e5534b;--shadow:0 12px 36px rgba(26,92,154,.16)}
-*{box-sizing:border-box}
-body{margin:0;padding:14px;background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif}
-#app{max-width:560px;margin:0 auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:var(--shadow);min-height:calc(100vh - 28px)}
-.header{background:linear-gradient(135deg,var(--main),var(--main2));color:#fff;text-align:center;padding:24px 18px 17px;position:relative;overflow:hidden}
-.header:before{content:'';position:absolute;right:-50px;top:-55px;width:145px;height:145px;border-radius:50%;background:rgba(255,255,255,.12)}
-.header:after{content:'';position:absolute;left:-38px;bottom:-58px;width:120px;height:120px;border-radius:50%;background:rgba(245,166,35,.18)}
-.label{display:inline-block;background:var(--accent);color:#432700;border-radius:999px;padding:5px 12px;font-weight:1000;font-size:12px;margin-bottom:8px;position:relative;z-index:1}
-.header h1{font-size:22px;margin:4px 0 6px;letter-spacing:-.3px;position:relative;z-index:1}
-.header p{margin:0;font-size:13px;font-weight:800;opacity:.92;line-height:1.5;position:relative;z-index:1}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:#f7fbff;padding:10px;border-bottom:1px solid #e6eef8;position:sticky;top:0;z-index:10}
-.tab{border:0;border-radius:13px;background:#e8f1fa;color:#24445f;min-height:50px;font-size:13px;font-weight:1000;cursor:pointer}
-.tab.active{background:var(--main);color:#fff;box-shadow:0 4px 14px rgba(26,92,154,.25)}
-.tab.pass::after{content:' ✓';color:inherit}
-.tab.warn{background:#fff5e0;color:#7a5300}.tab.warn.active{background:var(--accent);color:#432700}
-.section{display:none;padding:16px}.section.active{display:block;animation:fade .22s ease}@keyframes fade{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}
-.card{border:1.7px solid var(--line);border-radius:18px;padding:15px;background:#fff;margin-bottom:13px}.soft{background:var(--soft)}
-.unit-title{font-size:20px;color:var(--main);font-weight:1000;margin:0 0 7px}.desc{font-size:14px;color:var(--muted);font-weight:800;line-height:1.58}
-.status{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:11px;flex-wrap:wrap}.badge{display:inline-block;background:#e8f1fa;color:#24445f;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:1000}
-.badge.green{background:#e8fff4;color:#11623d}.badge.red{background:#fff0f0;color:#a2322e}.badge.gold{background:#fff8e8;color:#7a5300}
-.progress{height:13px;border-radius:999px;background:#dbeefa;overflow:hidden;margin-top:10px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--green));transition:.35s}
-.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.btn{width:100%;border:0;border-radius:14px;min-height:52px;padding:13px 10px;font-size:16px;font-weight:1000;cursor:pointer;background:var(--main);color:#fff;margin-top:8px}
-.btn.secondary{background:#e8f1fa;color:#24445f}.btn.orange{background:var(--accent);color:#432700}.btn.danger{background:var(--red);color:#fff}.btn:active{transform:scale(.99)}.btn[disabled]{opacity:.42;cursor:not-allowed}
-.quiz-head{background:#f8fbff;border:1.7px solid #e3edf8;border-radius:17px;padding:14px;margin-bottom:11px}.qno{font-size:14px;color:var(--main);font-weight:1000;margin-bottom:8px}
-.ko{font-size:19px;line-height:1.6;font-weight:1000;color:#0e3758}.hint{font-size:13px;color:#6a7f93;font-weight:800;line-height:1.55;margin-top:9px}
-.answer,.bank{display:flex;flex-wrap:wrap;gap:9px;align-items:center;justify-content:center;border-radius:17px;padding:13px;min-height:82px;margin-bottom:11px}
-.answer{border:2px dashed var(--main);background:#eef7ff}.bank{border:2px solid #e7eff8;background:#f8fbff}
-.area-title{font-size:13px;font-weight:1000;color:#60758a;margin:8px 0 6px;text-align:center}
-.chip{border:2px solid #b8d6ef;background:white;border-radius:12px;padding:12px 15px;font-weight:1000;font-size:16px;cursor:pointer;touch-action:manipulation;user-select:none;line-height:1.24;box-shadow:0 2px 8px rgba(26,92,154,.07)}
-.chip:active{transform:translateY(1px);background:#f2f9ff}.answer .chip{border-color:#7fb3df}.sortable-ghost{opacity:.35}.sortable-drag{background:var(--main)!important;color:#fff!important;box-shadow:0 8px 18px rgba(26,92,154,.25)!important}
-.ok-pop{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%);z-index:9999;background:#e8fff4;color:#11623d;border:2px solid var(--green);border-radius:999px;padding:10px 22px;font-size:25px;font-weight:1000;letter-spacing:.7px;box-shadow:0 10px 26px rgba(34,160,107,.24);pointer-events:none;animation:okFlash .85s ease-out forwards}@keyframes okFlash{0%{opacity:0;transform:translate(-50%,-35%) scale(.7)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-65%) scale(.92)}}
-.feedback{display:none;border-radius:15px;padding:14px;margin-top:11px;font-weight:1000;line-height:1.58}.feedback.show{display:block}.feedback.ok{background:#e8fff4;border:2px solid var(--green);color:#11623d}.feedback.ng{background:#fff0f0;border:2px solid var(--red);color:#a2322e}
-.eng-answer{font-family:Georgia,'Times New Roman',serif;font-size:16px;color:#142133;margin-top:7px;line-height:1.5}.complete{display:none;text-align:center}.complete.show{display:block}
-.big-emoji{font-size:54px;line-height:1;margin:8px 0;animation:bounce .85s ease}@keyframes bounce{0%{transform:scale(.7)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
-.score-big{font-size:36px;font-weight:1000;color:var(--main);margin:10px 0}.record-grid{display:grid;gap:10px}
-.record{display:flex;justify-content:space-between;gap:10px;align-items:center;background:#f8fbff;border:1.5px solid #e4eef8;border-radius:15px;padding:13px}.record b{color:var(--main)}.record small{color:var(--muted);font-weight:800}
-.wrong-list{display:grid;gap:9px;margin-top:10px}.wrong-item{border-left:5px solid var(--red);background:#fff7f7;border-radius:13px;padding:11px 12px;font-weight:900;line-height:1.48}.wrong-item .en{font-family:Georgia,'Times New Roman',serif;color:#9c2d28;margin-top:4px}.wrong-item .unit{color:var(--main);font-weight:1000;margin-bottom:3px}
-.top-tools{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}.empty{background:#f8fbff;border:1.5px dashed #cbddeb;border-radius:14px;padding:15px;text-align:center;color:#60758a;font-weight:900;line-height:1.55}.hidden{display:none!important}.unit-list{display:grid;gap:12px}.meta-line{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.next-panel{text-align:center}.next-panel .ok-small{font-size:20px;color:#11623d;font-weight:1000;margin-bottom:4px}.try-msg{font-size:14px;color:#a2322e;font-weight:1000}
-.confetti{position:fixed;width:8px;height:12px;z-index:9998;pointer-events:none;border-radius:3px;animation:fall .95s ease-out forwards}@keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(145px) rotate(280deg);opacity:0}}
-@media(max-width:520px){.tabs{grid-template-columns:repeat(2,1fr)}body{padding:10px}.header h1{font-size:20px}.section{padding:13px}.btn-row{grid-template-columns:1fr}.chip{font-size:15px;padding:11px 13px}.tab{font-size:12px;min-height:46px}.ko{font-size:18px}.answer,.bank{min-height:76px}}
+:root{--main:#1a5c9a;--main2:#0d365e;--accent:#f5a623;--bg:#f3f8ff;--soft:#eef7ff;--line:#d5e7f8;--text:#142133;--muted:#60758a;--green:#22a06b;--red:#e5534b;--leaf:#4caf50;--leafSoft:#eef7eb;--shadow:0 12px 36px rgba(26,92,154,.16)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;padding:14px;background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','Malgun Gothic',Pretendard,Arial,sans-serif}
+button{font-family:inherit} #app{max-width:560px;margin:0 auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:var(--shadow);min-height:calc(100vh - 28px)}
+.header{background:linear-gradient(135deg,var(--main),var(--main2));color:#fff;text-align:center;padding:24px 18px 17px;position:relative;overflow:hidden}.header:before{content:'';position:absolute;right:-50px;top:-55px;width:145px;height:145px;border-radius:50%;background:rgba(255,255,255,.12)}.header:after{content:'';position:absolute;left:-38px;bottom:-58px;width:120px;height:120px;border-radius:50%;background:rgba(245,166,35,.18)}
+.label{display:inline-block;background:var(--accent);color:#432700;border-radius:999px;padding:5px 12px;font-weight:1000;font-size:12px;margin-bottom:8px;position:relative;z-index:1}.academy-logo{font-size:24px;font-weight:1000;margin:1px 0 2px;position:relative;z-index:1;letter-spacing:-.5px}.header h1{font-size:21px;margin:2px 0 6px;letter-spacing:-.3px;position:relative;z-index:1}.header p{margin:0;font-size:13px;font-weight:800;opacity:.92;line-height:1.5;position:relative;z-index:1}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;background:#f7fbff;padding:10px;border-bottom:1px solid #e6eef8;position:sticky;top:0;z-index:10}.tab{border:0;border-radius:13px;background:#e8f1fa;color:#24445f;min-height:48px;font-size:12px;font-weight:1000;cursor:pointer}.tab.active{background:var(--main);color:#fff;box-shadow:0 4px 14px rgba(26,92,154,.25)}.tab.pass::after{content:' ✓';color:inherit}.tab.warn{background:#fff5e0;color:#7a5300}.tab.warn.active{background:var(--accent);color:#432700}
+.section{display:none;padding:16px}.section.active{display:block;animation:fade .22s ease}@keyframes fade{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}.card{border:1.7px solid var(--line);border-radius:18px;padding:15px;background:#fff;margin-bottom:13px}.soft{background:var(--soft)}.unit-title{font-size:20px;color:var(--main);font-weight:1000;margin:0 0 7px}.desc{font-size:14px;color:var(--muted);font-weight:800;line-height:1.58}.status{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:11px;flex-wrap:wrap}.badge{display:inline-block;background:#e8f1fa;color:#24445f;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:1000}.badge.green{background:#e8fff4;color:#11623d}.badge.red{background:#fff0f0;color:#a2322e}.badge.gold{background:#fff8e8;color:#7a5300}.progress{height:13px;border-radius:999px;background:#dbeefa;overflow:hidden;margin-top:10px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--green));transition:.35s}.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.btn{width:100%;border:0;border-radius:14px;min-height:52px;padding:13px 10px;font-size:16px;font-weight:1000;cursor:pointer;background:var(--main);color:#fff;margin-top:8px}.btn.secondary{background:#e8f1fa;color:#24445f}.btn.orange{background:var(--accent);color:#432700}.btn.danger{background:var(--red);color:#fff}.btn:active{transform:scale(.99)}.btn[disabled]{opacity:.42;cursor:not-allowed}.quiz-head{background:#f8fbff;border:1.7px solid #e3edf8;border-radius:17px;padding:14px;margin-bottom:11px}.qno{font-size:14px;color:var(--main);font-weight:1000;margin-bottom:8px}.ko{font-size:19px;line-height:1.6;font-weight:1000;color:#0e3758}.hint{font-size:13px;color:#6a7f93;font-weight:800;line-height:1.55;margin-top:9px}.answer,.bank{display:flex;flex-wrap:wrap;gap:9px;align-items:center;justify-content:center;border-radius:17px;padding:13px;min-height:82px;margin-bottom:11px}.answer{border:2px dashed var(--main);background:#eef7ff}.bank{border:2px solid #e7eff8;background:#f8fbff}.area-title{font-size:13px;font-weight:1000;color:#60758a;margin:8px 0 6px;text-align:center}.chip{border:2px solid #b8d6ef;background:white;border-radius:12px;padding:12px 15px;font-weight:1000;font-size:16px;cursor:pointer;touch-action:manipulation;user-select:none;line-height:1.24;box-shadow:0 2px 8px rgba(26,92,154,.07)}.chip:active{transform:translateY(1px);background:#f2f9ff}.answer .chip{border-color:#7fb3df}.sortable-ghost{opacity:.35}.sortable-drag{background:var(--main)!important;color:#fff!important;box-shadow:0 8px 18px rgba(26,92,154,.25)!important}.feedback{display:none;border-radius:15px;padding:14px;margin-top:11px;font-weight:1000;line-height:1.58}.feedback.show{display:block}.feedback.ok{background:#e8fff4;border:2px solid var(--green);color:#11623d}.feedback.ng{background:#fff0f0;border:2px solid var(--red);color:#a2322e}.eng-answer{font-family:Georgia,'Times New Roman',serif;font-size:16px;color:#142133;margin-top:7px;line-height:1.5}.type-card{display:none;background:#fff;margin-top:13px;border:2px solid #d1e2c4;border-radius:20px;padding:17px 14px;box-shadow:0 8px 22px rgba(76,175,80,.08);text-align:center}.type-card.show{display:block;animation:pop .22s ease}@keyframes pop{from{opacity:.3;transform:scale(.97)}to{opacity:1;transform:scale(1)}}.type-title{display:inline-block;background:#d1e2c4;color:#1a3a25;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:1000;margin-bottom:11px}.question-en{font-size:21px;font-weight:1000;color:#2c3e50;margin-bottom:14px;word-break:keep-all;background:#f1f9f5;padding:15px;border-radius:13px;line-height:1.5}.question-en u{text-decoration:underline;text-decoration-color:#f39c12;text-decoration-thickness:3px;text-underline-offset:4px;color:#d35400}.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}.option-btn{background:#fff;color:#34495e;border:2px solid #bdc3c7;padding:14px 8px;border-radius:13px;font-size:14px;font-weight:1000;cursor:pointer;transition:.16s;box-shadow:0 3px 0 #bdc3c7;word-break:keep-all}.option-btn:active{transform:translateY(3px);box-shadow:0 0 0 #bdc3c7}.option-btn.correct{background:#e8f8f5;border-color:#2ecc71;color:#187a43;box-shadow:0 3px 0 #2ecc71}.option-btn.wrong{background:#fdedec;border-color:#e74c3c;color:#b9362b;box-shadow:0 3px 0 #e74c3c}.option-btn.disabled{pointer-events:none}.exp-box{display:none;background:#fff9e6;border-left:4px solid #f39c12;padding:13px;border-radius:8px;text-align:left;margin-top:10px;font-size:14px;font-weight:800;color:#925000;line-height:1.55}.exp-box.show{display:block}.ok-pop{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%);z-index:9999;background:#e8fff4;color:#11623d;border:2px solid var(--green);border-radius:999px;padding:10px 22px;font-size:25px;font-weight:1000;letter-spacing:.7px;box-shadow:0 10px 26px rgba(34,160,107,.24);pointer-events:none;animation:okFlash .85s ease-out forwards}@keyframes okFlash{0%{opacity:0;transform:translate(-50%,-35%) scale(.7)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-65%) scale(.92)}}.complete{display:none;text-align:center}.complete.show{display:block}.big-emoji{font-size:56px;line-height:1;margin:8px 0;animation:bounce .85s ease}@keyframes bounce{0%{transform:scale(.7)}45%{transform:scale(1.12)}100%{transform:scale(1)}}.score-big{font-size:36px;font-weight:1000;color:var(--main);margin:10px 0}.record-grid{display:grid;gap:10px}.record{display:flex;justify-content:space-between;gap:10px;align-items:center;background:#f8fbff;border:1.5px solid #e4eef8;border-radius:15px;padding:13px}.record b{color:var(--main)}.record small{color:var(--muted);font-weight:800}.wrong-list{display:grid;gap:9px;margin-top:10px}.wrong-item{border-left:5px solid var(--red);background:#fff7f7;border-radius:13px;padding:11px 12px;font-weight:900;line-height:1.48}.wrong-item .en{font-family:Georgia,'Times New Roman',serif;color:#9c2d28;margin-top:4px}.wrong-item .unit{color:var(--main);font-weight:1000;margin-bottom:3px}.top-tools{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}.empty{background:#f8fbff;border:1.5px dashed #cbddeb;border-radius:14px;padding:15px;text-align:center;color:#60758a;font-weight:900;line-height:1.55}.hidden{display:none!important}.meta-line{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.confetti{position:fixed;width:8px;height:12px;z-index:9998;pointer-events:none;border-radius:3px;animation:fall .95s ease-out forwards}@keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(145px) rotate(280deg);opacity:0}}
+@media(max-width:520px){body{padding:10px}.tabs{grid-template-columns:repeat(5,1fr);gap:4px;padding:8px}.tab{font-size:11px;min-height:43px;border-radius:11px}.header h1{font-size:19px}.academy-logo{font-size:22px}.section{padding:13px}.btn-row{grid-template-columns:1fr}.chip{font-size:15px;padding:11px 13px}.ko{font-size:18px}.answer,.bank{min-height:76px}.options-grid{grid-template-columns:1fr}.question-en{font-size:19px}.option-btn{font-size:15px;min-height:50px}}
 </style>
 </head>
 <body>
 <div id="app">
-  <div class="header"><span class="label">수리나무학원 Grammar Worksheet</span><h1>시제 문장 언스크램블</h1><p>Unit 5~6 전체 32문장 · 뜻을 보고 단어를 배열해 문장을 완성하세요.<br>틀린 문제는 오답에 남고, 오답까지 끝내면 기록에서 통과 표시됩니다.</p></div>
+  <div class="header"><span class="label">Grammar Worksheet</span><div class="academy-logo">🌳 수리나무학원</div><h1>to부정사 문장 언스크램블</h1><p>Unit 7~9 · 뜻을 보고 영어 문장을 완성한 뒤<br>to부정사 용법을 6개 중에서 고르세요.</p></div>
   <div class="tabs" id="tabs"></div>
   <div id="sections"></div>
 </div>
 <script>
-const UNITS = [{"id": "unit5", "tab": "Unit 5", "title": "Unit 05 시제", "desc": "현재·과거진행·미래·일반현재를 문장 속 시간 표현과 함께 연습합니다.", "items": [{"sec": "A-1", "ko": "Dave는 그때 온라인 게임을 하고 있었다.", "en": "Dave was playing online games then."}, {"sec": "A-2", "ko": "그녀는 이번 토요일에 치과에 갈 예정이다.", "en": "She is going to see a dentist this Saturday."}, {"sec": "A-3", "ko": "Amy는 매일 아침 우유 한 잔을 마신다.", "en": "Amy drinks a glass of milk every morning."}, {"sec": "A-4", "ko": "태양은 태양계에서 가장 큰 물체이다.", "en": "The sun is the largest object in the solar system."}, {"sec": "A-5", "ko": "나는 내일 연극 동아리 모임에 참석하지 않을 것이다.", "en": "I will not attend the acting club meeting tomorrow."}, {"sec": "B-1", "ko": "곧 비가 내릴 것이다.", "en": "It will rain soon."}, {"sec": "B-2", "ko": "Rachel은 화요일마다 피아노 레슨을 받는다.", "en": "Rachel takes piano lessons every Tuesday."}, {"sec": "B-3", "ko": "우리는 그때 영화를 보고 있었다.", "en": "We were watching a movie at that time."}, {"sec": "B-4", "ko": "나는 더 좋은 성적을 받기 위해 무엇이든지 할 거야.", "en": "I will do everything to get better grades."}, {"sec": "C-1", "ko": "Alex는 지금 내 컴퓨터를 고치고 있다.", "en": "Alex is fixing my computer now."}, {"sec": "C-2", "ko": "Dave는 요리에 재능이 있다.", "en": "Dave has a talent for cooking."}, {"sec": "C-3", "ko": "내가 그녀를 보았을 때, 그녀는 밝게 웃고 있었다.", "en": "She was smiling brightly when I saw her."}, {"sec": "C-4", "ko": "물은 지구 표면의 71퍼센트를 덮고 있다.", "en": "Water covers 71 percent of Earth's surface."}, {"sec": "D-1", "ko": "나는 지금 개를 산책시키고 있다.", "en": "I am walking the dog now."}, {"sec": "D-2", "ko": "그 기차는 곧 역에 도착할 것이다.", "en": "The train is arriving at the station soon."}, {"sec": "D-3", "ko": "학교 축제는 이번 주 금요일에 시작한다.", "en": "The school festival begins this Friday."}, {"sec": "D-4", "ko": "내가 그녀에게 전화했을 때, 그녀는 Dave와 점심을 먹고 있었다.", "en": "When I called her, she was having lunch with Dave."}]}, {"id": "unit6", "tab": "Unit 6", "title": "Unit 06 현재완료", "desc": "경험·계속·결과·완료의 현재완료와 과거시제 구분을 연습합니다.", "items": [{"sec": "A-1", "ko": "Emily는 전에 남아프리카 공화국에 가 본 적이 있다.", "en": "Emily has been to South Africa before."}, {"sec": "A-2", "ko": "나는 2015년부터 이 컴퓨터를 사용해 왔다.", "en": "I have used this computer since 2015."}, {"sec": "A-3", "ko": "그녀는 New York에서 막 도착했다.", "en": "She has just arrived from New York."}, {"sec": "A-4", "ko": "우리는 서로를 10년 동안 알고 지내 왔다.", "en": "We have known each other for ten years."}, {"sec": "A-5", "ko": "그녀는 한 시간 전에 가장 친한 친구에게 이메일을 보냈다.", "en": "She sent an email to her best friend an hour ago."}, {"sec": "B-1", "ko": "내 여동생은 Boston에 가 버렸다.", "en": "My sister has gone to Boston."}, {"sec": "B-2", "ko": "Jennifer는 자기 집 열쇠를 잃어버렸다.", "en": "Jennifer has lost the key to her house."}, {"sec": "B-3", "ko": "Dave는 2년 동안 한국어를 공부해 왔다.", "en": "Dave has studied Korean for two years."}, {"sec": "C-1", "ko": "응, 나는 어제 그녀를 봤어.", "en": "Yes, I saw her yesterday."}, {"sec": "C-2", "ko": "너는 San Francisco에 가 본 적이 있니?", "en": "Have you ever been to San Francisco?"}, {"sec": "C-3", "ko": "나는 2주 전에 여기에 왔어.", "en": "I came here two weeks ago."}, {"sec": "C-4", "ko": "아니, 나는 그것들을 방금 샀어.", "en": "No, I have just bought them."}, {"sec": "D-1", "ko": "그들은 이미 점심식사를 끝마쳤다.", "en": "They have already finished their lunch."}, {"sec": "D-2", "ko": "Miller 선생님은 작년부터 머리숱이 많이 줄어들었다.", "en": "Mr. Miller has lost a lot of hair since last year."}, {"sec": "D-3", "ko": "Morgan 교수님은 20년 동안 생물학을 가르쳐 왔다.", "en": "Professor Morgan has taught biology for twenty years."}]}];
+const DATA = {
+  "types": [
+    "명사적 용법",
+    "형용사적 용법",
+    "부사적(목적)",
+    "부사적(판단)",
+    "부사적(원인)",
+    "부사적(결과)"
+  ],
+  "units": [
+    {
+      "id": "unit7",
+      "tab": "Unit 7",
+      "title": "Unit 07 to부정사의 명사적 용법",
+      "desc": "가주어·보어·목적어·의문사+to부정사를 영작하고 용법을 확인합니다.",
+      "items": [
+        {
+          "sec": "A-1",
+          "ko": "영어에서 높은 점수를 받는 것은 어렵다.",
+          "en": "It is difficult to get a high score in English.",
+          "inf": "to get a high score in English",
+          "type": 0,
+          "exp": "명사적 용법: It은 가주어이고, to get a high score in English가 진주어입니다."
+        },
+        {
+          "sec": "A-2",
+          "ko": "판타지 소설을 읽는 것은 흥미롭다.",
+          "en": "It is interesting to read fantasy novels.",
+          "inf": "to read fantasy novels",
+          "type": 0,
+          "exp": "명사적 용법: It은 가주어이고, to read fantasy novels가 진주어입니다."
+        },
+        {
+          "sec": "A-3",
+          "ko": "너무 많은 단 것을 먹는 것은 치아에 나쁘다.",
+          "en": "It is bad for your teeth to eat too many sweets.",
+          "inf": "to eat too many sweets",
+          "type": 0,
+          "exp": "명사적 용법: to eat too many sweets가 문장의 실제 주어 역할을 합니다."
+        },
+        {
+          "sec": "B-1",
+          "ko": "나는 경찰관이다. 나의 임무는 범죄자들을 잡는 것이다.",
+          "en": "I'm a police officer. My duty is to catch criminals.",
+          "inf": "to catch criminals",
+          "type": 0,
+          "exp": "명사적 용법: be동사 뒤에서 보어로 쓰여 ‘~하는 것’이라는 뜻입니다."
+        },
+        {
+          "sec": "B-2",
+          "ko": "Sandra는 디자이너이다. 그녀의 일은 아기 옷을 디자인하는 것이다.",
+          "en": "Sandra is a designer. Her job is to design baby clothes.",
+          "inf": "to design baby clothes",
+          "type": 0,
+          "exp": "명사적 용법: be동사 뒤에서 보어로 쓰였습니다."
+        },
+        {
+          "sec": "B-3",
+          "ko": "나는 태블릿 PC를 사고 싶다. 그래서 나는 아르바이트를 하고 있다.",
+          "en": "I want to buy a tablet PC. So I'm working part-time.",
+          "inf": "to buy a tablet PC",
+          "type": 0,
+          "exp": "명사적 용법: want의 목적어로 쓰여 ‘사는 것’이라는 뜻입니다."
+        },
+        {
+          "sec": "C-1",
+          "ko": "언제 내려야 하는지 알려 주세요.",
+          "en": "Please let me know when to get off.",
+          "inf": "when to get off",
+          "type": 0,
+          "exp": "명사적 용법: 의문사+to부정사 전체가 know의 목적어 역할을 합니다."
+        },
+        {
+          "sec": "C-2",
+          "ko": "우리는 어디서 점심을 먹을지 결정하지 못했다.",
+          "en": "We haven't decided where to have lunch.",
+          "inf": "where to have lunch",
+          "type": 0,
+          "exp": "명사적 용법: 의문사+to부정사 전체가 decided의 목적어 역할을 합니다."
+        },
+        {
+          "sec": "C-3",
+          "ko": "국립 도서관에 가는 방법을 알려주시겠어요?",
+          "en": "Could you tell me how to get to the National Library?",
+          "inf": "how to get to the National Library",
+          "type": 0,
+          "exp": "명사적 용법: how to get은 ‘가는 방법’이라는 명사구로 쓰였습니다."
+        },
+        {
+          "sec": "D-1",
+          "ko": "그의 목표는 대한민국의 대통령이 되는 것이다.",
+          "en": "His goal is to become the president of South Korea.",
+          "inf": "to become the president of South Korea",
+          "type": 0,
+          "exp": "명사적 용법: be동사 뒤에서 보어 역할을 합니다."
+        },
+        {
+          "sec": "D-2",
+          "ko": "몸무게를 줄이는 것은 매우 힘들다.",
+          "en": "It is very difficult to lose weight.",
+          "inf": "to lose weight",
+          "type": 0,
+          "exp": "명사적 용법: It은 가주어이고 to lose weight가 진주어입니다."
+        },
+        {
+          "sec": "D-3",
+          "ko": "Dave는 내 생일 파티에 오겠다고 약속했다.",
+          "en": "Dave promised to come to my birthday party.",
+          "inf": "to come to my birthday party",
+          "type": 0,
+          "exp": "명사적 용법: promised의 목적어로 쓰여 ‘오겠다는 것’의 뜻입니다."
+        }
+      ]
+    },
+    {
+      "id": "unit8",
+      "tab": "Unit 8",
+      "title": "Unit 08 to부정사의 형용사적 용법",
+      "desc": "명사 뒤의 to부정사와 전치사가 필요한 표현을 영작하고 용법을 확인합니다.",
+      "items": [
+        {
+          "sec": "A-1",
+          "ko": "나는 너에게 할 말이 있다.",
+          "en": "I have something to say to you.",
+          "inf": "to say to you",
+          "type": 1,
+          "exp": "형용사적 용법: to say to you가 something을 꾸며 ‘말할 것’이라는 뜻입니다."
+        },
+        {
+          "sec": "A-2",
+          "ko": "그녀는 그것에 대해 생각할 시간이 더 필요하다.",
+          "en": "She needs more time to think about it.",
+          "inf": "to think about it",
+          "type": 1,
+          "exp": "형용사적 용법: to think about it이 time을 꾸며 ‘생각할 시간’이라는 뜻입니다."
+        },
+        {
+          "sec": "A-3",
+          "ko": "너는 볼 영상이 좀 있니?",
+          "en": "Do you have any videos to watch?",
+          "inf": "to watch",
+          "type": 1,
+          "exp": "형용사적 용법: to watch가 videos를 꾸며 ‘볼 영상’이라는 뜻입니다."
+        },
+        {
+          "sec": "A-4",
+          "ko": "냉장고에 먹을 맛있는 것이 있니?",
+          "en": "Is there anything delicious to eat in the refrigerator?",
+          "inf": "to eat in the refrigerator",
+          "type": 1,
+          "exp": "형용사적 용법: to eat가 anything delicious를 꾸며 ‘먹을 것’이라는 뜻입니다."
+        },
+        {
+          "sec": "B-1",
+          "ko": "Dave는 함께 야구할 친구가 없다.",
+          "en": "Dave has no friend to play baseball with.",
+          "inf": "to play baseball with",
+          "type": 1,
+          "exp": "형용사적 용법: to play baseball with가 friend를 꾸미며, 뒤에 전치사 with가 필요합니다."
+        },
+        {
+          "sec": "B-2",
+          "ko": "그 부부는 살 새 집을 샀다.",
+          "en": "The couple bought a new house to live in.",
+          "inf": "to live in",
+          "type": 1,
+          "exp": "형용사적 용법: to live in이 house를 꾸미며, live in의 전치사 in이 남습니다."
+        },
+        {
+          "sec": "B-3",
+          "ko": "이야기할 흥미로운 것이 있니?",
+          "en": "Is there anything interesting to talk about?",
+          "inf": "to talk about",
+          "type": 1,
+          "exp": "형용사적 용법: to talk about이 anything interesting을 꾸밉니다."
+        },
+        {
+          "sec": "B-4",
+          "ko": "Jennifer는 나에게 쓸 종이 한 장을 주었다.",
+          "en": "Jennifer gave me a piece of paper to write on.",
+          "inf": "to write on",
+          "type": 1,
+          "exp": "형용사적 용법: to write on이 paper를 꾸미며, write on의 전치사 on이 필요합니다."
+        },
+        {
+          "sec": "D-1",
+          "ko": "특별히 요리할 것이 있나요?",
+          "en": "Is there anything special to cook?",
+          "inf": "to cook",
+          "type": 1,
+          "exp": "형용사적 용법: to cook이 anything special을 꾸며 ‘요리할 것’이라는 뜻입니다."
+        },
+        {
+          "sec": "D-2",
+          "ko": "이것은 그 문제를 해결할 가장 좋은 방법이다.",
+          "en": "This is the best way to solve the problem.",
+          "inf": "to solve the problem",
+          "type": 1,
+          "exp": "형용사적 용법: to solve the problem이 way를 꾸며 ‘해결할 방법’이라는 뜻입니다."
+        },
+        {
+          "sec": "D-4",
+          "ko": "나는 처리해야 할 많은 일들이 있다.",
+          "en": "I have many things to deal with.",
+          "inf": "to deal with",
+          "type": 1,
+          "exp": "형용사적 용법: to deal with가 things를 꾸미며, deal with의 전치사 with가 필요합니다."
+        }
+      ]
+    },
+    {
+      "id": "unit9",
+      "tab": "Unit 9",
+      "title": "Unit 09 to부정사의 부사적 용법",
+      "desc": "목적·판단·원인·결과 표현을 영작하고 6개 용법 중 맞는 것을 고릅니다.",
+      "items": [
+        {
+          "sec": "A-1",
+          "ko": "당신을 귀찮게 해서 정말 죄송합니다.",
+          "en": "I'm terribly sorry to bother you.",
+          "inf": "to bother you",
+          "type": 4,
+          "exp": "부사적 용법(원인): sorry라는 감정의 원인을 설명합니다."
+        },
+        {
+          "sec": "A-2",
+          "ko": "그는 자라서 UN 사무총장이 되었다.",
+          "en": "He grew up to become Secretary General of the UN.",
+          "inf": "to become Secretary General of the UN",
+          "type": 5,
+          "exp": "부사적 용법(결과): grew up 뒤에서 자라난 결과를 나타냅니다."
+        },
+        {
+          "sec": "A-3",
+          "ko": "사진에 지문을 남기지 않도록 노력해 주세요.",
+          "en": "Please try not to leave fingerprints on the photos.",
+          "inf": "not to leave fingerprints on the photos",
+          "type": 0,
+          "exp": "명사적 용법: try의 목적어로 쓰여 ‘남기지 않는 것’이라는 뜻입니다."
+        },
+        {
+          "sec": "A-4",
+          "ko": "그런 터무니없는 이야기를 믿다니 Dave는 어리석음에 틀림없다.",
+          "en": "Dave must be foolish to believe such a ridiculous story.",
+          "inf": "to believe such a ridiculous story",
+          "type": 3,
+          "exp": "부사적 용법(판단): foolish라고 판단한 근거를 나타냅니다."
+        },
+        {
+          "sec": "B-1",
+          "ko": "그는 이메일을 확인하기 위해 휴대폰을 사용하고 있다.",
+          "en": "He is using his cell phone to check his email.",
+          "inf": "to check his email",
+          "type": 2,
+          "exp": "부사적 용법(목적): 휴대폰을 사용하는 목적을 나타내며 ‘~하기 위해서’로 해석합니다."
+        },
+        {
+          "sec": "B-3",
+          "ko": "우리는 당신을 우리의 결혼식에 초대하게 되어 매우 기쁩니다.",
+          "en": "We are so pleased to invite you to our wedding.",
+          "inf": "to invite you to our wedding",
+          "type": 4,
+          "exp": "부사적 용법(원인): pleased라는 감정의 원인을 설명합니다."
+        },
+        {
+          "sec": "B-4",
+          "ko": "그들은 야구 경기를 보기 위해 경기장에 갔다.",
+          "en": "They went to the stadium to watch a baseball game.",
+          "inf": "to watch a baseball game",
+          "type": 2,
+          "exp": "부사적 용법(목적): 경기장에 간 목적을 나타냅니다."
+        },
+        {
+          "sec": "B-5",
+          "ko": "이 기계를 발명하다니 그 과학자는 천재임에 틀림없다.",
+          "en": "The scientist must be a genius to invent this machine.",
+          "inf": "to invent this machine",
+          "type": 3,
+          "exp": "부사적 용법(판단): genius라고 판단한 근거를 나타냅니다."
+        },
+        {
+          "sec": "C-1",
+          "ko": "그녀는 친구의 죽음에 대해 듣고 충격을 받았다.",
+          "en": "She was shocked to hear about the death of her friend.",
+          "inf": "to hear about the death of her friend",
+          "type": 4,
+          "exp": "부사적 용법(원인): shocked라는 감정의 원인을 나타냅니다."
+        },
+        {
+          "sec": "C-2",
+          "ko": "Chris는 열심히 공부했지만 결국 입학시험에 떨어지고 말았다.",
+          "en": "Chris studied hard, only to fail the entrance exam.",
+          "inf": "only to fail the entrance exam",
+          "type": 5,
+          "exp": "부사적 용법(결과): only to는 ‘결국 ~하고 말았다’라는 결과를 나타냅니다."
+        },
+        {
+          "sec": "C-3",
+          "ko": "나는 내 무례함에 대해 사과하기 위해 그녀에게 전화했다.",
+          "en": "I called her to apologize for my rudeness.",
+          "inf": "to apologize for my rudeness",
+          "type": 2,
+          "exp": "부사적 용법(목적): 전화한 목적을 나타냅니다."
+        },
+        {
+          "sec": "C-4",
+          "ko": "내 어린 아들은 영어로 일기를 쓰다니 똑똑함에 틀림없다.",
+          "en": "My little son must be smart to keep a diary in English.",
+          "inf": "to keep a diary in English",
+          "type": 3,
+          "exp": "부사적 용법(판단): smart라고 판단한 근거를 나타냅니다."
+        },
+        {
+          "sec": "C-5",
+          "ko": "Kate는 콘서트 표를 얻게 되어 매우 기뻤다.",
+          "en": "Kate was so pleased to get tickets for the concert.",
+          "inf": "to get tickets for the concert",
+          "type": 4,
+          "exp": "부사적 용법(원인): pleased라는 감정의 원인을 나타냅니다."
+        }
+      ]
+    }
+  ]
+};
+const TYPES = DATA.types;
+const UNITS = DATA.units;
 UNITS.forEach(u=>u.count=u.items.length);
-const STORE='surinamu_grammar_units_5_6_tense_unscramble_v2';
+const STORE='surinamu_grammarwise2_unit7_9_infinitive_unscramble_v1';
 const $=(q,root=document)=>root.querySelector(q);
 const $all=(q,root=document)=>Array.from(root.querySelectorAll(q));
-let currentTab='unit', currentUnit=0, mode='full', quizItems=[], qIndex=0, roundCorrect=0, locked=false, questionHadWrong=false, lastWrongKey='', pendingQuestionHadWrong=false, audioCtx=null;
+let currentTab='unit', currentUnit=0, mode='full', quizItems=[], qIndex=0, roundCorrect=0;
+let lockedWrite=false, lockedType=false, questionHadWrong=false, audioCtx=null;
 function getData(){try{return JSON.parse(localStorage.getItem(STORE)||'{}')}catch(e){return {}}}
 function setData(data){localStorage.setItem(STORE,JSON.stringify(data))}
 function unitState(id){const d=getData();return d[id]||{attempts:0,bestScore:0,lastScore:null,passed:false,wrongIds:[],history:[],progress:null}}
@@ -70,69 +364,42 @@ function nowStr(){return new Date().toLocaleString('ko-KR',{month:'2-digit',day:
 function shuffle(a){const arr=[...a];for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
 function tokens(s){return s.replace(/[“”]/g,'"').replace(/[‘’]/g,"'").split(/\s+/).filter(Boolean)}
 function norm(s){return s.toLowerCase().replace(/[“”‘’'".,!?;:()\[\]]/g,'').replace(/[^a-z0-9]+/g,' ').trim()}
+function esc(s){return String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+function markInf(en,inf){const safe=esc(en);const target=esc(inf);const idx=safe.toLowerCase().indexOf(target.toLowerCase());if(idx<0)return safe;return safe.slice(0,idx)+'<u>'+safe.slice(idx,idx+target.length)+'</u>'+safe.slice(idx+target.length)}
 function itemId(ui,ii){return 'u'+ui+'-'+ii}
 function itemIndexFromId(id){return Number(String(id).split('-')[1])}
-function totalItems(){return UNITS.reduce((a,u)=>a+u.items.length,0)}
 function allWrongEntries(){const out=[];UNITS.forEach((u,ui)=>{const ids=unitState(u.id).wrongIds||[];ids.forEach(id=>{const ii=itemIndexFromId(id);if(u.items[ii])out.push({ui,id,item:u.items[ii]})})});return out}
-function buildQuizItems(i,m,itemIds=null){
-  const u=UNITS[i], st=unitState(u.id); let ids=[];
-  if(Array.isArray(itemIds) && itemIds.length) ids=itemIds;
-  else if(m==='wrong') ids=[...(st.wrongIds||[])].sort((a,b)=>itemIndexFromId(a)-itemIndexFromId(b));
-  else ids=u.items.map((_,idx)=>itemId(i,idx));
-  return ids.map(id=>({item:u.items[itemIndexFromId(id)],id})).filter(x=>x.item);
-}
+function buildQuizItems(i,m,itemIds=null){const u=UNITS[i], st=unitState(u.id);let ids=[];if(Array.isArray(itemIds)&&itemIds.length)ids=itemIds;else if(m==='wrong')ids=[...(st.wrongIds||[])].sort((a,b)=>itemIndexFromId(a)-itemIndexFromId(b));else ids=u.items.map((_,idx)=>itemId(i,idx));return ids.map(id=>({item:u.items[itemIndexFromId(id)],id})).filter(x=>x.item)}
 function progressText(p){if(!p||!p.active)return '';const done=Math.min(p.qIndex||0,p.total||0), total=p.total||0, correct=p.correct||0;const score=done?Math.round(correct/done*100):0;return `${p.mode==='wrong'?'오답':'전체'} 진행 중 · ${done}/${total}문장 · 현재 ${correct}/${done||0} (${score}점)`}
-function saveProgress(nextIndex=qIndex, correct=roundCorrect, extra={}){const u=UNITS[currentUnit]; if(!u||!quizItems.length)return;const st=unitState(u.id), old=st.progress||{};const progress={active:true,mode,qIndex:Math.max(0,Math.min(nextIndex,quizItems.length)),correct:Math.max(0,correct),total:quizItems.length,itemIds:quizItems.map(x=>x.id),questionHadWrong:!!questionHadWrong,startedAt:old.startedAt||nowStr(),updatedAt:nowStr(),...extra};saveUnitState(u.id,{progress})}
+function saveProgress(nextIndex=qIndex, correct=roundCorrect){const u=UNITS[currentUnit]; if(!u||!quizItems.length)return;const st=unitState(u.id), old=st.progress||{};const progress={active:true,mode,qIndex:Math.max(0,Math.min(nextIndex,quizItems.length)),correct:Math.max(0,correct),total:quizItems.length,itemIds:quizItems.map(x=>x.id),startedAt:old.startedAt||nowStr(),updatedAt:nowStr()};saveUnitState(u.id,{progress})}
 function clearProgress(i=currentUnit){const u=UNITS[i]; if(!u)return;saveUnitState(u.id,{progress:null})}
-function continueProgress(i){const u=UNITS[i], st=unitState(u.id), p=st.progress;if(!p||!p.active){startRound(i,'full');return}currentTab='unit'; currentUnit=i; mode=p.mode||'full';quizItems=buildQuizItems(i,mode,p.itemIds);qIndex=Math.max(0,Math.min(p.qIndex||0,quizItems.length));roundCorrect=p.correct||0; locked=false; lastWrongKey=''; pendingQuestionHadWrong=!!p.questionHadWrong;renderShell();const box=$(`#quiz-${i}`); if(box)box.classList.remove('hidden');if(qIndex>=quizItems.length) finishRound(); else loadQuestion()}
-function initAudio(){try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();}catch(e){}}
+function initAudio(){try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}catch(e){}}
 function tone(f,d=0.12,type='sine',vol=.08){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(vol,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.01,audioCtx.currentTime+d);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+d)}
 function sfxOK(){initAudio();tone(620,.09);setTimeout(()=>tone(880,.14),90)}
 function sfxNG(){initAudio();tone(220,.16,'sawtooth',.06)}
-function burst(){const colors=['#f5a623','#22a06b','#1a5c9a','#e5534b'];for(let i=0;i<18;i++){const el=document.createElement('i');el.className='confetti';el.style.left=(50+(Math.random()*34-17))+'%';el.style.top=(35+(Math.random()*8-4))+'%';el.style.background=colors[i%colors.length];el.style.animationDelay=(Math.random()*0.12)+'s';el.style.transform=`rotate(${Math.random()*180}deg)`;document.body.appendChild(el);setTimeout(()=>el.remove(),1100)}}
+function showOkFlash(){const old=$('.ok-pop');if(old)old.remove();const el=document.createElement('div');el.className='ok-pop';el.textContent='OK';document.body.appendChild(el);setTimeout(()=>el.remove(),900)}
+function burst(){const colors=['#f5a623','#22a06b','#1a5c9a','#e5534b'];for(let i=0;i<18;i++){const el=document.createElement('i');el.className='confetti';el.style.left=(50+(Math.random()*34-17))+'%';el.style.top=(35+(Math.random()*8-4))+'%';el.style.background=colors[i%colors.length];el.style.animationDelay=(Math.random()*0.12)+'s';document.body.appendChild(el);setTimeout(()=>el.remove(),1100)}}
 function renderShell(){renderTabs();const sections=$('#sections');sections.innerHTML='';UNITS.forEach((u,i)=>{const sec=document.createElement('section');sec.id='section-unit-'+i;sec.className='section '+(currentTab==='unit'&&currentUnit===i?'active':'');sections.appendChild(sec);renderUnitHome(i)});const rec=document.createElement('section');rec.id='section-record';rec.className='section '+(currentTab==='record'?'active':'');sections.appendChild(rec);renderGlobalRecord();const wrong=document.createElement('section');wrong.id='section-wrong';wrong.className='section '+(currentTab==='wrong'?'active':'');sections.appendChild(wrong);renderGlobalWrong()}
 function renderTabs(){const tabs=$('#tabs');tabs.innerHTML='';UNITS.forEach((u,i)=>{const st=unitState(u.id);const b=document.createElement('button');b.className='tab '+(currentTab==='unit'&&currentUnit===i?'active ':'')+(st.passed?'pass ':'');b.textContent=u.tab;b.onclick=()=>showUnit(i);tabs.appendChild(b)});const rb=document.createElement('button');rb.className='tab '+(currentTab==='record'?'active':'');rb.textContent='기록';rb.onclick=showRecord;tabs.appendChild(rb);const wb=document.createElement('button');wb.className='tab warn '+(currentTab==='wrong'?'active':'');wb.textContent='오답 '+allWrongEntries().length;wb.onclick=showWrong;tabs.appendChild(wb)}
 function showUnit(i){currentTab='unit';currentUnit=i;mode='full';qIndex=0;renderShell()}
 function showRecord(){currentTab='record';renderShell()}
 function showWrong(){currentTab='wrong';renderShell()}
-function renderUnitHome(i){
-  const u=UNITS[i],st=unitState(u.id),sec=$('#section-unit-'+i);const wrongCount=(st.wrongIds||[]).length;const p=st.progress;const inProgress=p&&p.active;
-  const progressCard=inProgress?`<div class="card soft progress-save"><div class="record"><div><b>저장된 풀이</b><br><small>${progressText(p)}<br>마지막 저장: ${p.updatedAt||'-'}</small></div><strong>${Math.min(p.qIndex||0,p.total||0)}/${p.total||0}</strong></div><button class="btn orange" onclick="continueProgress(${i})">이어 풀기</button></div>`:'';
-  sec.innerHTML=`<div class="card soft"><h2 class="unit-title">${u.title}</h2><div class="desc">${u.desc}</div><div class="top-tools"><span class="badge ${st.passed?'green':'gold'}">${st.passed?'통과 완료':'통과 대기'}</span><span class="badge">${u.items.length}문장</span><span class="badge red">오답 ${wrongCount}개</span></div><div class="progress"><div class="bar" style="width:${st.passed?100:Math.min(st.bestScore||0,100)}%"></div></div></div>${progressCard}<div class="card"><div class="btn-row"><button class="btn" onclick="startRound(${i},'full')">전체 문제 처음부터 풀기</button><button class="btn orange" onclick="startRound(${i},'wrong')" ${wrongCount?'':'disabled'}>오답 다시 풀기 (${wrongCount})</button></div><div class="meta-line"><span class="badge">최고 ${st.bestScore||0}점</span><span class="badge">시도 ${st.attempts||0}회</span><span class="badge">최근 ${st.lastScore==null?'-':st.lastScore+'점'}</span></div></div><div id="quiz-${i}" class="hidden"></div>`
-}
-function startRound(i,m){currentTab='unit';currentUnit=i;mode=m;qIndex=0;roundCorrect=0;locked=false;questionHadWrong=false;pendingQuestionHadWrong=false;lastWrongKey='';quizItems=buildQuizItems(i,m);if(m==='wrong'&&!quizItems.length){alert('남은 오답이 없습니다.');return}saveProgress(0,0,{questionHadWrong:false,startedAt:nowStr(),updatedAt:nowStr()});renderShell();$(`#quiz-${i}`).classList.remove('hidden');loadQuestion()}
-function loadQuestion(){
-  locked=false;questionHadWrong=!!pendingQuestionHadWrong;pendingQuestionHadWrong=false;lastWrongKey='';
-  const i=currentUnit,q=quizItems[qIndex],box=$(`#quiz-${i}`),total=quizItems.length,answerTokens=tokens(q.item.en),shuffled=shuffle(answerTokens.map((t,idx)=>({t,idx})));
-  saveProgress(qIndex,roundCorrect,{questionHadWrong});
-  box.innerHTML=`<div class="card quiz-head"><div class="status"><span class="badge">${mode==='wrong'?'오답':'전체'} ${qIndex+1} / ${total}</span><span class="badge">${q.item.sec}</span><span class="badge green">정답 ${roundCorrect}</span></div><div class="qno">뜻</div><div class="ko">${q.item.ko}</div><div class="hint">아래 단어를 눌러 위 답안 영역으로 올리고, 순서를 맞추세요. 드래그로 위치를 바꿀 수 있습니다.</div></div><div class="area-title">답안</div><div id="answer" class="answer" aria-label="답안 영역"></div><div class="area-title">단어</div><div id="bank" class="bank" aria-label="단어 영역"></div><div id="feedback" class="feedback"></div>`;
-  const bank=$('#bank');shuffled.forEach(obj=>{const chip=document.createElement('button');chip.type='button';chip.className='chip';chip.textContent=obj.t;chip.dataset.idx=obj.idx;chip.onclick=()=>moveChip(chip);bank.appendChild(chip)});setupSortable();setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'start'}),50)
-}
+function renderUnitHome(i){const u=UNITS[i],st=unitState(u.id),sec=$('#section-unit-'+i);const wrongCount=(st.wrongIds||[]).length;const p=st.progress;const inProgress=p&&p.active;const progressCard=inProgress?`<div class="card soft"><div class="record"><div><b>저장된 풀이</b><br><small>${progressText(p)}<br>마지막 저장: ${p.updatedAt||'-'}</small></div><strong>${Math.min(p.qIndex||0,p.total||0)}/${p.total||0}</strong></div><button class="btn orange" onclick="continueProgress(${i})">이어 풀기</button></div>`:'';sec.innerHTML=`<div class="card soft"><h2 class="unit-title">${u.title}</h2><div class="desc">${u.desc}</div><div class="top-tools"><span class="badge ${st.passed?'green':'gold'}">${st.passed?'통과 완료':'통과 대기'}</span><span class="badge">${u.items.length}문장</span><span class="badge red">오답 ${wrongCount}개</span></div><div class="progress"><div class="bar" style="width:${st.passed?100:Math.min(st.bestScore||0,100)}%"></div></div></div>${progressCard}<div class="card"><div class="btn-row"><button class="btn" onclick="startRound(${i},'full')">전체 문제 처음부터 풀기</button><button class="btn orange" onclick="startRound(${i},'wrong')" ${wrongCount?'':'disabled'}>오답 다시 풀기 (${wrongCount})</button></div><div class="meta-line"><span class="badge">최고 ${st.bestScore||0}점</span><span class="badge">시도 ${st.attempts||0}회</span><span class="badge">최근 ${st.lastScore==null?'-':st.lastScore+'점'}</span></div></div><div id="quiz-${i}" class="hidden"></div>`}
+function startRound(i,m){currentTab='unit';currentUnit=i;mode=m;qIndex=0;roundCorrect=0;lockedWrite=false;lockedType=false;questionHadWrong=false;quizItems=buildQuizItems(i,m);if(m==='wrong'&&!quizItems.length){alert('남은 오답이 없습니다.');return}saveProgress(0,0);renderShell();$(`#quiz-${i}`).classList.remove('hidden');loadQuestion()}
+function continueProgress(i){const u=UNITS[i], st=unitState(u.id), p=st.progress;if(!p||!p.active){startRound(i,'full');return}currentTab='unit';currentUnit=i;mode=p.mode||'full';quizItems=buildQuizItems(i,mode,p.itemIds);qIndex=Math.max(0,Math.min(p.qIndex||0,quizItems.length));roundCorrect=p.correct||0;lockedWrite=false;lockedType=false;questionHadWrong=false;renderShell();const box=$(`#quiz-${i}`);if(box)box.classList.remove('hidden');if(qIndex>=quizItems.length) finishRound(); else loadQuestion()}
+function loadQuestion(){lockedWrite=false;lockedType=false;questionHadWrong=false;const i=currentUnit,q=quizItems[qIndex],box=$(`#quiz-${i}`),total=quizItems.length,answerTokens=tokens(q.item.en),shuffled=shuffle(answerTokens.map((t,idx)=>({t,idx})));saveProgress(qIndex,roundCorrect);box.innerHTML=`<div class="card quiz-head"><div class="status"><span class="badge">${mode==='wrong'?'오답':'전체'} ${qIndex+1} / ${total}</span><span class="badge">${q.item.sec}</span><span class="badge green">정답 ${roundCorrect}</span></div><div class="qno">뜻</div><div class="ko">${esc(q.item.ko)}</div><div class="hint">1단계: 아래 단어를 눌러 위 답안 영역으로 올리고, 순서를 맞추세요.</div></div><div class="area-title">답안</div><div id="answer" class="answer" aria-label="답안 영역"></div><div class="area-title">단어</div><div id="bank" class="bank" aria-label="단어 영역"></div><div id="feedback" class="feedback"></div><div id="type-card" class="type-card"></div>`;const bank=$('#bank');shuffled.forEach(obj=>{const chip=document.createElement('button');chip.type='button';chip.className='chip';chip.textContent=obj.t;chip.dataset.idx=obj.idx;chip.onclick=()=>moveChip(chip);bank.appendChild(chip)});setupSortable();setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'start'}),50)}
 function setupSortable(){if(!window.Sortable)return;if(window._grammarSortAnswer){try{window._grammarSortAnswer.destroy();window._grammarSortBank.destroy()}catch(e){}}const opts={group:'grammarWords',animation:160,ghostClass:'sortable-ghost',dragClass:'sortable-drag',fallbackOnBody:true,swapThreshold:.65,onEnd:()=>setTimeout(autoCheckIfReady,60)};window._grammarSortAnswer=Sortable.create($('#answer'),opts);window._grammarSortBank=Sortable.create($('#bank'),opts)}
-function showOkFlash(){const old=$('.ok-pop');if(old)old.remove();const el=document.createElement('div');el.className='ok-pop';el.textContent='OK';document.body.appendChild(el);setTimeout(()=>el.remove(),900)}
-function moveChip(chip){if(locked)return;initAudio();const ans=$('#answer'),bank=$('#bank');if(chip.parentElement===bank)ans.appendChild(chip);else bank.appendChild(chip);setTimeout(autoCheckIfReady,50)}
-function autoCheckIfReady(){if(locked)return;const bank=$('#bank');if(!bank||bank.children.length!==0)return;checkAutoAnswer()}
-function checkAutoAnswer(){
-  if(locked)return;const q=quizItems[qIndex],ansTokens=$all('#answer .chip').map(c=>c.textContent),expectedTokens=tokens(q.item.en);if(ansTokens.length!==expectedTokens.length)return;const fb=$('#feedback'),key=norm(ansTokens.join(' '));const ok=key===norm(q.item.en);
-  if(ok){locked=true;if(!questionHadWrong)roundCorrect++;removeWrong(q.id);showOkFlash();burst();sfxOK();$('#answer').style.background='#e8fff4';$('#answer').style.borderColor='var(--green)';saveProgress(qIndex+1,roundCorrect,{questionHadWrong:false});const nextLabel=(qIndex+1<quizItems.length)?'다음 문제':'결과 보기';fb.className='feedback ok show';fb.innerHTML=`<div class="next-panel"><div class="ok-small">OK</div><button class="btn" onclick="nextQuestion()">${nextLabel}</button></div>`}
-  else{questionHadWrong=true;addWrong(q.id);sfxNG();saveProgress(qIndex,roundCorrect,{questionHadWrong:true});$('#answer').style.background='#fff0f0';$('#answer').style.borderColor='var(--red)';if(lastWrongKey!==key){fb.className='feedback ng show';fb.innerHTML='<div class="try-msg">순서가 아직 맞지 않습니다. 위 답안 영역에서 단어를 드래그해 다시 맞춰 보세요.</div>';lastWrongKey=key}setTimeout(()=>{if(!locked){$('#answer').style.background='#eef7ff';$('#answer').style.borderColor='var(--main)'}},550)}
-}
-function addWrong(id){const u=UNITS[currentUnit],st=unitState(u.id),arr=st.wrongIds||[];if(!arr.includes(id))arr.push(id);saveUnitState(u.id,{wrongIds:arr,passed:false});renderTabs()}
-function removeWrong(id){const u=UNITS[currentUnit],st=unitState(u.id),arr=(st.wrongIds||[]).filter(x=>x!==id);saveUnitState(u.id,{wrongIds:arr});renderTabs()}
-function nextQuestion(){qIndex++;if(qIndex<quizItems.length){saveProgress(qIndex,roundCorrect,{questionHadWrong:false});loadQuestion()}else finishRound()}
-function finishRound(){
-  const i=currentUnit,u=UNITS[i],st=unitState(u.id),total=quizItems.length,score=Math.round(roundCorrect/total*100);let wrongLeft=(unitState(u.id).wrongIds||[]).length;
-  let passed=wrongLeft===0; const history=[{time:nowStr(),mode,correct:roundCorrect,total,score,passed},...(st.history||[])].slice(0,30);const best=mode==='full'?Math.max(st.bestScore||0,score):(st.bestScore||0);
-  saveUnitState(u.id,{attempts:(st.attempts||0)+1,lastScore:score,bestScore:best,history,passed,progress:null});wrongLeft=(unitState(u.id).wrongIds||[]).length;const box=$(`#quiz-${i}`),emoji=passed?'🏆':'📝';if(passed)burst();
-  box.innerHTML=`<div class="card complete show"><div class="big-emoji">${emoji}</div><h2 class="unit-title">${passed?'통과 완료!':'오답을 마무리해요'}</h2><div class="score-big">${roundCorrect}/${total}</div><div class="desc">${passed?'기록에서 PASS로 표시됩니다.':'남은 오답까지 맞히면 PASS로 바뀝니다.'}<br>남은 오답: ${wrongLeft}개</div><div class="btn-row"><button class="btn" onclick="startRound(${i},'full')">전체 다시 풀기</button><button class="btn orange" onclick="startRound(${i},'wrong')" ${wrongLeft?'':'disabled'}>오답 다시 풀기</button></div><button class="btn secondary" onclick="showRecord()">기록 보기</button></div>`;renderTabs()
-}
-function renderGlobalRecord(){
-  const sec=$('#section-record');let totalPassed=0,totalAttempts=0;let html=`<div class="card soft"><h2 class="unit-title">📘 학습 기록</h2><div class="desc">풀다가 나가도 현재 위치가 저장됩니다. 오답까지 모두 마무리하면 PASS로 표시됩니다.</div></div><div class="unit-list">`;
-  UNITS.forEach((u,ui)=>{const st=unitState(u.id);if(st.passed)totalPassed++;totalAttempts+=st.attempts||0;const p=st.progress;const progressBlock=(p&&p.active)?`<div class="record in-progress"><div><b>진행 중</b><br><small>${progressText(p)}<br>마지막 저장: ${p.updatedAt||'-'}</small></div><strong>${Math.min(p.qIndex||0,p.total||0)}/${p.total||0}</strong></div><button class="btn orange" onclick="continueProgress(${ui})">저장된 위치부터 이어 풀기</button>`:'';const hist=(st.history||[]).slice(0,4).map(h=>`<div class="record"><div><b>${h.mode==='wrong'?'오답 풀이':'전체 풀이'}</b><br><small>${h.time} · ${h.passed?'PASS':'미통과'}</small></div><strong>${h.correct}/${h.total}</strong></div>`).join('')||'<div class="empty">아직 완료 기록이 없습니다.</div>';html+=`<div class="card"><h3 class="unit-title">${u.tab} <span class="badge ${st.passed?'green':'gold'}">${st.passed?'PASS':'미통과'}</span></h3><div class="record-grid"><div class="record"><div><b>문장 수</b><br><small>${u.title}</small></div><strong>${u.items.length}</strong></div><div class="record"><div><b>최고 점수</b><br><small>전체 문제 기준</small></div><strong>${st.bestScore||0}점</strong></div><div class="record"><div><b>최근 점수</b><br><small>마지막 완료 풀이</small></div><strong>${st.lastScore==null?'-':st.lastScore+'점'}</strong></div><div class="record"><div><b>남은 오답</b><br><small>오답 탭에서 다시 풀기</small></div><strong>${(st.wrongIds||[]).length}개</strong></div>${progressBlock}${hist}</div><div class="btn-row"><button class="btn" onclick="showUnit(${ui});startRound(${ui},'full')">${u.tab} 처음부터 풀기</button><button class="btn orange" onclick="showUnit(${ui});startRound(${ui},'wrong')" ${(st.wrongIds||[]).length?'':'disabled'}>오답 풀기</button></div></div>`});
-  html+=`</div><div class="card soft"><div class="record"><div><b>전체 통과</b><br><small>총 ${totalItems()}문장 · 총 시도 ${totalAttempts}회</small></div><strong>${totalPassed}/${UNITS.length}</strong></div><button class="btn danger" onclick="clearAllRecords()">전체 기록 초기화</button></div>`;sec.innerHTML=html
-}
-function renderGlobalWrong(){const sec=$('#section-wrong'),entries=allWrongEntries();let html=`<div class="card soft"><h2 class="unit-title">📝 오답 다시 풀기</h2><div class="desc">틀린 문제는 여기에 남습니다. 오답 풀이에서 맞히면 목록에서 삭제되고, 모두 없어지면 PASS 처리됩니다.</div></div>`;if(!entries.length){html+='<div class="empty">남은 오답이 없습니다.</div>';sec.innerHTML=html;return}const grouped={};entries.forEach(e=>{(grouped[e.ui]||(grouped[e.ui]=[])).push(e)});Object.keys(grouped).forEach(key=>{const ui=Number(key),u=UNITS[ui];grouped[key].sort((a,b)=>itemIndexFromId(a.id)-itemIndexFromId(b.id));html+=`<div class="card"><div class="status"><h3 class="unit-title" style="margin:0">${u.tab}</h3><span class="badge red">${grouped[key].length}개</span></div><div class="wrong-list">${grouped[key].map(e=>`<div class="wrong-item"><div class="unit">${e.item.sec}</div><div>${e.item.ko}</div><div class="en">${e.item.en}</div></div>`).join('')}</div><button class="btn orange" onclick="showUnit(${ui});startRound(${ui},'wrong')">${u.tab} 오답 풀기</button></div>`});sec.innerHTML=html}
-function clearAllRecords(){if(!confirm('전체 기록과 오답을 초기화할까요?'))return;localStorage.removeItem(STORE);renderShell()}
+function moveChip(chip){if(lockedWrite)return;initAudio();const ans=$('#answer'),bank=$('#bank');if(chip.parentElement===bank)ans.appendChild(chip);else bank.appendChild(chip);setTimeout(autoCheckIfReady,50)}
+function autoCheckIfReady(){if(lockedWrite)return;const bank=$('#bank');if(!bank||bank.children.length!==0)return;checkWrittenAnswer()}
+function checkWrittenAnswer(){if(lockedWrite)return;const q=quizItems[qIndex],ansTokens=$all('#answer .chip').map(c=>c.textContent),expectedTokens=tokens(q.item.en);if(ansTokens.length!==expectedTokens.length)return;const fb=$('#feedback'),ok=norm(ansTokens.join(' '))===norm(q.item.en);if(ok){lockedWrite=true;showOkFlash();burst();sfxOK();$('#answer').style.background='#e8fff4';$('#answer').style.borderColor='var(--green)';fb.className='feedback ok show';fb.innerHTML=`영작 OK! 이제 아래 문장의 to부정사 용법을 고르세요.<div class="eng-answer">${esc(q.item.en)}</div>`;renderTypeQuestion(q.item)}else{questionHadWrong=true;addWrong(q.id);sfxNG();$('#answer').style.background='#fff0f0';$('#answer').style.borderColor='var(--red)';fb.className='feedback ng show';fb.innerHTML='문장 순서가 달라요. 답안 영역에서 단어를 드래그해 순서를 고쳐보세요.'}}
+function renderTypeQuestion(item){const card=$('#type-card');card.className='type-card show';card.innerHTML=`<div class="type-title">2단계 · 부정사 용법 선택</div><div class="question-en">${markInf(item.en,item.inf)}</div><div class="options-grid">${TYPES.map((t,idx)=>`<button class="option-btn" onclick="checkType(${idx})">${t}</button>`).join('')}</div><div id="type-exp" class="exp-box"></div>`;setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),150)}
+function checkType(idx){if(lockedType)return;const q=quizItems[qIndex],buttons=$all('.option-btn'),exp=$('#type-exp');if(idx===q.item.type){lockedType=true;buttons.forEach((b,i)=>{b.classList.add('disabled'); if(i===idx)b.classList.add('correct')});exp.className='exp-box show';exp.innerHTML=`<b>정답: ${TYPES[q.item.type]}</b><br>${esc(q.item.exp)}`;if(!questionHadWrong)roundCorrect++;removeWrong(q.id);showOkFlash();burst();sfxOK();saveProgress(qIndex+1,roundCorrect);setTimeout(nextQuestion,1050)}else{questionHadWrong=true;addWrong(q.id);buttons[idx].classList.add('wrong');sfxNG();exp.className='exp-box show';exp.innerHTML='다시 골라보세요. 영작은 맞았지만 용법 선택이 아직 달라요.'}}
+function nextQuestion(){qIndex++;if(qIndex>=quizItems.length){finishRound()}else{loadQuestion()}}
+function addWrong(id){const u=UNITS[currentUnit],st=unitState(u.id);const set=new Set(st.wrongIds||[]);set.add(id);saveUnitState(u.id,{wrongIds:[...set]});renderTabs()}
+function removeWrong(id){const u=UNITS[currentUnit],st=unitState(u.id);const ids=(st.wrongIds||[]).filter(x=>x!==id);saveUnitState(u.id,{wrongIds:ids});renderTabs()}
+function finishRound(){const u=UNITS[currentUnit],st=unitState(u.id);const total=quizItems.length||1;const score=Math.round(roundCorrect/total*100);const wrongLeft=(unitState(u.id).wrongIds||[]).length;const hist=[{date:nowStr(),mode,total,score,correct:roundCorrect,wrongLeft},...(st.history||[])].slice(0,10);const passed=wrongLeft===0;saveUnitState(u.id,{attempts:(st.attempts||0)+1,bestScore:Math.max(st.bestScore||0,score),lastScore:score,passed,history:hist,progress:null});const box=$(`#quiz-${currentUnit}`);box.classList.remove('hidden');box.innerHTML=`<div class="card complete show"><div class="big-emoji">${passed?'🏆':'🌱'}</div><h2 class="unit-title">${u.tab} 완료!</h2><div class="score-big">${roundCorrect}/${total}</div><div class="desc">처음에 바로 맞힌 문제 기준 점수입니다.<br>${passed?'남은 오답이 없어 PASS 표시됩니다.':'오답 탭에서 남은 문제를 다시 풀어보세요.'}</div><div class="btn-row"><button class="btn" onclick="startRound(${currentUnit},'full')">다시 풀기</button><button class="btn orange" onclick="showWrong()">오답 보기</button></div></div>`;renderTabs();setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'start'}),50)}
+function renderGlobalRecord(){const sec=$('#section-record');const rows=UNITS.map((u,i)=>{const st=unitState(u.id),wrong=(st.wrongIds||[]).length;return `<div class="record"><div><b>${u.tab}</b><br><small>${u.title}<br>시도 ${st.attempts||0}회 · 오답 ${wrong}개</small></div><strong>${st.passed?'PASS':(st.lastScore==null?'-':st.lastScore+'점')}</strong></div>`}).join('');const recent=UNITS.map(u=>({u,st:unitState(u.id)})).flatMap(({u,st})=>(st.history||[]).map(h=>({u,h}))).slice(0,8).map(({u,h})=>`<div class="record"><div><b>${u.tab} ${h.mode==='wrong'?'오답':'전체'}</b><br><small>${h.date} · ${h.correct}/${h.total} · 남은 오답 ${h.wrongLeft}</small></div><strong>${h.score}점</strong></div>`).join('');sec.innerHTML=`<div class="card soft"><h2 class="unit-title">학습 기록</h2><div class="desc">영작과 용법 선택을 모두 처음에 맞힌 경우만 정답으로 계산합니다.</div></div><div class="record-grid">${rows}</div><div class="card"><h2 class="unit-title">최근 기록</h2>${recent||'<div class="empty">아직 기록이 없습니다.</div>'}</div>`}
+function renderGlobalWrong(){const sec=$('#section-wrong'),entries=allWrongEntries();if(!entries.length){sec.innerHTML=`<div class="card soft"><h2 class="unit-title">오답</h2><div class="empty">남은 오답이 없습니다. 잘했어요!</div></div>`;return}const grouped=UNITS.map((u,i)=>({u,i,items:entries.filter(e=>e.ui===i)})).filter(g=>g.items.length);const buttons=grouped.map(g=>`<button class="btn orange" onclick="startRound(${g.i},'wrong')">${g.u.tab} 오답 풀기 (${g.items.length})</button>`).join('');const list=entries.map(e=>`<div class="wrong-item"><div class="unit">${UNITS[e.ui].tab} ${e.item.sec}</div><div>${esc(e.item.ko)}</div><div class="en">${esc(e.item.en)}</div><small>용법: ${TYPES[e.item.type]}</small></div>`).join('');sec.innerHTML=`<div class="card soft"><h2 class="unit-title">오답 노트</h2><div class="desc">영작이나 용법 선택에서 틀린 문제가 남습니다. 맞히면 자동으로 사라집니다.</div><div class="btn-row">${buttons}</div></div><div class="wrong-list">${list}</div>`}
 renderShell();
 </script>
 </body>
