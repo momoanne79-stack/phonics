@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>수리나무학원 대명사 문장 언스크램블</title>
+<title>수리나무학원 비교 표현 문장 언스크램블</title>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 <style>
 :root{--main:#1a5c9a;--main2:#0d365e;--accent:#f5a623;--bg:#f3f8ff;--soft:#eef7ff;--line:#d5e7f8;--text:#142133;--muted:#60758a;--green:#22a06b;--red:#e5534b;--shadow:0 12px 36px rgba(26,92,154,.16)}
@@ -54,76 +54,58 @@ body{margin:0;padding:14px;background:var(--bg);color:var(--text);font-family:'A
 </head>
 <body>
 <div id="app">
-  <div class="header"><span class="label">수리나무학원 Grammar Worksheet</span><h1>대명사 문장 언스크램블</h1><p>Unit 21~23 전체 54문장 · 해석을 보고 단어를 배열해 문장을 완성하세요.<br>정답이면 자동으로 다음 문제로 넘어가고, 알이 병아리로 성장합니다.</p></div>
+  <div class="header"><span class="label">수리나무학원 Grammar Worksheet</span><h1>비교 표현 문장 언스크램블</h1><p>Unit 24~25 전체 38문장 · 해석을 보고 단어를 배열해 문장을 완성하세요.<br>정답이면 자동으로 다음 문제로 넘어가고, 알이 병아리로 성장합니다.</p></div>
   <div class="tabs" id="tabs"></div>
   <div id="sections"></div>
 </div>
 <script>
 const UNITS = [{"id": "unit11", "tab": "Unit 11", "title": "Unit 11 동명사", "desc": "동명사의 주어·목적어·보어 역할과 관용 표현을 문장 배열로 연습합니다.", "items": [{"sec": "A-1", "ko": "외국 동전을 모으는 것은 나의 취미이다.", "en": "Collecting foreign coins is my hobby."}, {"sec": "A-2", "ko": "나를 이해하려고 노력해 줘서 고마워.", "en": "Thank you for trying to understand me."}, {"sec": "A-3", "ko": "내 직업은 사람들에게 요리하는 법을 가르치는 것이다.", "en": "My job is teaching people how to cook."}, {"sec": "A-4", "ko": "그의 계획은 일주일에 세 번 수영하는 것이다.", "en": "His plan is swimming three times a week."}, {"sec": "A-5", "ko": "너는 역사 수업을 복습하는 것을 끝냈니?", "en": "Did you finish reviewing your history lessons?"}, {"sec": "B-1", "ko": "그의 생각은 고려할 가치가 없다.", "en": "His idea is not worth considering."}, {"sec": "B-2", "ko": "그녀는 시험을 치르는 것에 대해 걱정하고 있다.", "en": "She is worried about taking the test."}, {"sec": "B-3", "ko": "나는 중간고사를 공부하느라 바쁘다.", "en": "I'm busy studying for the midterm exam."}, {"sec": "B-4", "ko": "내 목표는 내 아이들의 롤모델이 되는 것이다.", "en": "My goal is to be a role model for my children."}, {"sec": "B-5", "ko": "나는 네 만화를 곧 보기를 고대하고 있다.", "en": "I'm looking forward to seeing your cartoons soon."}, {"sec": "C-1", "ko": "좋은 친구가 되는 것은 쉽지 않다.", "en": "Being a good friend is not easy."}, {"sec": "C-2", "ko": "정부의 의무는 사람들을 보호하는 것이다.", "en": "The government's duty is protecting people."}, {"sec": "C-3", "ko": "나는 그 영화를 본 후 울고 싶었다.", "en": "I felt like crying after watching that movie."}, {"sec": "C-4", "ko": "그는 자신의 감정을 표현하는 데 서투르다.", "en": "He's not good at expressing his emotions."}, {"sec": "D-1", "ko": "Kate의 꿈은 영화감독이 되는 것이다.", "en": "Kate's dream is becoming a movie director."}, {"sec": "D-2", "ko": "Amy는 친구들에게 작별 인사를 하지 않고 교실을 떠났다.", "en": "Amy left the classroom without saying goodbye to her friends."}, {"sec": "D-3", "ko": "초콜릿을 너무 많이 먹는 것은 아이들의 치아에 좋지 않다.", "en": "Eating too much chocolate is not good for children's teeth."}]}, {"id": "unit12", "tab": "Unit 12", "title": "Unit 12 동명사와 to부정사", "desc": "동명사만 목적어로 쓰는 동사, to부정사를 목적어로 쓰는 동사, 의미 차이를 연습합니다.", "items": [{"sec": "A-1", "ko": "내게 연필을 빌려주시겠어요?", "en": "Do you mind lending me a pencil?"}, {"sec": "A-2", "ko": "그는 여행에 1,000달러를 쓸 계획이다.", "en": "He plans to spend $1,000 on the trip."}, {"sec": "A-3", "ko": "나는 그때 Angelina와 데이트하지 않았던 것을 후회한다.", "en": "I regret not dating Angelina back then."}, {"sec": "A-4", "ko": "그는 자신의 모든 돈을 기부하겠다고 약속했다.", "en": "He promised to donate all his money."}, {"sec": "A-5", "ko": "그 정치인은 그 질문에 답하는 것을 피했다.", "en": "The politician avoided answering the question."}, {"sec": "B-1", "ko": "Dave는 계속 Jessica에 대해 내게 말한다.", "en": "Dave keeps telling me about Jessica."}, {"sec": "B-2", "ko": "그는 의사의 조언에 따라 다이어트하는 것을 그만두었다.", "en": "He quit dieting on the advice of his doctor."}, {"sec": "B-3", "ko": "그녀는 Chris와 영화 보러 가는 것을 거절했다.", "en": "She refused to go to the movies with Chris."}, {"sec": "B-4", "ko": "그 가게 매니저는 내게 할인을 해 주기로 동의했다.", "en": "The store manager agreed to give me a discount."}, {"sec": "B-5", "ko": "Yuna는 매일 Dave와 영어 말하기를 연습한다.", "en": "Yuna practices speaking English with Dave every day."}, {"sec": "C-1", "ko": "나는 오늘 아침 알람을 껐던 것을 기억하지 못한다.", "en": "I don't remember turning the alarm off this morning."}, {"sec": "C-2", "ko": "집에 오는 길에 식료품을 좀 사는 것을 기억해 주세요.", "en": "Please remember to buy some groceries on the way home."}, {"sec": "C-3", "ko": "아빠는 예전에 담배를 피우셨지만, 작년에 담배 피우는 것을 그만두셨다.", "en": "My dad used to smoke, but he stopped smoking last year."}, {"sec": "C-4", "ko": "Jason은 매우 열심히 일하고 있었지만, 쉬기 위해 멈췄다.", "en": "Jason was working very hard, but he stopped to take a rest."}, {"sec": "C-5", "ko": "나는 지난달 친구들과 캠핑 갔던 것을 잊을 수 없다.", "en": "I can't forget going camping with my friends last month."}, {"sec": "C-6", "ko": "Rena는 문을 잠그는 것을 잊어서 도둑이 집 안으로 들어왔다.", "en": "Rena forgot to lock the door, so the thief got into the house."}, {"sec": "D-1", "ko": "당신에게 이런 말을 하게 되어 유감이에요.", "en": "I regret saying this to you."}, {"sec": "D-2", "ko": "Frank는 왜 변호사가 되기를 포기했니?", "en": "Why did Frank give up becoming a lawyer?"}, {"sec": "D-3", "ko": "Kate는 발레 레슨을 들어보았지만, 그녀는 그것을 좋아하지 않았다.", "en": "Kate tried taking ballet lessons, but she didn't like it."}, {"sec": "D-4", "ko": "나는 그녀에게 이메일을 보냈던 것을 잊어버려서 이메일을 또 보냈다.", "en": "I forgot emailing her, so I sent her another one."}]}, {"id": "unit13", "tab": "Unit 13", "title": "Unit 13 분사", "desc": "현재분사와 과거분사의 명사 수식, 감정 형용사, 목적격보어 쓰임을 연습합니다.", "items": [{"sec": "A-1", "ko": "노래를 부르고 있는 여자는 누구니?", "en": "Who is the woman singing a song?"}, {"sec": "A-2", "ko": "번지점프는 매우 신난다.", "en": "Bungee jumping is very exciting."}, {"sec": "A-3", "ko": "그녀는 자신의 성적에 만족했다.", "en": "She was pleased with her grades."}, {"sec": "A-4", "ko": "Roald Dahl에 의해 쓰인 책들은 놀랍다.", "en": "The books written by Roald Dahl are amazing."}, {"sec": "A-5", "ko": "공원에 상처 입은 개가 있다.", "en": "There is a wounded dog in the park."}, {"sec": "B-1", "ko": "우리는 그의 반응에 놀랐다.", "en": "We were surprised at his reaction."}, {"sec": "B-2", "ko": "물에 빠진 사람은 지푸라기라도 잡는다.", "en": "A drowning man will catch at a straw."}, {"sec": "B-3", "ko": "오늘의 축구 경기는 매우 실망스러웠다.", "en": "Today's soccer game was very disappointing."}, {"sec": "B-4", "ko": "Roy는 자신의 고장 난 자전거를 혼자 수리했다.", "en": "Roy repaired his broken bicycle by himself."}, {"sec": "B-5", "ko": "저 지루한 영화를 보지 마. 그것은 지난주에 나를 지루하게 했다.", "en": "Don't watch that boring movie. It bored me last week."}, {"sec": "C-1", "ko": "너는 노래를 쓰는 데 관심이 있니?", "en": "Are you interested in writing a song?"}, {"sec": "C-2", "ko": "나는 영화가 상영되는 동안 Kelly가 자는 것을 보았다.", "en": "I saw Kelly sleeping during the movie."}, {"sec": "C-3", "ko": "그녀는 너무 충격을 받아서 자신의 책을 떨어뜨렸다.", "en": "She was so shocked that she dropped her book."}, {"sec": "C-4", "ko": "Kate는 독일에서 만들어진 카메라를 샀다.", "en": "Kate bought a camera made in Germany."}, {"sec": "D-1", "ko": "너는 첼로를 연주하고 있는 소녀를 아니?", "en": "Do you know the girl playing the cello?"}, {"sec": "D-2", "ko": "나는 저기 야구 모자를 쓰고 있는 남자를 좋아한다.", "en": "I like the man wearing a baseball cap over there."}, {"sec": "D-3", "ko": "그 지루한 강의는 우리를 잠들게 했다.", "en": "The boring lecture made us fall asleep."}, {"sec": "D-4", "ko": "언덕 위에 100년 전에 지어진 성이 있다.", "en": "There is a castle built 100 years ago on the hill."}]}, {"id": "unit14", "tab": "Unit 14", "title": "Unit 14 분사구문", "desc": "분사구문의 시간·이유·조건 의미와 접속사절 전환을 문장 배열로 연습합니다.", "items": [{"sec": "A-1", "ko": "열심히 공부해서 나는 시험에 합격했다.", "en": "Studying hard, I passed the test."}, {"sec": "A-2", "ko": "TV를 보면서 나는 초콜릿을 조금 먹었다.", "en": "Watching TV, I ate some chocolates."}, {"sec": "A-3", "ko": "Ted에게 실망해서 Jane은 일찍 집에 갔다.", "en": "Being disappointed at Ted, Jane went home early."}, {"sec": "A-4", "ko": "충분한 돈이 없어서 나는 쇼핑을 갈 수 없었다.", "en": "Not having enough money, I couldn't go shopping."}, {"sec": "A-5", "ko": "교실에 들어갔을 때 나는 Gina가 웹툰을 읽고 있는 것을 보았다.", "en": "Entering the classroom, I saw Gina reading webtoons."}, {"sec": "B-1", "ko": "다이어트 중이어서 나는 어제 디저트를 먹지 않았다.", "en": "Being on a diet, I didn't eat dessert yesterday."}, {"sec": "B-2", "ko": "한국에 머무르는 동안 그는 많은 장소를 방문했다.", "en": "Staying in Korea, he visited a lot of places."}, {"sec": "B-3", "ko": "지하철을 타면 너는 20분 안에 그곳에 도착할 수 있다.", "en": "Taking the subway, you can get there in twenty minutes."}, {"sec": "C-1", "ko": "그가 가장 좋아하는 가수를 만났을 때, 그는 그녀와 사진을 찍었다.", "en": "Meeting his favorite singer, he took a picture with her."}, {"sec": "C-2", "ko": "혼자 살기 때문에 그녀는 보통 외식을 한다.", "en": "Living alone, she usually eats out."}, {"sec": "C-3", "ko": "소설을 읽으면서 나는 차 한 잔을 마셨다.", "en": "Reading a novel, I drank a cup of tea."}, {"sec": "C-4", "ko": "충분히 키가 크지 않아서 내 어린 딸은 롤러코스터를 탈 수 없었다.", "en": "Not being tall enough, my little daughter couldn't ride the roller coaster."}, {"sec": "D-1", "ko": "서두르지 않으면 너는 시험을 끝내지 못할 것이다.", "en": "If you don't hurry, you won't finish the test."}, {"sec": "D-2", "ko": "몸이 아팠기 때문에 그녀는 외출하고 싶지 않았다.", "en": "Because she felt sick, she didn't feel like going out."}, {"sec": "D-3", "ko": "그는 어깨를 다쳤기 때문에 지난 금요일에 야구를 할 수 없었다.", "en": "Because he injured his shoulder, he couldn't play baseball last Friday."}, {"sec": "D-4", "ko": "집을 떠날 때 너는 모든 불을 꺼야 한다.", "en": "When you leave the house, you should turn off all the lights."}]}];
 UNITS.splice(0, UNITS.length,
-  {id:'unit21',tab:'Unit 21',title:'Unit 21 부정대명사 1',desc:'one / another / the other / others와 some / any의 쓰임을 문장 배열로 연습합니다.',items:[
-    {sec:'A-1',ko:'나는 과학 교과서를 잃어버렸다. 나는 새것 하나가 필요하다.',en:"I've lost my science textbook. I need a new one."},
-    {sec:'A-2',ko:'나는 이 셔츠가 마음에 들지 않는다. 다른 하나를 보여줄 수 있니?',en:"I don't like this shirt. Can you show me another one?"},
-    {sec:'A-3',ko:'나는 반려동물 두 마리가 있다. 하나는 고양이이고 다른 하나는 개이다.',en:'I have two pets. One is a cat, and the other is a dog.'},
-    {sec:'A-4',ko:'몇몇 학생들은 영어를 좋아하고, 다른 학생들은 프랑스어를 좋아한다.',en:'Some students like English, and others like French.'},
-    {sec:'A-5',ko:'세 사람이 있다. 한 명은 Nicole이고, 다른 한 명은 Kate이며, 나머지 한 명은 Tom이다.',en:'There are three people. One is Nicole, another is Kate, and the other is Tom.'},
-    {sec:'B-1',ko:'이 지역에는 주유소가 없다.',en:"There aren't any gas stations in this area."},
-    {sec:'B-2',ko:'이 근처에 채식 식당이 있나요?',en:'Are there any vegetarian restaurants around here?'},
-    {sec:'B-3',ko:'나는 치즈는 좀 샀지만, 크래커는 전혀 사지 않았다.',en:"I bought some cheese, but I didn't buy any crackers."},
-    {sec:'B-4',ko:'목이 마르다. 물 좀 줄래?',en:"I'm thirsty. Can I have some water, please?"},
-    {sec:'B-5',ko:'그녀에게는 남동생 두 명이 있지만, 여자 형제는 없다.',en:"She has two brothers, but she doesn't have any sisters."},
-    {sec:'C-1',ko:'나는 이 휴대전화 케이스가 마음에 들지 않는다. 다른 것이 있니?',en:"I don't like this cell phone case. Do you have another one?"},
-    {sec:'C-2',ko:'나는 딸이 두 명이다. 한 명은 키가 크고 다른 한 명은 작다.',en:'I have two daughters. One is tall, and the other is short.'},
-    {sec:'C-3',ko:'몇몇은 버스로 학교에 가고, 다른 이들은 걸어서 학교에 간다.',en:'Some go to school by bus, and others go to school on foot.'},
-    {sec:'C-4',ko:'Blair는 세 개 언어를 말할 수 있다. 하나는 영어이고, 다른 하나는 한국어이며, 또 다른 하나는 스페인어이다.',en:'Blair can speak three languages. One is English, another is Korean, and another is Spanish.'},
-    {sec:'D-1',ko:'이 원피스는 나에게 잘 어울리지 않는다. 다른 것을 입어 봐도 될까요?',en:"This dress doesn't fit me well. Can I try on another one?"},
-    {sec:'D-2',ko:'몇몇 사람들은 햄버거를 먹고 있고, 다른 몇몇 사람들은 피자를 먹고 있다.',en:'Some are eating hamburgers, and others are eating pizza.'},
-    {sec:'D-3',ko:'나는 두 명의 소년을 좋아한다. 한 명은 잘생겼고, 다른 한 명은 재미있다.',en:'I like two boys. One is handsome, and the other is humorous.'},
-    {sec:'D-4',ko:'방에 아이 세 명이 있다. 한 명은 5살이고, 다른 한 명은 7살이며, 나머지 한 명은 8살이다.',en:'There are three children in the room. One is 5 years old, another is 7 years old, and the other is 8 years old.'}
+  {id:'unit24',tab:'Unit 24',title:'Unit 24 원급·비교급·최상급',desc:'as ~ as, 비교급, 최상급의 기본 문장을 순서대로 배열하며 연습합니다.',items:[
+    {sec:'A-1',ko:'Emily는 Ted만큼 수영을 잘한다.',en:'Emily swims as well as Ted does.'},
+    {sec:'A-2',ko:'비행기는 자동차보다 더 안전하다.',en:'Airplanes are safer than cars.'},
+    {sec:'A-3',ko:'이 컴퓨터는 저 컴퓨터만큼 빠르다.',en:'This computer is as fast as that one.'},
+    {sec:'A-4',ko:'Chris는 어제보다 훨씬 더 좋아 보인다.',en:'Chris looks much better than he did yesterday.'},
+    {sec:'A-5',ko:'오늘은 이번 겨울 중 가장 추운 날이다.',en:'Today is the coldest day of this winter.'},
+    {sec:'A-6',ko:'인터넷 쇼핑은 전통적인 쇼핑보다 더 편리하다.',en:'Internet shopping is more convenient than traditional one.'},
+    {sec:'B-1',ko:'이 시험은 지난 시험만큼 쉽다.',en:'This test is as easy as the last one.'},
+    {sec:'B-2',ko:'피자는 햄버거보다 더 맛있다.',en:'Pizza is more delicious than hamburgers.'},
+    {sec:'B-3',ko:'돌고래는 원숭이보다 더 영리하다.',en:'Dolphins are more intelligent than monkeys.'},
+    {sec:'B-4',ko:'이것은 박물관에서 가장 아름다운 그림이다.',en:'This is the most beautiful painting in the museum.'},
+    {sec:'B-5',ko:'Kate는 Dave보다 돈을 더 신중하게 쓴다.',en:'Kate spends money more carefully than Dave does.'},
+    {sec:'C-1',ko:'이곳은 Geneva에서 가장 오래된 호텔이다. 그것은 1834년에 지어졌다.',en:'This is the oldest hotel in Geneva. It was built in 1834.'},
+    {sec:'C-2',ko:'Andrew는 반에서 가장 인기 있는 학생이다. 모두가 그를 좋아한다.',en:'Andrew is the most popular student in the class. Everyone loves him.'},
+    {sec:'C-3',ko:'에베레스트산은 세계에서 가장 높은 산이다. 높이는 8,848미터이다.',en:'Mt. Everest is the highest mountain in the world. It is 8,848 meters high.'},
+    {sec:'C-4',ko:'바티칸 시국은 세계에서 가장 작은 나라이다. 면적은 겨우 0.44 제곱킬로미터이다.',en:'Vatican City is the smallest country in the world. It is only 0.44 square kilometers.'},
+    {sec:'D-1',ko:'서울은 뉴욕시보다 더 혼잡하다.',en:'Seoul is more crowded than New York City.'},
+    {sec:'D-2',ko:'우리 언니 방은 내 방보다 더 크다.',en:"My older sister's room is bigger than mine."},
+    {sec:'D-3',ko:'Mike는 오늘 Ted보다 더 일찍 학교에 왔다.',en:'Mike came to school earlier than Ted today.'},
+    {sec:'D-4',ko:'아랍어는 세계에서 가장 어려운 언어이다.',en:'Arabic is the most difficult language in the world.'}
   ]},
-  {id:'unit22',tab:'Unit 22',title:'Unit 22 부정대명사 2',desc:'each / every / all / both / neither와 수일치 표현을 문장 배열로 연습합니다.',items:[
-    {sec:'A-1',ko:'그들 중 누구도 차가 없다.',en:'Neither of them has a car.'},
-    {sec:'A-2',ko:'우리 둘 다 매우 지쳐 있었다.',en:'Both of us were very exhausted.'},
-    {sec:'A-3',ko:'각 아이는 특별하고 독특하다.',en:'Each child is special and unique.'},
-    {sec:'A-4',ko:'그 가게의 모든 물건은 세일 중이다.',en:'Every item in the store is on sale.'},
-    {sec:'A-5',ko:'모든 승객들이 무사히 구조되었다.',en:'All passengers were safely rescued.'},
-    {sec:'B-1',ko:'두 식당 모두 월요일에는 문을 열지 않는다.',en:'Neither restaurant is open on Mondays.'},
-    {sec:'B-2',ko:'그 두 학생 모두 답을 안다.',en:'Both of the students know the answer.'},
-    {sec:'B-3',ko:'각 사람은 서로 다른 의견을 가지고 있다.',en:'Each person has a different opinion.'},
-    {sec:'B-4',ko:'이 정원의 모든 꽃은 아름답다.',en:'All the flowers in this garden are beautiful.'},
-    {sec:'B-5',ko:'이 스터디 그룹의 모든 학생은 서로 다른 나라에서 왔다.',en:'Every student in this study group comes from a different country.'},
-    {sec:'C-1',ko:'그 의사들은 둘 다 어젯밤에 근무했다.',en:'Both of the doctors were on duty last night.'},
-    {sec:'C-2',ko:'그들 둘 다 시험에 합격하지 못했다.',en:'Neither of them passed the test.'},
-    {sec:'C-3',ko:'모든 학생들이 도서관에서 열심히 공부하고 있다.',en:'All the students are studying hard in the library.'},
-    {sec:'C-4',ko:'그 소년들 각자는 그들만의 목표를 가지고 있다.',en:'Each of the boys has his own goal.'},
-    {sec:'C-5',ko:'둘 중 어느 날이든 나는 괜찮다.',en:'Either day is fine with me.'},
-    {sec:'D-1',ko:'모든 학생들은 교과서를 교실에 가져와야 한다.',en:'All the students need to bring their textbooks to the class.'},
-    {sec:'D-2',ko:'그녀는 그 질문들 중 어느 것도 대답할 수 없다.',en:"She can't answer either of those questions."},
-    {sec:'D-3',ko:'소년들 각자는 서로 다른 게임을 좋아한다.',en:'Each of the boys likes a different game.'}
-  ]},
-  {id:'unit23',tab:'Unit 23',title:'Unit 23 재귀대명사',desc:'재귀용법·강조용법과 관용 표현을 문장 배열로 연습합니다.',items:[
-    {sec:'A-1',ko:'너는 그것을 직접 하는 게 좋겠다.',en:"You'd better do it yourself."},
-    {sec:'A-2',ko:'Tom은 혼자 할머니의 고향에 갔다.',en:"Tom went to his grandmother's hometown by himself."},
-    {sec:'A-3',ko:'그 칼을 조심해! 너는 네 자신을 베게 될 거야.',en:'Be careful with that knife! You will cut yourself.'},
-    {sec:'A-4',ko:'학생들은 그 에세이를 직접 써야 한다.',en:'Students must write the essay themselves.'},
-    {sec:'A-5',ko:'정말 멋진 뮤지컬이었다! 우리는 정말 즐거웠다.',en:'It was a lovely musical! We really enjoyed ourselves.'},
-    {sec:'B-1',ko:'너 자신을 다치지 않도록 조심해라.',en:'Be careful not to hurt yourself.'},
-    {sec:'B-2',ko:'다른 사람들에게 너 자신을 소개하겠니?',en:'Will you introduce yourself to the others?'},
-    {sec:'B-3',ko:'그들은 나 자신을 직접 보고 싶어 한다.',en:'They want to see me themselves.'},
-    {sec:'B-4',ko:'엄마는 내 교복을 직접 사 주셨다.',en:'My mom bought my school uniform herself.'},
-    {sec:'B-5',ko:'나는 극장에서 Anne Hathaway 본인을 만났다.',en:'I met Anne Hathaway herself at the theater.'},
-    {sec:'C-1',ko:'나는 수영 후에 나 자신을 씻었다.',en:'I washed myself after swimming.'},
-    {sec:'C-2',ko:'그는 30세에 자살했다.',en:'He killed himself at the age of 30.'},
-    {sec:'C-3',ko:'Julia는 그의 돈이 아니라 Peter 자신을 사랑한다.',en:'Julia loves Peter himself, not his money.'},
-    {sec:'C-4',ko:'이봐, Linda. 들어와서 편하게 있어.',en:'Hey, Linda. Come on in and make yourself at home.'},
-    {sec:'C-5',ko:'그녀는 3년 전에 그 집을 직접 설계했다.',en:'She designed the house herself three years ago.'},
-    {sec:'D-1',ko:'나는 기뻐서 제정신이 아니었다.',en:'I was beside myself with joy.'},
-    {sec:'D-2',ko:'Colin은 혼자서 제주도로 여행을 갔다.',en:'Colin went on a trip to Jeju Island by himself.'},
-    {sec:'D-3',ko:'그녀가 혼잣말을 해서 나는 그녀의 말을 이해할 수 없었다.',en:"She talked to herself, so I couldn't understand her."}
+  {id:'unit25',tab:'Unit 25',title:'Unit 25 비교구문 이용 표현',desc:'배수 비교, the 비교급, one of the 최상급, as soon as 등의 비교 표현을 연습합니다.',items:[
+    {sec:'A-1',ko:'내 여동생은 나보다 두 배나 많은 돈을 저축했다.',en:'My sister has saved twice as much money as I have.'},
+    {sec:'A-2',ko:'이 복숭아는 내가 지금까지 맛본 것 중 가장 달다.',en:"This peach is the sweetest one I've ever tasted."},
+    {sec:'A-3',ko:'나는 항상 내 형에게 열등감을 느꼈다.',en:'I always felt inferior to my older brother.'},
+    {sec:'A-4',ko:'가능한 한 빨리 나에게 전화해 줘.',en:'I want you to call me as soon as possible.'},
+    {sec:'A-5',ko:'운동을 더 많이 할수록, 너는 더 건강해진다.',en:'The more you exercise, the healthier you become.'},
+    {sec:'B-1',ko:'이것은 올해의 가장 훌륭한 노래들 중 하나이다.',en:'This is one of the greatest songs of the year.'},
+    {sec:'B-2',ko:'너의 영어 실력은 점점 더 좋아지고 있다.',en:'Your English is getting better and better.'},
+    {sec:'B-3',ko:'더 많이 알수록, 그것을 더 즐기게 된다.',en:'The more you know, the more you enjoy it.'},
+    {sec:'B-4',ko:'이 태블릿 PC는 그녀가 받은 크리스마스 선물 중 최고이다.',en:"This tablet PC is the best Christmas present she's ever received."},
+    {sec:'C-1',ko:'문제가 더 쉬울수록, 너는 더 많이 답할 수 있다.',en:'The easier the questions are, the more you can answer.'},
+    {sec:'C-2',ko:'이것은 내가 지금까지 읽은 책 중 가장 지루한 책이다.',en:"This is the most boring book I've ever read."},
+    {sec:'C-3',ko:'수영장은 점점 더 깊어지고 있다.',en:'The swimming pool is getting deeper and deeper.'},
+    {sec:'C-4',ko:'John Legend는 세계에서 가장 유명한 가수들 중 한 명이다.',en:'John Legend is one of the most famous singers in the world.'},
+    {sec:'C-5',ko:'아이스크림 두 스쿱은 한 스쿱보다 두 배나 비싸지 않다.',en:'Two scoops of ice cream is not twice as expensive as one scoop.'},
+    {sec:'D-1',ko:'나의 오빠는 나보다 세 배나 많이 먹는다.',en:'My brother eats three times as much as I do.'},
+    {sec:'D-2',ko:'사람들이 더 많이 말할수록, 그의 목소리는 더 커졌다.',en:'The more people talked, the louder his voice became.'},
+    {sec:'D-3',ko:'이것은 내가 본 영화들 중 가장 흥미롭다.',en:"This is one of the most interesting movies I've ever watched."},
+    {sec:'D-4',ko:'우리는 훨씬 더 많은 사람들이 필요하다.',en:'We need many more people.'},
+    {sec:'D-5',ko:'Ryan은 학교에서 가장 재미있는 아이들 중 한 명이다.',en:'Ryan is one of the funniest kids in the school.'}
   ]}
 );
 UNITS.forEach(u=>u.count=u.items.length);
-const STORE='surinamu_grammar_pronouns_unit21_23_unscramble_v1';
+const STORE='surinamu_grammar_comparisons_unit24_25_unscramble_v1';
 const PET_STAGES=[
   {min:0,emoji:'🥚',name:'알 단계',desc:'문장을 맞힐수록 알이 자라요!'},
   {min:20,emoji:'🐣',name:'부화 시작',desc:'조금만 더 하면 껍질이 깨져요.'},
@@ -213,7 +195,7 @@ function getStudentName(){const d=getData();return d._studentName||''}
 function setStudentName(v){const d=getData();d._studentName=String(v||'').trim();setData(d);renderShell()}
 function unitCheckStatus(ui){const u=UNITS[ui], st=unitState(u.id), p=st.progress, wrong=(st.wrongIds||[]).length;if(st.passed)return 'PASS';if(p&&p.active)return '진행 '+Math.min(p.qIndex||0,p.total||0)+'/'+(p.total||u.items.length);if(wrong>0)return '오답 '+wrong+'개';if(st.attempts>0)return '재시험 필요';return '미시작'}
 function passCount(){return UNITS.filter(u=>unitState(u.id).passed).length}
-function buildCheckCode(){const name=getStudentName()||'이름없음';const parts=UNITS.map((u,i)=>u.tab+':'+unitCheckStatus(i));const total=passCount()+'/'+UNITS.length+' PASS';return name+' | 대명사 | '+parts.join(' | ')+' | 전체 '+total+' | '+nowStr()}
+function buildCheckCode(){const name=getStudentName()||'이름없음';const parts=UNITS.map((u,i)=>u.tab+':'+unitCheckStatus(i));const total=passCount()+'/'+UNITS.length+' PASS';return name+' | 비교 표현 | '+parts.join(' | ')+' | 전체 '+total+' | '+nowStr()}
 function copyCheckCode(){const code=buildCheckCode();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(()=>alert('검사 코드가 복사되었습니다.')).catch(()=>prompt('검사 코드를 복사하세요.',code));}else{prompt('검사 코드를 복사하세요.',code)}}
 function teacherSummaryHtml(){const name=esc(getStudentName());const totalPass=passCount();const rows=UNITS.map((u,i)=>{const st=unitState(u.id), status=unitCheckStatus(i), wrong=(st.wrongIds||[]).length, p=st.progress;const cls=status==='PASS'?'green':(status.startsWith('오답')?'red':'gold');const sub=st.passed?'오답 없음 · 검사 완료':(p&&p.active?`진행 ${Math.min(p.qIndex||0,p.total||0)}/${p.total||u.items.length}`:(wrong>0?`오답 ${wrong}개 남음`:'아직 검사 전'));return `<div class="check-card"><b>${u.tab} · ${u.title}</b><span class="badge ${cls}">${status}</span><div class="micro-note">${sub}</div><div class="summary-actions"><button class="btn" style="margin-top:0" onclick="showUnit(${i});startRound(${i},'full')">전체 풀기</button><button class="btn orange" style="margin-top:0" onclick="showUnit(${i});${wrong?`startRound(${i},'wrong')`:`alert('남은 오답이 없습니다.')`}">오답 확인</button></div></div>`}).join('');return `<div class="card soft"><h2 class="unit-title">✅ 선생님 검사 요약</h2><div class="desc">기록은 선생님이 한눈에 보기 쉽게 PASS / 오답 개수 / 진행 상황만 남기도록 단순화했습니다.</div><div class="name-row"><input class="name-input" value="${name}" placeholder="학생 이름 입력" onchange="setStudentName(this.value)"><button class="btn orange" style="margin-top:0" onclick="copyCheckCode()">검사코드 복사</button></div><div class="summary-top"><div class="summary-hero"><div class="hero-big">${getStudentName()||'학생 이름 입력'}</div><div class="hero-sub">교사 확인용 요약 화면입니다. 학생은 이 화면만 보여주면 되고, 선생님은 각 유닛의 PASS 여부와 남은 오답만 확인하면 됩니다.</div><div class="copy-box">${esc(buildCheckCode())}</div></div><div class="summary-box"><div class="big">${totalPass}/${UNITS.length}</div><div class="sub">전체 PASS 현황<br>오답이 모두 없어지면 PASS 처리됩니다.</div></div></div><div class="check-grid">${rows}</div><div class="summary-actions"><button class="btn secondary" style="margin-top:0" onclick="showWrong()">오답 목록 보기</button><button class="btn danger" style="margin-top:0" onclick="clearAllRecords()">기록 초기화</button></div></div>`}
 
